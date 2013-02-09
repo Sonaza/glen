@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AF6AE1F6-6AD9-4C45-9088-B2FFF51AB8CA}</ProjectGuid>
+    <RootNamespace>glen</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)glfw</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)glfw</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="glen\Graphics\ShaderProgram.cpp" />
+    <ClCompile Include="glen\System\Core.cpp" />
+    <ClCompile Include="glen\Window\MessageBox.cpp" />
+    <ClCompile Include="GL\glfw\enable.c" />
+    <ClCompile Include="GL\glfw\fullscreen.c" />
+    <ClCompile Include="GL\glfw\glext.c" />
+    <ClCompile Include="GL\glfw\image.c" />
+    <ClCompile Include="GL\glfw\init.c" />
+    <ClCompile Include="GL\glfw\input.c" />
+    <ClCompile Include="GL\glfw\joystick.c" />
+    <ClCompile Include="GL\glfw\stream.c" />
+    <ClCompile Include="GL\glfw\tga.c" />
+    <ClCompile Include="GL\glfw\thread.c" />
+    <ClCompile Include="GL\glfw\time.c" />
+    <ClCompile Include="GL\glfw\win32_dllmain.c" />
+    <ClCompile Include="GL\glfw\win32_enable.c" />
+    <ClCompile Include="GL\glfw\win32_fullscreen.c" />
+    <ClCompile Include="GL\glfw\win32_glext.c" />
+    <ClCompile Include="GL\glfw\win32_init.c" />
+    <ClCompile Include="GL\glfw\win32_joystick.c" />
+    <ClCompile Include="GL\glfw\win32_thread.c" />
+    <ClCompile Include="GL\glfw\win32_time.c" />
+    <ClCompile Include="GL\glfw\win32_window.c" />
+    <ClCompile Include="GL\glfw\window.c" />
+    <ClCompile Include="GL\glew.c" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="glen\Window\Window.cpp" />
+    <ClCompile Include="glen\System\Startup.cpp" />
+    <ClCompile Include="glen\Graphics\Shader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="glen\Config.hpp" />
+    <ClInclude Include="glen\Graphics\ShaderProgram.hpp" />
+    <ClInclude Include="glen\System\Core.hpp" />
+    <ClInclude Include="glen\glen.h" />
+    <ClInclude Include="glen\ogl.h" />
+    <ClInclude Include="glen\Window\MessageBox.hpp" />
+    <ClInclude Include="glen\Window\WindowStyle.hpp" />
+    <ClInclude Include="GL\glfw\internal.h" />
+    <ClInclude Include="GL\glfw\platform.h" />
+    <ClInclude Include="GL\glew.h" />
+    <ClInclude Include="GL\glfw.h" />
+    <ClInclude Include="GL\glxew.h" />
+    <ClInclude Include="GL\wglew.h" />
+    <ClInclude Include="glen\Window\Window.hpp" />
+    <ClInclude Include="glen\System\Startup.hpp" />
+    <ClInclude Include="glen\Graphics\Shader.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GL\glfw\glfwdll.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
