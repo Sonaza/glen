@@ -14,6 +14,13 @@ Shader::Shader(void) :
 }
 
 ///////////////////////////////////////////////////////
+Shader::Shader(const std::string &path, Type type) :
+	m_shader(0)
+{
+	loadFromFile(path, type);
+}
+
+///////////////////////////////////////////////////////
 Shader::~Shader(void)
 {
 	if(m_shader != NULL)
@@ -28,7 +35,6 @@ bool Shader::loadFromFile(const std::string &path, Type type)
 	if(!file.good())
 	{
 		throw std::runtime_error("Unable to open shader file: " + path);
-
 		return false;
 	}
 
@@ -41,6 +47,12 @@ bool Shader::loadFromFile(const std::string &path, Type type)
 
 	// Create new shader and upload the code
 	m_shader = glCreateShader(type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
+	if(m_shader == 0)
+	{
+		throw std::runtime_error("glCreateShader failed");
+		return false;
+	}
+
 	glShaderSource(m_shader, 1, &shaderCode, NULL);
 
 	// Attempt to compile the shader
@@ -53,17 +65,18 @@ bool Shader::loadFromFile(const std::string &path, Type type)
 	if(status == GL_FALSE)
 	{
 		glDeleteShader(m_shader);
+		m_shader = 0;
 
 		std::cout << "Shader compilation failed (" << path << ")" << std::endl;
 	}
 
-	// Check up if everything went alright
+	// Output compilation log
 	GLint infoLen = 0;
 	glGetShaderiv(m_shader, GL_INFO_LOG_LENGTH, &infoLen);
 
 	if(infoLen > 1)
 	{
-		char *infoLog = new char[infoLen];
+		char *infoLog = new char[infoLen+1];
 		glGetShaderInfoLog(m_shader, infoLen, NULL, infoLog);
 
 		// Output compilation log into console

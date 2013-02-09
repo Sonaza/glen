@@ -30,11 +30,10 @@ namespace glen
 	
 		inline Type getType() const { return m_type; }
 
-	private:
+	protected:
 
 		GLuint			m_shader;
-		// Shader's parent program
-		ShaderProgram*	m_program;
+
 		// Type of the shader
 		Type			m_type;
 	};

@@ -7,8 +7,9 @@
 
 namespace glen
 {
-
 	class Shader;
+
+	typedef std::vector<Shader*> ShaderList;
 
 	class ShaderProgram
 	{
@@ -16,13 +17,14 @@ namespace glen
 		ShaderProgram(void);
 		~ShaderProgram(void);
 
-		void addShader(Shader &shader);
+		void link(ShaderList &shaders);
 
 	private:
 
 		GLuint		m_program;
 
-		std::vector<Shader*>	m_shaders;
+		// Store a list of program's shaders
+		ShaderList	m_shaders;
 	};
 
 }
