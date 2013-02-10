@@ -1,6 +1,11 @@
 #ifndef SCENE_HPP
 #define SCENE_HPP
 
+#include <glen/System/Core.hpp>
+#include <glen/Window/Window.hpp>
+
+#include <glen/Graphics/Color.hpp>
+
 namespace glen
 {
 	
@@ -16,6 +21,11 @@ namespace glen
 		virtual void update() =0;
 
 		virtual void draw() =0;
+
+	protected:
+
+		Core*	p_core;
+
 	};
 
 }

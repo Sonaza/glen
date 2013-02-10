@@ -44,8 +44,6 @@ void ShaderProgram::link(ShaderList &shaders)
 
 	if(status == GL_FALSE)
 	{
-		std::string msg("Program linking failure: ");
-
 		GLint infoLen;
 		glGetProgramiv(m_program, GL_INFO_LOG_LENGTH, &infoLen);
 

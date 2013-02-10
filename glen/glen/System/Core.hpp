@@ -20,7 +20,11 @@ public:
 	void init();
 	void loop();
 
+	Window* getWindow() const { return m_window; }
+
 private:
+
+	bool		m_running;
 
 	Window*		m_window;
 

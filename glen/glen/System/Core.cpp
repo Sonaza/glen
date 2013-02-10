@@ -9,6 +9,8 @@
 
 #include <glen/Window/MessageBox.hpp>
 
+#include <Scenes/TestScene.hpp>
+
 namespace glen
 {
 
@@ -38,6 +40,8 @@ int Core::start()
 		msgError("Exception", e.what());
 	}
 
+	loop();
+
 	return 0;
 }
 
@@ -50,7 +54,13 @@ void Core::init()
 ////////////////////////////////////////////////////////////
 void Core::loop()
 {
+	TestScene scene;
 
+	m_running = true;
+	while(m_running)
+	{
+		scene.draw();
+	}
 }
 
 }

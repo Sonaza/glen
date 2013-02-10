@@ -22,6 +22,8 @@ namespace glen
 
 		inline void add(const SceneID &id, Scene* scene) { m_scenes.insert(std::make_pair(id, ScenePtr(scene))); }
 
+		void update();
+
 	private:
 
 		SceneList		m_scenes;

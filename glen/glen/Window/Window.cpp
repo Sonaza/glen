@@ -1,5 +1,4 @@
 #include <glen/Window/Window.hpp>
-#include <glen/ogl.h>
 
 #include <iostream>
 #include <sstream>
@@ -45,7 +44,7 @@ bool Window::create(uint32 width, uint32 height)
 #endif
 
 	// Try to open the window itself
-	if(! glfwOpenWindow(width, height, 8, 8, 8, 8, 0, 0, GLFW_WINDOW))
+	if(! glfwOpenWindow(width, height, 8, 8, 8, 8, 24, 0, GLFW_WINDOW))
 	{
 		throw std::runtime_error("glfwOpenWindow failed");
 	}
@@ -70,6 +69,19 @@ bool Window::create(uint32 width, uint32 height)
 	}
 
 	return true;
+}
+
+////////////////////////////////////////////////////////////
+void Window::clear(Color c)
+{
+	glClearColor(c.r / 255.f, c.g / 255.f, c.b / 255.f, 1.f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+////////////////////////////////////////////////////////////
+void Window::display()
+{
+	glfwSwapBuffers();
 }
 
 }

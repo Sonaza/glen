@@ -24,4 +24,14 @@ SceneManager::~SceneManager(void)
 	}
 }
 
+///////////////////////////////////////////////////////////
+void SceneManager::update()
+{
+	for(SceneList::iterator it = m_scenes.begin();
+		it != m_scenes.end(); ++it)
+	{
+		(*it).second->update();
+	}
+}
+
 }

@@ -7,7 +7,14 @@ class TestScene : public glen::Scene
 {
 public:
 	TestScene(void);
-	virtual ~TestScene(void);
+	~TestScene(void);
+
+	void load();
+	void unload();
+
+	void update();
+
+	void draw();
 };
 
 #endif
