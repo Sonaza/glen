@@ -1,7 +1,7 @@
 #ifndef TESTSCENE_HPP
 #define TESTSCENE_HPP
 
-#include <glen/Game/Scene.hpp>
+#include <glen/Graphics/Scene.hpp>
 
 class TestScene : public glen::Scene
 {

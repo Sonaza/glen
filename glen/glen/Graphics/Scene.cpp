@@ -1,4 +1,4 @@
-#include "Scene.hpp"
+#include <glen/Graphics/Scene.hpp>
 
 namespace glen
 {

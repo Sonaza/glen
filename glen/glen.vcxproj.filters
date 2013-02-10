@@ -102,10 +102,13 @@
     <ClCompile Include="glen\Graphics\ShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="glen\Game\Scene.cpp">
+    <ClCompile Include="Scenes\TestScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\TestScene.cpp">
+    <ClCompile Include="glen\Graphics\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glen\System\SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -158,10 +161,13 @@
     <ClInclude Include="glen\Graphics\ShaderProgram.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="glen\Game\Scene.hpp">
+    <ClInclude Include="Scenes\TestScene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\TestScene.hpp">
+    <ClInclude Include="glen\Graphics\Scene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glen\System\SceneManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

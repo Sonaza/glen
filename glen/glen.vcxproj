@@ -95,7 +95,8 @@
     <ClCompile Include="glen\Window\Window.cpp" />
     <ClCompile Include="glen\System\Startup.cpp" />
     <ClCompile Include="glen\Graphics\Shader.cpp" />
-    <ClCompile Include="glen\Game\Scene.cpp" />
+    <ClCompile Include="glen\Graphics\Scene.cpp" />
+    <ClCompile Include="glen\System\SceneManager.cpp" />
     <ClCompile Include="Scenes\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -115,7 +116,8 @@
     <ClInclude Include="glen\Window\Window.hpp" />
     <ClInclude Include="glen\System\Startup.hpp" />
     <ClInclude Include="glen\Graphics\Shader.hpp" />
-    <ClInclude Include="glen\Game\Scene.hpp" />
+    <ClInclude Include="glen\Graphics\Scene.hpp" />
+    <ClInclude Include="glen\System\SceneManager.hpp" />
     <ClInclude Include="Scenes\TestScene.hpp" />
   </ItemGroup>
   <ItemGroup>
