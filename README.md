@@ -1,6 +1,6 @@
 # Wot?
 
-My practice/school work in creating an OpenGL 3D engine.
+My practice/school work in creating an OpenGL 3D game engine.
 
 # Dependencies
 
