@@ -8,6 +8,7 @@
 #include <stdexcept>
 
 #include <glen/Window/MessageBox.hpp>
+#include <glen/System/SceneManager.hpp>
 
 #include <Scenes/TestScene.hpp>
 
@@ -23,6 +24,7 @@ Core::Core(void) :
 ////////////////////////////////////////////////////////////
 Core::~Core(void)
 {
+	if(m_sceneManager) { delete m_sceneManager; m_sceneManager = NULL; }
 }
 
 ////////////////////////////////////////////////////////////
@@ -35,10 +37,9 @@ int Core::start()
 	{
 		m_window->create(1280, 720);
 	}
-	catch(std::exception &e)
-	{
-		msgError("Exception", e.what());
-	}
+	catch(std::exception &e) { msgError("Exception", e.what()); }
+
+	init();
 
 	loop();
 
@@ -48,18 +49,22 @@ int Core::start()
 ////////////////////////////////////////////////////////////
 void Core::init()
 {
-	
+	m_sceneManager = new(std::nothrow) SceneManager(this);
+
+	m_sceneManager->add("test", new(std::nothrow) TestScene, true);
 }
 
 ////////////////////////////////////////////////////////////
 void Core::loop()
 {
-	TestScene scene;
-
 	m_running = true;
-	while(m_running)
+	while(m_running && m_window->isOpen())
 	{
-		scene.draw();
+		m_sceneManager->update();
+
+		m_sceneManager->draw();
+
+		sleep(milliseconds(5));
 	}
 }
 

@@ -1,5 +1,5 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#ifndef GLEN_WINDOW_HPP
+#define GLEN_WINDOW_HPP
 
 #include <glen/ogl.h>
 #include <glen/Config.hpp>

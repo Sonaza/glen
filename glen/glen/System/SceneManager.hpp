@@ -8,6 +8,7 @@
 namespace glen
 {
 
+	class Core;
 	class Scene;
 
 	typedef std::string SceneID;
@@ -17,14 +18,19 @@ namespace glen
 	class SceneManager
 	{
 	public:
-		SceneManager(void);
+		SceneManager(Core* c);
 		~SceneManager(void);
 
-		inline void add(const SceneID &id, Scene* scene) { m_scenes.insert(std::make_pair(id, ScenePtr(scene))); }
+		void add(const SceneID &id, Scene* scene, bool active = false);
 
 		void update();
 
+		// Draw scenes
+		void draw();
+
 	private:
+
+		Core*			p_core;
 
 		SceneList		m_scenes;
 

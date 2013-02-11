@@ -101,6 +101,19 @@
     <ClCompile Include="glen\Graphics\Scene.cpp" />
     <ClCompile Include="glen\System\SceneManager.cpp" />
     <ClCompile Include="Scenes\TestScene.cpp" />
+    <ClCompile Include="glen\System\Sleep.cpp" />
+    <ClCompile Include="til\TILFileStream.cpp" />
+    <ClCompile Include="til\TILFileStreamStd.cpp" />
+    <ClCompile Include="til\TILImage.cpp" />
+    <ClCompile Include="til\TILImageBMP.cpp" />
+    <ClCompile Include="til\TILImageDDS.cpp" />
+    <ClCompile Include="til\TILImageGIF.cpp" />
+    <ClCompile Include="til\TILImageICO.cpp" />
+    <ClCompile Include="til\TILImagePNG.cpp" />
+    <ClCompile Include="til\TILImageTemplate.cpp" />
+    <ClCompile Include="til\TILImageTGA.cpp" />
+    <ClCompile Include="til\TinyImageLoader.cpp" />
+    <ClCompile Include="glen\System\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glen\Game\Component.hpp" />
@@ -125,6 +138,22 @@
     <ClInclude Include="glen\Graphics\Scene.hpp" />
     <ClInclude Include="glen\System\SceneManager.hpp" />
     <ClInclude Include="Scenes\TestScene.hpp" />
+    <ClInclude Include="glen\System\Sleep.hpp" />
+    <ClInclude Include="til\TILColors.h" />
+    <ClInclude Include="til\TILFileStream.h" />
+    <ClInclude Include="til\TILFileStreamStd.h" />
+    <ClInclude Include="til\TILImage.h" />
+    <ClInclude Include="til\TILImageBMP.h" />
+    <ClInclude Include="til\TILImageDDS.h" />
+    <ClInclude Include="til\TILImageGIF.h" />
+    <ClInclude Include="til\TILImageICO.h" />
+    <ClInclude Include="til\TILImagePNG.h" />
+    <ClInclude Include="til\TILImageTemplate.h" />
+    <ClInclude Include="til\TILImageTGA.h" />
+    <ClInclude Include="til\TILInternal.h" />
+    <ClInclude Include="til\TILSettings.h" />
+    <ClInclude Include="til\TinyImageLoader.h" />
+    <ClInclude Include="glen\System\Time.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GL\glfw\glfwdll.def" />

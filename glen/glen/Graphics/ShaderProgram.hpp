@@ -1,5 +1,5 @@
-#ifndef SHADERPROGRAM_HPP
-#define SHADERPROGRAM_HPP
+#ifndef GLEN_SHADERPROGRAM_HPP
+#define GLEN_SHADERPROGRAM_HPP
 
 #include <glen/ogl.h>
 

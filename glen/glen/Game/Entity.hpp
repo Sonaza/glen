@@ -1,5 +1,5 @@
-#ifndef ENTITY_HPP
-#define ENTITY_HPP
+#ifndef GLEN_ENTITY_HPP
+#define GLEN_ENTITY_HPP
 
 #include <vector>
 

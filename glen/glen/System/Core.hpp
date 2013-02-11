@@ -1,34 +1,41 @@
 #ifndef CORE_H
 #define CORE_H
 
+#include <glen/System/Sleep.hpp>
 #include <string>
 
 namespace glen
 {
 
-class Window;
+	class Window;
 
-class Core
-{
-public:
+	class SceneManager;
 
-	Core(void);
-	~Core(void);
+	class Core
+	{
+	public:
 
-	int start();
+		Core(void);
+		~Core(void);
 
-	void init();
-	void loop();
+		int start();
 
-	Window* getWindow() const { return m_window; }
+		void init();
+		void loop();
 
-private:
+		Window* getWindow() const { return m_window; }
 
-	bool		m_running;
+	private:
 
-	Window*		m_window;
+		bool		m_running;
 
-};
+		// Program window
+		Window*			m_window;
+
+		// Managers
+		SceneManager*	m_sceneManager;
+
+	};
 
 }
 
