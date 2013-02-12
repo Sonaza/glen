@@ -5,26 +5,37 @@
 #include <glen/Config.hpp>
 #include <glen/Graphics/Color.hpp>
 
+#include <glen/Window/WindowStyle.hpp>
+#include <glen/Window/VideoMode.hpp>
+
+#include <string>
+
 namespace glen
 {
 
-class Window
-{
-public:
+	class Window
+	{
+	public:
 
-	Window(void);
-	~Window(void);
+		Window(void);
+		~Window(void);
 
-	bool create(uint32 width, uint32 height);
+		bool create(VideoMode mode, const std::string &title = "GLEN Window", uint16 style = style::Default);
 
-	void clear(Color c = Color::Black);
-	void display();
+		void clear(Color c = Color::Black);
+		void display();
 
-	inline bool isOpen() const { return glfwGetWindowParam(GLFW_OPENED) == 1; }
+		void setTitle(const std::string &title);
 
-private:
+		inline bool isOpen() const { return glfwGetWindowParam(GLFW_OPENED) == 1; }
 
-};
+	private:
+
+		VideoMode	m_videoMode;
+
+		void _setDefaultGLStates();
+
+	};
 
 }
 

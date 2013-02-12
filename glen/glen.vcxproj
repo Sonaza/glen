@@ -72,6 +72,7 @@
     <ClCompile Include="glen\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="glen\System\Core.cpp" />
     <ClCompile Include="glen\Window\MessageBox.cpp" />
+    <ClCompile Include="glen\Window\VideoMode.cpp" />
     <ClCompile Include="GL\glfw\enable.c" />
     <ClCompile Include="GL\glfw\fullscreen.c" />
     <ClCompile Include="GL\glfw\glext.c" />
@@ -125,6 +126,7 @@
     <ClInclude Include="glen\glen.h" />
     <ClInclude Include="glen\ogl.h" />
     <ClInclude Include="glen\Window\MessageBox.hpp" />
+    <ClInclude Include="glen\Window\VideoMode.hpp" />
     <ClInclude Include="glen\Window\WindowStyle.hpp" />
     <ClInclude Include="GL\glfw\internal.h" />
     <ClInclude Include="GL\glfw\platform.h" />

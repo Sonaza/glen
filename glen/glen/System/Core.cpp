@@ -35,7 +35,7 @@ int Core::start()
 
 	try
 	{
-		m_window->create(1280, 720);
+		m_window->create(VideoMode(1280, 720), "Derp", style::Resize);
 	}
 	catch(std::exception &e) { msgError("Exception", e.what()); }
 
