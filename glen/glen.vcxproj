@@ -69,6 +69,7 @@
     <ClCompile Include="glen\Game\Component.cpp" />
     <ClCompile Include="glen\Game\Entity.cpp" />
     <ClCompile Include="glen\Graphics\Color.cpp" />
+    <ClCompile Include="glen\Graphics\MeshLoader.cpp" />
     <ClCompile Include="glen\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="glen\System\Core.cpp" />
     <ClCompile Include="glen\Window\MessageBox.cpp" />
@@ -121,6 +122,8 @@
     <ClInclude Include="glen\Game\Entity.hpp" />
     <ClInclude Include="glen\Config.hpp" />
     <ClInclude Include="glen\Graphics\Color.hpp" />
+    <ClInclude Include="glen\Graphics\MeshData.hpp" />
+    <ClInclude Include="glen\Graphics\MeshLoader.hpp" />
     <ClInclude Include="glen\Graphics\ShaderProgram.hpp" />
     <ClInclude Include="glen\System\Core.hpp" />
     <ClInclude Include="glen\glen.h" />

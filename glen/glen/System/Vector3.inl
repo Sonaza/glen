@@ -30,7 +30,7 @@ inline Vector3<T>::Vector3(const Vector3<U>& vector) :
 
 ////////////////////////////////////////////////////////////
 template <typename T>
-inline Vector3<T>::Vector3(const glm::vec2& vector) :
+inline Vector3<T>::Vector3(const glm::vec3& vector) :
 	x(static_cast<T>(vector.x)),
 	y(static_cast<T>(vector.y)),
 	z(static_cast<T>(vector.z))
@@ -39,7 +39,7 @@ inline Vector3<T>::Vector3(const glm::vec2& vector) :
 
 ////////////////////////////////////////////////////////////
 template <typename T>
-inline Vector3<T>::operator glm::vec2()
+inline Vector3<T>::operator glm::vec3()
 {
 	return glm::vec3(x, y, z);
 }

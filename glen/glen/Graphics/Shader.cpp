@@ -32,7 +32,7 @@ bool Shader::loadFromFile(const std::string &path, Type type)
 {
 	std::ifstream file(path);
 
-	if(!file.good())
+	if(!file.is_open())
 	{
 		throw std::runtime_error("Unable to open shader file: " + path);
 		return false;

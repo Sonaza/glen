@@ -12,6 +12,8 @@
 
 #include <Scenes/TestScene.hpp>
 
+#include <glen/Graphics/MeshLoader.hpp>
+
 namespace glen
 {
 
@@ -50,6 +52,9 @@ void Core::init()
 	m_sceneManager = new(std::nothrow) SceneManager(this);
 
 	m_sceneManager->add("test", new(std::nothrow) TestScene, true);
+
+	MeshData mesh;
+	MeshLoader::loadMesh("cube.obj", &mesh);
 }
 
 ////////////////////////////////////////////////////////////
