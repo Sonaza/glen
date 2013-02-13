@@ -281,10 +281,28 @@
     <ClInclude Include="glen\Window\VideoMode.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="glen\System\Vector2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glen\System\Vector3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glen\System\Vector4.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="GL\glfw\glfwdll.def">
       <Filter>Source Files</Filter>
+    </None>
+    <None Include="glen\System\Vector2.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="glen\System\Vector3.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="glen\System\Vector4.inl">
+      <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
 </Project>

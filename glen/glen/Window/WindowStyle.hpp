@@ -4,13 +4,13 @@
 namespace glen
 {
 
-	namespace style
+	namespace Style
 	{
 		enum
 		{
-			Normal		= 0,
-			Resize		= 1 << 1,
-			Fullscreen	= 1 << 2,
+			Normal		= 0,	// Unresizable windowed
+			Resize		= 1,	// Resizable windowed
+			Fullscreen	= 2,	// Fullscreen
 
 			Default		= Normal
 		};

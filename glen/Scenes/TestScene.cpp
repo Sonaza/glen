@@ -31,7 +31,5 @@ void TestScene::update()
 //////////////////////////////////////////////////////
 void TestScene::draw()
 {
-	p_core->getWindow()->clear(glen::Color::LimeGreen);
-
-	p_core->getWindow()->display();
+	
 }

@@ -7,8 +7,6 @@
 namespace glen
 {
 
-	class Window;
-
 	class SceneManager;
 
 	class Core
@@ -23,14 +21,9 @@ namespace glen
 		void init();
 		void loop();
 
-		Window* getWindow() const { return m_window; }
-
 	private:
 
 		bool		m_running;
-
-		// Program window
-		Window*			m_window;
 
 		// Managers
 		SceneManager*	m_sceneManager;

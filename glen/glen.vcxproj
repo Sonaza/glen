@@ -125,6 +125,9 @@
     <ClInclude Include="glen\System\Core.hpp" />
     <ClInclude Include="glen\glen.h" />
     <ClInclude Include="glen\ogl.h" />
+    <ClInclude Include="glen\System\Vector2.hpp" />
+    <ClInclude Include="glen\System\Vector3.hpp" />
+    <ClInclude Include="glen\System\Vector4.hpp" />
     <ClInclude Include="glen\Window\MessageBox.hpp" />
     <ClInclude Include="glen\Window\VideoMode.hpp" />
     <ClInclude Include="glen\Window\WindowStyle.hpp" />
@@ -158,6 +161,9 @@
     <ClInclude Include="glen\System\Time.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="glen\System\Vector2.inl" />
+    <None Include="glen\System\Vector3.inl" />
+    <None Include="glen\System\Vector4.inl" />
     <None Include="GL\glfw\glfwdll.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

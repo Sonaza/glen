@@ -12,7 +12,6 @@ namespace glen
 
 		Color();
 		Color(const uint8 r, const uint8 g, const uint8 b, const uint8 a = 255);
-		//Color(float r, float g, float b, float a = 1.f);
 
 		uint8 r;
 		uint8 g;

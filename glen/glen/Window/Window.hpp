@@ -1,41 +1,38 @@
 #ifndef GLEN_WINDOW_HPP
 #define GLEN_WINDOW_HPP
 
-#include <glen/ogl.h>
 #include <glen/Config.hpp>
-#include <glen/Graphics/Color.hpp>
 
 #include <glen/Window/WindowStyle.hpp>
 #include <glen/Window/VideoMode.hpp>
 
+#include <glen/Graphics/Color.hpp>
+
 #include <string>
+
+#include <glen/System/Vector2.hpp>
 
 namespace glen
 {
 
-	class Window
+	namespace Window
 	{
-	public:
 
-		Window(void);
-		~Window(void);
+		extern void deinit();
 
-		bool create(VideoMode mode, const std::string &title = "GLEN Window", uint16 style = style::Default);
+		extern bool create(VideoMode mode, const std::string &title = "GLEN Window", uint16 style = Style::Default);
 
-		void clear(Color c = Color::Black);
-		void display();
+		extern void clear(Color c = Color::Black);
+		extern void display();
 
-		void setTitle(const std::string &title);
+		extern void setTitle(const std::string &title);
 
-		inline bool isOpen() const { return glfwGetWindowParam(GLFW_OPENED) == 1; }
+		extern void setPosition(Vector2i& pos);
+		extern void setPosition(const int32 x, const int32 y);
 
-	private:
+		extern bool isOpen();
 
-		VideoMode	m_videoMode;
-
-		void _setDefaultGLStates();
-
-	};
+	}
 
 }
 

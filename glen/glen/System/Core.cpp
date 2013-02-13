@@ -16,26 +16,24 @@ namespace glen
 {
 
 ////////////////////////////////////////////////////////////
-Core::Core(void) :
-	m_window(NULL)
+Core::Core(void)
 {
 }
 
 ////////////////////////////////////////////////////////////
 Core::~Core(void)
 {
+	Window::deinit();
+
 	if(m_sceneManager) { delete m_sceneManager; m_sceneManager = NULL; }
 }
 
 ////////////////////////////////////////////////////////////
 int Core::start()
 {
-	m_window = new(std::nothrow) Window();
-	assert(m_window != NULL && "Core::start() Window memory allocation failed");
-
 	try
 	{
-		m_window->create(VideoMode(1280, 720), "Derp", style::Resize);
+		Window::create(VideoMode(1280, 720), "Derp", Style::Resize);
 	}
 	catch(std::exception &e) { msgError("Exception", e.what()); }
 
@@ -58,11 +56,15 @@ void Core::init()
 void Core::loop()
 {
 	m_running = true;
-	while(m_running && m_window->isOpen())
+	while(m_running && Window::isOpen())
 	{
+		Window::clear(Color::LimeGreen);
+
 		m_sceneManager->update();
 
 		m_sceneManager->draw();
+
+		Window::display();
 
 		sleep(milliseconds(5));
 	}
