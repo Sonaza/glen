@@ -9,7 +9,7 @@ namespace glen
 {
 	class Shader;
 
-	typedef std::vector<Shader*> ShaderList;
+	typedef std::vector<Shader> ShaderList;
 
 	class ShaderProgram
 	{
@@ -17,7 +17,7 @@ namespace glen
 		ShaderProgram(void);
 		~ShaderProgram(void);
 
-		void link(ShaderList &shaders);
+		void compile(ShaderList &shaders);
 
 	private:
 

@@ -24,20 +24,25 @@ ShaderProgram::~ShaderProgram()
 }
 
 //////////////////////////////////////////////////////////
-void ShaderProgram::link(ShaderList &shaders)
+void ShaderProgram::compile(ShaderList &shaders)
 {
 	assert(shaders.empty() != NULL && "Shaderlist can't be empty");
 
 	for(ShaderList::iterator it = shaders.begin();
 		it != shaders.end(); ++it)
 	{
-		glAttachShader(m_program, (*it)->m_shader);
-		//m_shaders.push_back(*it);
+		glAttachShader(m_program, (*it).m_shader);
 	}
 
 	glBindFragDataLocation(m_program, 0, "finalColor");
 
 	glLinkProgram(m_program);
+	
+	for(ShaderList::iterator it = shaders.begin();
+		it != shaders.end(); ++it)
+	{
+		glDetachShader(m_program, (*it).m_shader);
+	}
 
 	GLint status;
 	glGetProgramiv(m_program, GL_LINK_STATUS, &status);
