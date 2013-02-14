@@ -1,4 +1,5 @@
 #include <glen/System/Sleep.hpp>
+#include <glen/ogl.h>
 #include <Windows.h>
 
 namespace glen
@@ -6,7 +7,7 @@ namespace glen
 
 	void sleep(Time time)
 	{
-		::Sleep(time.asMilliseconds());
+		::Sleep(static_cast<DWORD>(time.asMilliseconds()));
 	}
 
 }

@@ -13,6 +13,7 @@
 #include <Scenes/TestScene.hpp>
 
 #include <glen/Graphics/MeshLoader.hpp>
+#include <glen/System/Vector3.hpp>
 
 namespace glen
 {
@@ -55,6 +56,9 @@ void Core::init()
 
 	MeshData mesh;
 	MeshLoader::loadMesh("cube.obj", &mesh);
+
+	Vector3f asd = Vector3f::up;
+	std::cout << asd.x << ", " << asd.y << ", " << asd.z << std::endl;
 }
 
 ////////////////////////////////////////////////////////////

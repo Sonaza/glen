@@ -15,6 +15,10 @@ namespace glen
 	{
 	public:
 
+		static const Vector3<float>	up;
+		static const Vector3<float>	forward;
+		static const Vector3<float>	right;
+
 		////////////////////////////////////////////////////////////
 		/// \brief Default constructor
 		///
@@ -49,6 +53,8 @@ namespace glen
 
 		explicit Vector3(const glm::vec3& vector);
 		operator glm::vec3();
+		
+		glm::vec3 vec3();
 
 		////////////////////////////////////////////////////////////
 		// Member data
@@ -238,6 +244,11 @@ namespace glen
 	typedef Vector3<int>          Vector3i;
 	typedef Vector3<unsigned int> Vector3u;
 	typedef Vector3<float>        Vector3f;
+	
+	// Set a few world global directions
+	const Vector3<float>	Vector3<float>::up(0.f, 1.f, 0.f);
+	const Vector3<float>	Vector3<float>::forward(0.f, 0.f, 1.f);
+	const Vector3<float>	Vector3<float>::right(1.f, 0.f, 0.f);
 
 }
 

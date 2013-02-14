@@ -137,7 +137,7 @@ namespace glen
 			out->vertices = vertices.size() * fc;
 
 			GLfloat* temp = new GLfloat[final.size()];
-			std::copy(final.begin(), final.end(), temp);
+			//std::copy(final.begin(), final.end(), temp);
 
 			out->data = temp;
 

@@ -29,7 +29,7 @@ int64 Time::asMicroseconds() const
 /////////////////////////////////////////////////////////////
 Time seconds(float amount)
 {
-	return Time(amount * 1000000.f);
+	return Time(static_cast<int64>(amount * 1000000));
 }
 
 /////////////////////////////////////////////////////////////

@@ -27,6 +27,8 @@
 	\brief Internal functions
 */
 
+#pragma warning(disable : 4996)
+
 #ifndef _TILINTERNAL_H_
 #define _TILINTERNAL_H_
 

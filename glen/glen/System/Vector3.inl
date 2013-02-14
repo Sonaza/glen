@@ -46,6 +46,13 @@ inline Vector3<T>::operator glm::vec3()
 
 ////////////////////////////////////////////////////////////
 template <typename T>
+inline glm::vec3 Vector3<T>::vec3()
+{
+	return glm::vec3(x, y, z);
+}
+
+////////////////////////////////////////////////////////////
+template <typename T>
 inline Vector3<T> convert(const glm::vec3 vector)
 {
 	return Vector3<T>(vector.x, vector.y, vector.z);

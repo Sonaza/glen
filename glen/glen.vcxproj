@@ -66,6 +66,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="glen\Graphics\Camera.cpp" />
     <ClCompile Include="glen\Game\Component.cpp" />
     <ClCompile Include="glen\Game\Entity.cpp" />
     <ClCompile Include="glen\Graphics\Color.cpp" />
@@ -116,8 +117,10 @@
     <ClCompile Include="til\TILImageTGA.cpp" />
     <ClCompile Include="til\TinyImageLoader.cpp" />
     <ClCompile Include="glen\System\Time.cpp" />
+    <ClCompile Include="glen\System\Transformable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="glen\Graphics\Camera.hpp" />
     <ClInclude Include="glen\Game\Component.hpp" />
     <ClInclude Include="glen\Game\Entity.hpp" />
     <ClInclude Include="glen\Config.hpp" />
@@ -162,6 +165,7 @@
     <ClInclude Include="til\TILSettings.h" />
     <ClInclude Include="til\TinyImageLoader.h" />
     <ClInclude Include="glen\System\Time.hpp" />
+    <ClInclude Include="glen\System\Transformable.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glen\System\Vector2.inl" />
