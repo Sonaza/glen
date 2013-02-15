@@ -111,6 +111,12 @@ namespace Window
 	{
 		setPosition(Vector2i(x, y));
 	}
+	
+	////////////////////////////////////////////////////////////
+	Vector2u getDimensions()
+	{
+		return Vector2u(m_videoMode.width, m_videoMode.height);
+	}
 
 	////////////////////////////////////////////////////////////
 	bool create(VideoMode mode, const std::string &title, uint16 style)

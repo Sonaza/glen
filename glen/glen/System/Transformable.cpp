@@ -79,6 +79,8 @@ glm::mat4& Transformable::getMatrix()
 		m_matrix *= glm::translate(glm::mat4(1.f), glm::vec3(m_position.x, m_position.y, m_position.z));
 
 		m_matrix *= glm::scale(glm::mat4(1.f), glm::vec3(m_scale.x, m_scale.y, m_scale.z));
+
+		m_updateMatrix = false;
 	}
 
 	return m_matrix;

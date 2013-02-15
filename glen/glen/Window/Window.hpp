@@ -5,12 +5,11 @@
 
 #include <glen/Window/WindowStyle.hpp>
 #include <glen/Window/VideoMode.hpp>
-
 #include <glen/Graphics/Color.hpp>
+#include <glen/System/Vector2.hpp>
 
 #include <string>
 
-#include <glen/System/Vector2.hpp>
 
 namespace glen
 {
@@ -31,6 +30,9 @@ namespace glen
 		extern void setPosition(const int32 x, const int32 y);
 
 		extern bool isOpen();
+
+		extern Vector2u getDimensions();
+		extern float getAspectRatio();
 
 	}
 
