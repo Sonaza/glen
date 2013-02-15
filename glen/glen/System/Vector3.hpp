@@ -14,7 +14,8 @@ namespace glen
 	class Vector3
 	{
 	public:
-
+		
+		static const Vector3<float>	zero;
 		static const Vector3<float>	up;
 		static const Vector3<float>	forward;
 		static const Vector3<float>	right;
@@ -246,6 +247,7 @@ namespace glen
 	typedef Vector3<float>        Vector3f;
 	
 	// Set a few world global directions
+	const Vector3<float>	Vector3<float>::zero(0.f, 0.f, 0.f);
 	const Vector3<float>	Vector3<float>::up(0.f, 1.f, 0.f);
 	const Vector3<float>	Vector3<float>::forward(0.f, 0.f, 1.f);
 	const Vector3<float>	Vector3<float>::right(1.f, 0.f, 0.f);

@@ -1,5 +1,5 @@
-#ifndef COLOR_HPP
-#define COLOR_HPP
+#ifndef GLEN_COLOR_HPP
+#define GLEN_COLOR_HPP
 
 #include <glen/Config.hpp>
 

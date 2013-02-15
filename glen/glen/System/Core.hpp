@@ -1,6 +1,7 @@
-#ifndef CORE_H
-#define CORE_H
+#ifndef GLEN_CORE_H
+#define GLEN_CORE_H
 
+#include <glen/Graphics/Camera.hpp>
 #include <glen/System/Sleep.hpp>
 #include <string>
 

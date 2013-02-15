@@ -27,15 +27,21 @@ namespace glen
 		~Shader(void);
 
 		bool loadFromFile(const std::string &path, Type type);
+		bool loadFromMemory(const char* data, Type type);
 	
 		inline Type getType() const { return m_type; }
 
 	protected:
 
 		GLuint			m_shader;
+		std::string		m_filename;
 
 		// Type of the shader
 		Type			m_type;
+
+	private:
+
+		bool compile(const char* code, GLenum type);
 	};
 
 }

@@ -55,10 +55,11 @@ void Core::init()
 	m_sceneManager->add("test", new(std::nothrow) TestScene, true);
 
 	MeshData mesh;
-	MeshLoader::loadMesh("cube.obj", &mesh);
+	MeshLoader::loadMesh("weird.obj", &mesh);
 
-	Vector3f asd = Vector3f::up;
-	std::cout << asd.x << ", " << asd.y << ", " << asd.z << std::endl;
+	Camera* asd = Camera::create(60.f, 0.1f, 10.f);
+	asd->setPosition(1.f, 1.f, 1.f);
+	asd->lookAt(Vector3f::zero, Vector3f::up);
 }
 
 ////////////////////////////////////////////////////////////

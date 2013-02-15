@@ -2,6 +2,8 @@
 #include <glen/Window/Window.hpp>
 
 #include <glm/gtc/matrix_transform.hpp>
+
+#include <cassert>
 #include <memory>
 
 namespace glen
@@ -41,12 +43,15 @@ Camera::~Camera(void)
 Camera* Camera::create(float fov, float znear, float zfar)
 {
 	Camera* temp = new(std::nothrow) Camera(fov, znear, zfar);
-	
+	assert(temp != NULL && "Memory allocation for camera failed");
+
 	if(temp)
 	{
 		m_cameras.push_back(CameraPtr(temp));
 		temp->activate();
 	}
+
+	return temp;
 }
 
 ///////////////////////////////////////////////

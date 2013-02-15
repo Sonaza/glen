@@ -43,9 +43,12 @@ namespace glen
 			std::vector<Vector3f> vertices;
 			std::vector<Vector3f> normals;
 			std::vector<Vector2f> texCoords;
-			std::vector<GLfloat> final;
 
-			int32 fc = 0;
+			// Make sure data target is empty
+			out->data.clear();
+
+			int32 faceCount = 0;
+			int32 vertexDrawCount = 0;
 
 			std::string line;
 			while(std::getline(file, line))
@@ -57,7 +60,8 @@ namespace glen
 
 				data >> id;
 
-				if(id == "v")
+				// Parse data according to type
+				if(id == "v") // Vertex coordinates
 				{
 					data >> d1 >> d2 >> d3;
 
@@ -67,7 +71,7 @@ namespace glen
 						static_cast<float>(d3)
 					));
 				}
-				else if(id == "vt")
+				else if(id == "vt") // Texture coordinates
 				{
 					data >> d1 >> d2;
 
@@ -76,7 +80,7 @@ namespace glen
 						static_cast<float>(d2)
 					));
 				}
-				else if(id == "vn")
+				else if(id == "vn") // Vertex normals
 				{
 					data >> d1 >> d2 >> d3;
 
@@ -86,18 +90,42 @@ namespace glen
 						static_cast<float>(d3)
 					));
 				}
-				if(id == "f")
+				else if(id == "f") // Faces
 				{
-					fc++;
+					faceCount++;
 
 					std::vector<std::string> indices;
 					std::string item;
 
+					// Extract all face indices
 					while(data >> item)
-					{
 						indices.push_back(item);
+
+					// Check if face is unsupported
+					if(indices.size() > 4)
+					{
+						std::cout << "OBJ Loader supports meshes with only triangles or quads" << std::endl;
+						return false;
 					}
 
+					// If face is a quad sort indices differently
+					if(indices.size() == 4)
+					{
+						std::vector<std::string> temp = indices;
+						indices.clear();
+
+						indices.push_back(temp[0]);
+						indices.push_back(temp[1]);
+						indices.push_back(temp[2]);
+						indices.push_back(temp[2]);
+						indices.push_back(temp[3]);
+						indices.push_back(temp[0]);
+
+						// Take one more face into account
+						faceCount++;
+					}
+
+					// Append to the vertex buffer data array according to the indices
 					for(std::vector<std::string>::iterator it = indices.begin();
 						it != indices.end(); ++it)
 					{
@@ -111,20 +139,22 @@ namespace glen
 
 							if(i == 0) // Vertex Coordinate
 							{
-								final.push_back(vertices[index].x);
-								final.push_back(vertices[index].y);
-								final.push_back(vertices[index].z);
+								out->data.push_back(vertices[index].x);
+								out->data.push_back(vertices[index].y);
+								out->data.push_back(vertices[index].z);
+
+								vertexDrawCount++;
 							}
 							else if(i == 1) // Texture Coordinate
 							{
-								final.push_back(texCoords[index].x);
-								final.push_back(texCoords[index].y);
+								out->data.push_back(texCoords[index].x);
+								out->data.push_back(texCoords[index].y);
 							}
 							else if(i == 2) // Vertex Normal
 							{
-								final.push_back(normals[index].x);
-								final.push_back(normals[index].y);
-								final.push_back(normals[index].z);
+								out->data.push_back(normals[index].x);
+								out->data.push_back(normals[index].y);
+								out->data.push_back(normals[index].z);
 							}
 
 							i++;
@@ -133,13 +163,17 @@ namespace glen
 				}
 			}
 
+			std::cout << "Vertex Count: " << vertexDrawCount << std::endl;
+
 			// Calculate amount of vertices to be drawn
-			out->vertices = vertices.size() * fc;
+			out->drawCount = vertexDrawCount;
+			//out->dataSize = out->data.size();
+			//vertices.size() * faceCount;
 
-			GLfloat* temp = new GLfloat[final.size()];
-			//std::copy(final.begin(), final.end(), temp);
+			//GLfloat* temp = new GLfloat[];
+			//std::copy(out->data.begin(), out->data.end(), temp);
 
-			out->data = temp;
+			//out->data = temp;
 
 			return true;
 		}

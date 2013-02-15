@@ -117,6 +117,12 @@ namespace Window
 	{
 		return Vector2u(m_videoMode.width, m_videoMode.height);
 	}
+	
+	////////////////////////////////////////////////////////////
+	float getAspectRatio()
+	{
+		return m_videoMode.width / static_cast<float>(m_videoMode.height);
+	}
 
 	////////////////////////////////////////////////////////////
 	bool create(VideoMode mode, const std::string &title, uint16 style)

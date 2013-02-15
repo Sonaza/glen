@@ -43,8 +43,22 @@ bool Shader::loadFromFile(const std::string &path, Type type)
 	file.close();
 
 	std::string code = filebuffer.str();
-	const char* shaderCode = code.c_str();
 
+	m_filename = path;
+
+	return compile(code.c_str(), type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER));
+}
+
+///////////////////////////////////////////////////////
+bool Shader::loadFromMemory(const char* data, Type type)
+{
+	m_filename = "Shader";
+	return compile(data, type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER));
+}
+
+///////////////////////////////////////////////////////
+bool Shader::compile(const char* code, GLenum type)
+{
 	// Create new shader and upload the code
 	m_shader = glCreateShader(type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
 	if(m_shader == 0)
@@ -53,7 +67,7 @@ bool Shader::loadFromFile(const std::string &path, Type type)
 		return false;
 	}
 
-	glShaderSource(m_shader, 1, &shaderCode, NULL);
+	glShaderSource(m_shader, 1, &code, NULL);
 
 	// Attempt to compile the shader
 	glCompileShader(m_shader);
@@ -67,7 +81,8 @@ bool Shader::loadFromFile(const std::string &path, Type type)
 		glDeleteShader(m_shader);
 		m_shader = 0;
 
-		std::cout << "Shader compilation failed (" << path << ")" << std::endl;
+		std::cout << m_filename << " compilation failed" << std::endl;
+		m_filename = "";
 	}
 
 	// Output compilation log

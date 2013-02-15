@@ -44,6 +44,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)glfw</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
+      <PreprocessToFile>true</PreprocessToFile>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -71,6 +72,7 @@
     <ClCompile Include="glen\Game\Entity.cpp" />
     <ClCompile Include="glen\Graphics\Color.cpp" />
     <ClCompile Include="glen\Graphics\MeshLoader.cpp" />
+    <ClCompile Include="glen\Graphics\Model.cpp" />
     <ClCompile Include="glen\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="glen\System\Core.cpp" />
     <ClCompile Include="glen\Window\MessageBox.cpp" />
@@ -127,6 +129,7 @@
     <ClInclude Include="glen\Graphics\Color.hpp" />
     <ClInclude Include="glen\Graphics\MeshData.hpp" />
     <ClInclude Include="glen\Graphics\MeshLoader.hpp" />
+    <ClInclude Include="glen\Graphics\Model.hpp" />
     <ClInclude Include="glen\Graphics\ShaderProgram.hpp" />
     <ClInclude Include="glen\System\Core.hpp" />
     <ClInclude Include="glen\glen.h" />

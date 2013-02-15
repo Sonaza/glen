@@ -1,6 +1,7 @@
 #ifndef GLEN_MESHDATA_HPP
 #define GLEN_MESHDATA_HPP
 
+#include <vector>
 #include <glen/ogl.h>
 
 namespace glen
@@ -10,15 +11,15 @@ namespace glen
 	{
 	public:
 
-		MeshData() : data(NULL), vertices(0) {}
+		MeshData() : data(NULL), drawCount(0) {}
 		~MeshData()
 		{
-			if(data != NULL)
-				delete[] data;
+			//if(data != NULL)
+			//	delete[] data;
 		}
 
-		GLfloat* data;
-		GLuint vertices;
+		std::vector<GLfloat> data;
+		GLuint drawCount;
 	};
 
 }

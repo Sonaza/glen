@@ -11,38 +11,38 @@
 namespace glen
 {
 
-class Camera : public Transformable
-{
-public:
-	Camera(void);
-	~Camera(void);
+	class Camera : public Transformable
+	{
+	public:
+		Camera(void);
+		~Camera(void);
 	
-	void lookAt(Vector3f target, Vector3f worldUp);
+		void lookAt(Vector3f target, Vector3f worldUp);
 
-	void activate();
+		void activate();
 
-	glm::mat4& getProjectionMatrix();
+		glm::mat4& getProjectionMatrix();
 
-	inline bool isActive() const { return m_active; }
+		inline bool isActive() const { return m_active; }
 
-	static Camera* create(float fov, float znear, float zfar);
-	static const Camera* activeCamera();
+		static Camera* create(float fov, float znear, float zfar);
+		static const Camera* activeCamera();
 
-private:
+	private:
 
-	Camera(float fov, float znear, float zfar);
+		Camera(float fov, float znear, float zfar);
 
-	float m_fov;
-	float m_znear, m_zfar;
+		float m_fov;
+		float m_znear, m_zfar;
 
-	bool		m_active;
+		bool		m_active;
 
-	bool		m_updateProjMatrix;
-	glm::mat4	m_projMatrix;
+		bool		m_updateProjMatrix;
+		glm::mat4	m_projMatrix;
 
-	glm::mat4	m_matrix;
+		glm::mat4	m_matrix;
 
-};
+	};
 
 }
 
