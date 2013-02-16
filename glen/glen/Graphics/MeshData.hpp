@@ -18,6 +18,7 @@ namespace glen
 			//	delete[] data;
 		}
 
+		// Data format Vertex XYZ/Texture Coord XY/Normals XYZ
 		std::vector<GLfloat> data;
 		GLuint drawCount;
 	};

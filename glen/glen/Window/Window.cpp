@@ -47,17 +47,19 @@ namespace
 	///////////////////////////////////////////////////////////////
 	void _setDefaultGLStates()
 	{
-		glFrontFace(GL_CCW);
+		/*glFrontFace(GL_CCW);
 		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
+		glCullFace(GL_BACK);*/
 
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
 
-		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_ALPHA_TEST);
+		glAlphaFunc(GL_GREATER, 0);
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//glBlendFunc(GL_ONE, GL_ZERO);
 	}
 
 }
@@ -159,6 +161,8 @@ namespace Window
 		glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		glfwOpenWindowHint(GLFW_FSAA_SAMPLES, 4);
+
+		//glfwSwapInterval(1);
 
 		#ifdef DEBUG
 			glfwOpenWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);

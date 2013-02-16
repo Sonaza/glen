@@ -69,7 +69,7 @@ void Camera::activate()
 }
 
 ///////////////////////////////////////////////
-const Camera* Camera::activeCamera()
+Camera* Camera::activeCamera()
 {
 	Camera* result = NULL;
 
@@ -96,8 +96,14 @@ void Camera::lookAt(Vector3f target, Vector3f worldUp)
 	);
 }
 
+//////////////////////////////////////////////
+glm::mat4 Camera::getMatrix()
+{
+	return m_matrix;
+}
+
 ///////////////////////////////////////////////
-glm::mat4& Camera::getProjectionMatrix()
+glm::mat4 Camera::getProjectionMatrix()
 {
 	if(m_updateProjMatrix)
 	{

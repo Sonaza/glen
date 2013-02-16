@@ -6,6 +6,7 @@
 
 #include <glen/Graphics/ShaderProgram.hpp>
 #include <glen/Graphics/Shader.hpp>
+#include <glen/System/Transformable.hpp>
 
 #include <vector>
 #include <string>
@@ -14,25 +15,32 @@
 namespace glen
 {
 
-class Model
-{
-public:
-	Model(void);
-	~Model(void);
+	class Texture;
 
-	bool loadFromFile(const std::string& path);
+	class Model : public Transformable
+	{
+	public:
+		Model(void);
+		~Model(void);
 
-protected:
+		void setTexture(Texture& texture);
 
-	ShaderProgram*			m_program;
-	std::vector<Shader*>	m_shaders;
+		bool loadFromFile(const std::string& path);
 
-	GLuint		m_vbo;
-	GLuint		m_vao;
+		void render();
 
-	MeshData*	m_meshdata;
+	protected:
 
-};
+		ShaderProgram*	m_program;
+		ShaderList		m_shaders;
+
+		MeshData*	m_meshdata;
+		Texture*	m_texture;
+
+		GLuint		m_vbo;
+		GLuint		m_vao;
+
+	};
 
 }
 

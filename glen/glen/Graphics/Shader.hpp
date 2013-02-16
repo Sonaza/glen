@@ -31,6 +31,8 @@ namespace glen
 	
 		inline Type getType() const { return m_type; }
 
+		inline bool isValid() const { return m_valid; }
+
 	protected:
 
 		GLuint			m_shader;
@@ -41,7 +43,10 @@ namespace glen
 
 	private:
 
+		bool			m_valid;
+
 		bool compile(const char* code, GLenum type);
+
 	};
 
 }

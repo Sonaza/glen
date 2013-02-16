@@ -21,12 +21,13 @@ namespace glen
 
 		void activate();
 
-		glm::mat4& getProjectionMatrix();
+		glm::mat4 getMatrix();
+		glm::mat4 getProjectionMatrix();
 
 		inline bool isActive() const { return m_active; }
 
 		static Camera* create(float fov, float znear, float zfar);
-		static const Camera* activeCamera();
+		static Camera* activeCamera();
 
 	private:
 

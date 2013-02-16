@@ -44,7 +44,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)glfw</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
-      <PreprocessToFile>true</PreprocessToFile>
+      <PreprocessToFile>false</PreprocessToFile>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -67,6 +67,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="glen\glenError.cpp" />
     <ClCompile Include="glen\Graphics\Camera.cpp" />
     <ClCompile Include="glen\Game\Component.cpp" />
     <ClCompile Include="glen\Game\Entity.cpp" />
@@ -74,6 +75,8 @@
     <ClCompile Include="glen\Graphics\MeshLoader.cpp" />
     <ClCompile Include="glen\Graphics\Model.cpp" />
     <ClCompile Include="glen\Graphics\ShaderProgram.cpp" />
+    <ClCompile Include="glen\Graphics\stb_image\stb_image.c" />
+    <ClCompile Include="glen\Graphics\Texture.cpp" />
     <ClCompile Include="glen\System\Core.cpp" />
     <ClCompile Include="glen\Window\MessageBox.cpp" />
     <ClCompile Include="glen\Window\VideoMode.cpp" />
@@ -107,21 +110,11 @@
     <ClCompile Include="glen\System\SceneManager.cpp" />
     <ClCompile Include="Scenes\TestScene.cpp" />
     <ClCompile Include="glen\System\Sleep.cpp" />
-    <ClCompile Include="til\TILFileStream.cpp" />
-    <ClCompile Include="til\TILFileStreamStd.cpp" />
-    <ClCompile Include="til\TILImage.cpp" />
-    <ClCompile Include="til\TILImageBMP.cpp" />
-    <ClCompile Include="til\TILImageDDS.cpp" />
-    <ClCompile Include="til\TILImageGIF.cpp" />
-    <ClCompile Include="til\TILImageICO.cpp" />
-    <ClCompile Include="til\TILImagePNG.cpp" />
-    <ClCompile Include="til\TILImageTemplate.cpp" />
-    <ClCompile Include="til\TILImageTGA.cpp" />
-    <ClCompile Include="til\TinyImageLoader.cpp" />
     <ClCompile Include="glen\System\Time.cpp" />
     <ClCompile Include="glen\System\Transformable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="glen\glenError.h" />
     <ClInclude Include="glen\Graphics\Camera.hpp" />
     <ClInclude Include="glen\Game\Component.hpp" />
     <ClInclude Include="glen\Game\Entity.hpp" />
@@ -131,6 +124,8 @@
     <ClInclude Include="glen\Graphics\MeshLoader.hpp" />
     <ClInclude Include="glen\Graphics\Model.hpp" />
     <ClInclude Include="glen\Graphics\ShaderProgram.hpp" />
+    <ClInclude Include="glen\Graphics\stb_image\stb_image.h" />
+    <ClInclude Include="glen\Graphics\Texture.hpp" />
     <ClInclude Include="glen\System\Core.hpp" />
     <ClInclude Include="glen\glen.h" />
     <ClInclude Include="glen\ogl.h" />
@@ -153,20 +148,6 @@
     <ClInclude Include="glen\System\SceneManager.hpp" />
     <ClInclude Include="Scenes\TestScene.hpp" />
     <ClInclude Include="glen\System\Sleep.hpp" />
-    <ClInclude Include="til\TILColors.h" />
-    <ClInclude Include="til\TILFileStream.h" />
-    <ClInclude Include="til\TILFileStreamStd.h" />
-    <ClInclude Include="til\TILImage.h" />
-    <ClInclude Include="til\TILImageBMP.h" />
-    <ClInclude Include="til\TILImageDDS.h" />
-    <ClInclude Include="til\TILImageGIF.h" />
-    <ClInclude Include="til\TILImageICO.h" />
-    <ClInclude Include="til\TILImagePNG.h" />
-    <ClInclude Include="til\TILImageTemplate.h" />
-    <ClInclude Include="til\TILImageTGA.h" />
-    <ClInclude Include="til\TILInternal.h" />
-    <ClInclude Include="til\TILSettings.h" />
-    <ClInclude Include="til\TinyImageLoader.h" />
     <ClInclude Include="glen\System\Time.hpp" />
     <ClInclude Include="glen\System\Transformable.hpp" />
   </ItemGroup>

@@ -2,6 +2,7 @@
 #define GLEN_SHADERPROGRAM_HPP
 
 #include <glen/ogl.h>
+#include <glm/glm.hpp>
 
 #include <vector>
 
@@ -18,6 +19,7 @@ namespace glen
 		~ShaderProgram(void);
 
 		void use() const;
+		void unUse() const;
 		bool isInUse() const;
 
 		bool compile(ShaderList &shaders);
@@ -47,9 +49,16 @@ namespace glen
 			void setUniform4v(const GLchar* uniformName, const GL_TYPE* v, GLsizei count=1); \
 
 		_GLEN_SHADERPROGRAM_SETTER(GLfloat)
-		//_GLEN_SHADERPROGRAM_UNIFORM_SETTER(GLdouble)
-		//_GLEN_SHADERPROGRAM_UNIFORM_SETTER(GLint)
-		//_GLEN_SHADERPROGRAM_UNIFORM_SETTER(GLuint)
+		_GLEN_SHADERPROGRAM_SETTER(GLdouble)
+		_GLEN_SHADERPROGRAM_SETTER(GLint)
+		_GLEN_SHADERPROGRAM_SETTER(GLuint)
+
+		void setUniformMatrix2v(const GLchar* uniformName, const GLfloat* v, GLsizei count = 1, GLboolean transpose = GL_FALSE);
+		void setUniformMatrix3v(const GLchar* uniformName, const GLfloat* v, GLsizei count = 1, GLboolean transpose = GL_FALSE);
+		void setUniformMatrix4v(const GLchar* uniformName, const GLfloat* v, GLsizei count = 1, GLboolean transpose = GL_FALSE);
+		void setUniform(const GLchar* uniformName, glm::mat2& m, GLboolean transpose = GL_FALSE);
+		void setUniform(const GLchar* uniformName, glm::mat3& m, GLboolean transpose = GL_FALSE);
+		void setUniform(const GLchar* uniformName, glm::mat4& m, GLboolean transpose = GL_FALSE);
 
 	private:
 

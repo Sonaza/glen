@@ -1,6 +1,8 @@
 #include <glen/Graphics/ShaderProgram.hpp>
 #include <glen/Graphics/Shader.hpp>
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include <iostream>
 #include <cassert>
 #include <algorithm>
@@ -27,6 +29,13 @@ ShaderProgram::~ShaderProgram()
 void ShaderProgram::use() const
 {
 	glUseProgram(m_program);
+}
+
+//////////////////////////////////////////////////////////
+void ShaderProgram::unUse() const
+{
+	assert(isInUse());
+	glUseProgram(0);
 }
 
 //////////////////////////////////////////////////////////
@@ -59,7 +68,7 @@ GLuint ShaderProgram::uniform(const GLchar* uniformName) const
 		{ assert(isInUse()); glVertexAttrib ## TYPE_PREFIX ## 3 ## TYPE_SUFFIX (attrib(name), v0, v1, v2); } \
 	void ShaderProgram::setAttrib(const GLchar* name, GL_TYPE v0, GL_TYPE v1, GL_TYPE v2, GL_TYPE v3) \
 		{ assert(isInUse()); glVertexAttrib ## TYPE_PREFIX ## 4 ## TYPE_SUFFIX (attrib(name), v0, v1, v2, v3); } \
-	\
+\
 	void ShaderProgram::setAttrib1v(const GLchar* name, const GL_TYPE* v) \
 		{ assert(isInUse()); glVertexAttrib ## TYPE_PREFIX ## 1 ## TYPE_SUFFIX ## v (attrib(name), v); } \
 	void ShaderProgram::setAttrib2v(const GLchar* name, const GL_TYPE* v) \
@@ -68,7 +77,7 @@ GLuint ShaderProgram::uniform(const GLchar* uniformName) const
 		{ assert(isInUse()); glVertexAttrib ## TYPE_PREFIX ## 3 ## TYPE_SUFFIX ## v (attrib(name), v); } \
 	void ShaderProgram::setAttrib4v(const GLchar* name, const GL_TYPE* v) \
 		{ assert(isInUse()); glVertexAttrib ## TYPE_PREFIX ## 4 ## TYPE_SUFFIX ## v (attrib(name), v); } \
-	\
+\
 	void ShaderProgram::setUniform(const GLchar* name, GL_TYPE v0) \
 		{ assert(isInUse()); glUniform1 ## TYPE_SUFFIX (uniform(name), v0); } \
 	void ShaderProgram::setUniform(const GLchar* name, GL_TYPE v0, GL_TYPE v1) \
@@ -77,7 +86,7 @@ GLuint ShaderProgram::uniform(const GLchar* uniformName) const
 		{ assert(isInUse()); glUniform3 ## TYPE_SUFFIX (uniform(name), v0, v1, v2); } \
 	void ShaderProgram::setUniform(const GLchar* name, GL_TYPE v0, GL_TYPE v1, GL_TYPE v2, GL_TYPE v3) \
 		{ assert(isInUse()); glUniform4 ## TYPE_SUFFIX (uniform(name), v0, v1, v2, v3); } \
-	\
+\
 	void ShaderProgram::setUniform1v(const GLchar* name, const GL_TYPE* v, GLsizei count) \
 		{ assert(isInUse()); glUniform1 ## TYPE_SUFFIX ## v (uniform(name), count, v); } \
 	void ShaderProgram::setUniform2v(const GLchar* name, const GL_TYPE* v, GLsizei count) \
@@ -88,30 +97,78 @@ GLuint ShaderProgram::uniform(const GLchar* uniformName) const
 		{ assert(isInUse()); glUniform4 ## TYPE_SUFFIX ## v (uniform(name), count, v); } \
 
 	_GLEN_SHADERPROGRAM_SETTER_IMPL(GLfloat, , f)
-	//_GLEN_SHADERPROGRAM_SETTER_IMPL(GLdouble, , d)
+	_GLEN_SHADERPROGRAM_SETTER_IMPL(GLdouble, , d)
+	_GLEN_SHADERPROGRAM_SETTER_IMPL(GLint, I, i)
+	_GLEN_SHADERPROGRAM_SETTER_IMPL(GLuint, I, ui)
+
+//////////////////////////////////////////////////////////
+void ShaderProgram::setUniformMatrix2v(const GLchar* name, const GLfloat* v, GLsizei count, GLboolean transpose)
+{
+	assert(isInUse());
+	glUniformMatrix2fv(uniform(name), count, transpose, v);
+}
+
+//////////////////////////////////////////////////////////
+void ShaderProgram::setUniformMatrix3v(const GLchar* name, const GLfloat* v, GLsizei count, GLboolean transpose)
+{
+	assert(isInUse());
+	glUniformMatrix3fv(uniform(name), count, transpose, v);
+}
+
+//////////////////////////////////////////////////////////
+void ShaderProgram::setUniformMatrix4v(const GLchar* name, const GLfloat* v, GLsizei count, GLboolean transpose)
+{
+	assert(isInUse());
+	glUniformMatrix4fv(uniform(name), count, transpose, v);
+}
+
+//////////////////////////////////////////////////////////
+void ShaderProgram::setUniform(const GLchar* name, glm::mat2& m, GLboolean transpose)
+{
+	assert(isInUse());
+	glUniformMatrix2fv(uniform(name), 1, transpose, glm::value_ptr(m));
+}
+
+//////////////////////////////////////////////////////////
+void ShaderProgram::setUniform(const GLchar* name, glm::mat3& m, GLboolean transpose)
+{
+	assert(isInUse());
+	glUniformMatrix3fv(uniform(name), 1, transpose, glm::value_ptr(m));
+}
+
+//////////////////////////////////////////////////////////
+void ShaderProgram::setUniform(const GLchar* name, glm::mat4& m, GLboolean transpose)
+{
+	assert(isInUse());
+	glUniformMatrix4fv(uniform(name), 1, transpose, glm::value_ptr(m));
+}
 
 //////////////////////////////////////////////////////////
 bool ShaderProgram::compile(ShaderList &shaders)
 {
-	assert(shaders.empty() != NULL && "Shaderlist can't be empty");
+	if(shaders.empty())
+	{
+		throw std::runtime_error("Shaderlist can't be empty");
+		return false;
+	}
 
 	// Attach all shaders
 	for(ShaderList::iterator it = shaders.begin();
 		it != shaders.end(); ++it)
 	{
-		glAttachShader(m_program, (*it)->m_shader);
+		(glAttachShader(m_program, (*it)->m_shader));
 	}
 
 	glBindFragDataLocation(m_program, 0, "finalColor");
 
 	// Link attached shaders to the program
-	glLinkProgram(m_program);
+	glCheck(glLinkProgram(m_program));
 	
 	// Now we can detach shaders
 	for(ShaderList::iterator it = shaders.begin();
 		it != shaders.end(); ++it)
 	{
-		glDetachShader(m_program, (*it)->m_shader);
+		glCheck(glDetachShader(m_program, (*it)->m_shader));
 	}
 
 	// Check if program linking was successful

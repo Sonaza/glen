@@ -163,17 +163,10 @@ namespace glen
 				}
 			}
 
-			std::cout << "Vertex Count: " << vertexDrawCount << std::endl;
+			//std::cout << "Vertex Count: " << vertexDrawCount << std::endl;
 
 			// Calculate amount of vertices to be drawn
 			out->drawCount = vertexDrawCount;
-			//out->dataSize = out->data.size();
-			//vertices.size() * faceCount;
-
-			//GLfloat* temp = new GLfloat[];
-			//std::copy(out->data.begin(), out->data.end(), temp);
-
-			//out->data = temp;
 
 			return true;
 		}

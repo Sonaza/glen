@@ -120,39 +120,6 @@
     <ClCompile Include="glen\Graphics\Color.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="til\TILFileStream.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="til\TILFileStreamStd.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="til\TILImage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="til\TILImageBMP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="til\TILImageDDS.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="til\TILImageGIF.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="til\TILImageICO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="til\TILImagePNG.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="til\TILImageTemplate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="til\TILImageTGA.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="til\TinyImageLoader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="glen\System\Sleep.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -172,6 +139,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="glen\Graphics\Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glen\Graphics\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glen\Graphics\stb_image\stb_image.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glen\glenError.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -242,48 +218,6 @@
     <ClInclude Include="glen\Graphics\Color.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="til\TILColors.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TILFileStream.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TILFileStreamStd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TILImage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TILImageBMP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TILImageDDS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TILImageGIF.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TILImageICO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TILImagePNG.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TILImageTemplate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TILImageTGA.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TILInternal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TILSettings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="til\TinyImageLoader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="glen\System\Time.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -315,6 +249,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="glen\Graphics\Model.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glen\Graphics\Texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glen\Graphics\stb_image\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glen\glenError.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

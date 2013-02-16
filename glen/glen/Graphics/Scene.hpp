@@ -5,6 +5,8 @@
 #include <glen/Window/Window.hpp>
 
 #include <glen/Graphics/Color.hpp>
+#include <glen/Graphics/Model.hpp>
+#include <glen/Graphics/Texture.hpp>
 
 namespace glen
 {

@@ -51,24 +51,32 @@ int Core::start()
 void Core::init()
 {
 	m_sceneManager = new(std::nothrow) SceneManager(this);
-
 	m_sceneManager->add("test", new(std::nothrow) TestScene, true);
-
-	MeshData mesh;
-	MeshLoader::loadMesh("weird.obj", &mesh);
-
-	Camera* asd = Camera::create(60.f, 0.1f, 10.f);
-	asd->setPosition(1.f, 1.f, 1.f);
+	
+	Camera* asd = Camera::create(60.f, 0.01f, 100.f);
+	asd->setPosition(1.5f, 1.2f, 1.5f);
 	asd->lookAt(Vector3f::zero, Vector3f::up);
 }
 
 ////////////////////////////////////////////////////////////
 void Core::loop()
 {
+	m_fpsTimer = m_lastTime = 0.f;
+
 	m_running = true;
 	while(m_running && Window::isOpen())
 	{
-		Window::clear(Color::LimeGreen);
+		/*m_lastTime = m_fpsTimer;
+		m_fpsTimer = GetTickCount() / 1000.f;
+
+		if(m_outTimer < m_fpsTimer)
+		{
+			float fps = 1.f / (m_fpsTimer-m_lastTime);
+			std::cout << fps << " FPS " << std::endl;
+			m_outTimer = m_fpsTimer+1.f;
+		}*/
+
+		Window::clear(Color(240, 40, 150));
 
 		m_sceneManager->update();
 
@@ -76,7 +84,7 @@ void Core::loop()
 
 		Window::display();
 
-		sleep(milliseconds(5));
+		//sleep(milliseconds(5));
 	}
 }
 

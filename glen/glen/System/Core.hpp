@@ -3,6 +3,7 @@
 
 #include <glen/Graphics/Camera.hpp>
 #include <glen/System/Sleep.hpp>
+
 #include <string>
 
 namespace glen
@@ -23,6 +24,8 @@ namespace glen
 		void loop();
 
 	private:
+
+		float		m_fpsTimer, m_lastTime, m_outTimer;
 
 		bool		m_running;
 

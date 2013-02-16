@@ -36,7 +36,11 @@ void SceneManager::add(const SceneID &id, Scene* scene, bool active)
 	scene->init(p_core);
 
 	if(active)
+	{
 		scene->activate();
+
+		scene->load();
+	}
 
 	// Add the scene to the list
 	m_scenes.insert(std::make_pair(id, ScenePtr(scene)));

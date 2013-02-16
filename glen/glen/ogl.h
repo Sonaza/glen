@@ -9,9 +9,27 @@
 	#undef WINGDIAPI
 #endif
 
-/// Use a Microsoft Visual Studio Compiler directive to
-/// force linkage to opengl32.lib import library.
-/// (Alternatively, one can link to this from command line or from VC project properties)
+#include <glen/glenError.h>
+
+#if defined(DEBUG)
+
+	#define glCheck(x) \
+		do { \
+			x; \
+			GLenum glerr = glGetError(); \
+			if (glerr != GL_NO_ERROR) { \
+				printf("OpenGL error: 0x%x, %s\nFile: %s, line: %d\n\n", glerr, glenErrStr(glerr), __FILE__, __LINE__); \
+			} \
+		} while (0)
+
+#else
+
+	#define glCheck(x) x
+
+#endif
+
+// Use a Microsoft Visual Studio Compiler directive to
+// force linkage to opengl32.lib import library.
 #pragma comment(lib, "opengl32.lib")
 
 #endif

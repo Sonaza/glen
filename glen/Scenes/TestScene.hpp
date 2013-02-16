@@ -2,6 +2,7 @@
 #define TESTSCENE_HPP
 
 #include <glen/Graphics/Scene.hpp>
+#include <iostream>
 
 class TestScene : public glen::Scene
 {
@@ -15,6 +16,14 @@ public:
 	void update();
 
 	void draw();
+
+private:
+
+	float time;
+
+	glen::Model test;
+	glen::Texture tex;
+
 };
 
 #endif

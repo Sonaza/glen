@@ -9,13 +9,15 @@ namespace glen
 
 ///////////////////////////////////////////////////////
 Shader::Shader(void) :
-	m_shader(0)
+	m_shader(0),
+	m_valid(false)
 {
 }
 
 ///////////////////////////////////////////////////////
 Shader::Shader(const std::string &path, Type type) :
-	m_shader(0)
+	m_shader(0),
+	m_valid(false)
 {
 	loadFromFile(path, type);
 }
@@ -46,31 +48,32 @@ bool Shader::loadFromFile(const std::string &path, Type type)
 
 	m_filename = path;
 
-	return compile(code.c_str(), type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER));
+	return compile(code.c_str(), type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
 }
 
 ///////////////////////////////////////////////////////
 bool Shader::loadFromMemory(const char* data, Type type)
 {
 	m_filename = "Shader";
-	return compile(data, type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER));
+	return compile(data, type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
 }
 
 ///////////////////////////////////////////////////////
 bool Shader::compile(const char* code, GLenum type)
 {
 	// Create new shader and upload the code
-	m_shader = glCreateShader(type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
+	glCheck(m_shader = glCreateShader(type));
+
 	if(m_shader == 0)
 	{
 		throw std::runtime_error("glCreateShader failed");
 		return false;
 	}
 
-	glShaderSource(m_shader, 1, &code, NULL);
+	glCheck(glShaderSource(m_shader, 1, &code, NULL));
 
 	// Attempt to compile the shader
-	glCompileShader(m_shader);
+	glCheck(glCompileShader(m_shader));
 
 	// Retrieve shader status
 	GLint status;
@@ -102,6 +105,8 @@ bool Shader::compile(const char* code, GLenum type)
 	}
 
 	if(status == GL_FALSE) return false;
+
+	m_valid = true;
 
 	return true;
 }
