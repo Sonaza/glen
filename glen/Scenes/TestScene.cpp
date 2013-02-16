@@ -21,7 +21,7 @@ void TestScene::load()
 	}
 	catch(std::runtime_error& e) { std::cout << e.what(); }
 
-	tex.loadFromFile("sphere.png");
+	tex.loadFromFile("test.png");
 	test.setTexture(tex);
 
 	test.setPosition(0.f, 0.f, 0.f);
@@ -39,8 +39,8 @@ void TestScene::update()
 {
 	time = GetTickCount() / 1000.f;
 
-	test.setScale(1.f, cos(time*2.f)*0.5f+1.f, 1.f);
-	test.setRotation(0.f, cos(time) * 90.f, 0.f);
+	test.setScale(1.f, cos(time*2.f)*0.5f+1.f, sin(time*2.f)*0.5f+1.f);
+	test.setRotation(0.f, time * 45.f, 0.f);
 }
 
 //////////////////////////////////////////////////////

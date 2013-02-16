@@ -47,9 +47,9 @@ namespace
 	///////////////////////////////////////////////////////////////
 	void _setDefaultGLStates()
 	{
-		/*glFrontFace(GL_CCW);
+		glFrontFace(GL_CCW);
 		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);*/
+		glCullFace(GL_BACK);
 
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
@@ -59,7 +59,6 @@ namespace
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		//glBlendFunc(GL_ONE, GL_ZERO);
 	}
 
 }

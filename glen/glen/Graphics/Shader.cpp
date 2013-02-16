@@ -75,18 +75,6 @@ bool Shader::compile(const char* code, GLenum type)
 	// Attempt to compile the shader
 	glCheck(glCompileShader(m_shader));
 
-	// Retrieve shader status
-	GLint status;
-	glGetShaderiv(m_shader, GL_COMPILE_STATUS, &status); 
-
-	if(status == GL_FALSE)
-	{
-		glDeleteShader(m_shader);
-		m_shader = 0;
-
-		std::cout << m_filename << " compilation failed" << std::endl;
-		m_filename = "";
-	}
 
 	// Output compilation log
 	GLint infoLen = 0;
@@ -104,7 +92,20 @@ bool Shader::compile(const char* code, GLenum type)
 		infoLog = NULL;
 	}
 
-	if(status == GL_FALSE) return false;
+	// Retrieve shader status
+	GLint status;
+	glGetShaderiv(m_shader, GL_COMPILE_STATUS, &status); 
+
+	if(status == GL_FALSE)
+	{
+		glDeleteShader(m_shader);
+		m_shader = 0;
+
+		std::cout << m_filename << " compilation failed" << std::endl;
+		m_filename = "";
+
+		return false;
+	}
 
 	m_valid = true;
 
