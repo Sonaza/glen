@@ -29,6 +29,8 @@ namespace glen
 		static Camera* create(float fov, float znear, float zfar);
 		static Camera* activeCamera();
 
+		static void refreshProjection();
+
 	private:
 
 		Camera(float fov, float znear, float zfar);

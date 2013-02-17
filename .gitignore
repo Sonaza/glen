@@ -4,3 +4,8 @@ Debug*
 Release*
 glen/Debug*
 glen/Release*
+*.exe
+*.7z
+*.zip
+*.rar
+*.gz

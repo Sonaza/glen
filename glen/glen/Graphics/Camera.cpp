@@ -116,4 +116,15 @@ glm::mat4 Camera::getProjectionMatrix()
 	return m_projMatrix;
 }
 
+///////////////////////////////////////////////
+void Camera::refreshProjection()
+{
+	for(std::vector<CameraPtr>::iterator it = m_cameras.begin();
+		it != m_cameras.end(); ++it)
+	{
+		(*it)->m_updateProjMatrix = true;
+	}
+}
+
+
 }

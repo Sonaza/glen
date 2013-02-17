@@ -1,9 +1,13 @@
 #include <glen/ogl.h>
 #include <glen/Window/Window.hpp>
+#include <glen/Graphics/Camera.hpp>
 
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+
+namespace glen
+{
 
 namespace
 {
@@ -39,9 +43,11 @@ namespace
 	void GLFWCALL _glfwResizeCallback(int width, int height)
 	{
 		std::cout << "Window resized: " << width << " x " << height << std::endl;
-		m_videoMode = glen::VideoMode(width, height);
+		m_videoMode = VideoMode(width, height);
 
 		glViewport(0, 0, width, height);
+
+		Camera::refreshProjection();
 	}
 
 	///////////////////////////////////////////////////////////////
@@ -50,6 +56,8 @@ namespace
 		glFrontFace(GL_CCW);
 		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
+
+		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Wireframe
 
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
@@ -62,9 +70,6 @@ namespace
 	}
 
 }
-
-namespace glen
-{
 
 namespace Window
 {
@@ -167,14 +172,14 @@ namespace Window
 			glfwOpenWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 		#endif
 
-		// Set resize event callback
-		glfwSetWindowSizeCallback(_glfwResizeCallback);
-
 		// Try to open the window itself
 		if(! glfwOpenWindow(mode.width, mode.height, 8, 8, 8, 8, 24, 0, windowMode))
 		{
 			throw std::runtime_error("glfwOpenWindow failed");
 		}
+
+		// Set resize event callback
+		glfwSetWindowSizeCallback(_glfwResizeCallback);
 
 		setTitle(title);
 

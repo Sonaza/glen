@@ -4,7 +4,9 @@
 #include <glen/Graphics/Scene.hpp>
 #include <iostream>
 
-class TestScene : public glen::Scene
+using namespace glen;
+
+class TestScene : public Scene
 {
 public:
 	TestScene(void);
@@ -19,10 +21,12 @@ public:
 
 private:
 
+	Camera* cam;
+
 	float time;
 
-	glen::Model test;
-	glen::Texture tex;
+	Model test;
+	Texture tex;
 
 };
 

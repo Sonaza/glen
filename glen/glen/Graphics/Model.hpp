@@ -28,10 +28,10 @@ namespace glen
 		bool loadFromFile(const std::string& path);
 
 		void render();
+		ShaderProgram*	m_program;
 
 	protected:
 
-		ShaderProgram*	m_program;
 		ShaderList		m_shaders;
 
 		MeshData*	m_meshdata;
