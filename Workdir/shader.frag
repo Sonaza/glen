@@ -34,7 +34,7 @@ void main()
 	
 	finalColor = FragColor;//vec4(c.rgb, 1.f);
 	
-	vec2 pos = TexCoord * vec2(1.0, cos(time/0.5f)*0.5f+1.1f);
+	vec2 pos = TexCoord * vec2(1.0, tan(time/0.5f)*0.5f+1.1f);
 	vec2 uPos = pos;
 	uPos.y -= 0.5;
 	
@@ -51,12 +51,16 @@ void main()
 		color += vec3( fTemp*(i*0.03), fTemp*i/k, pow(fTemp,0.93)*1.2 );
 	}
 	
-	vec4 color_final = vec4(color, 1.0);
-	finalColor += color_final;
+	float ca = color.r * 0.3 + color.g * 0.3 + color.b * 0.3;
+	finalColor += vec4(ca, ca, ca, 1.0);
+	
 	float ft = fract(time);
-	finalColor.rgb += vec3( rand( pos +  7.+ ft ), 
+	vec3 temp = vec3( rand( pos +  7.+ ft ), 
 				  rand( pos +  9.+ ft ),
 				  rand( pos + 11.+ ft ) ) / 32.0;
+	ca = temp.r * 0.3 + temp.g * 0.3 + temp.b * 0.3;
+	
+	finalColor.rgb += vec3(ca);
 	
 	finalColor = finalColor * (1.f-intensity) + fogColor * intensity;
 }

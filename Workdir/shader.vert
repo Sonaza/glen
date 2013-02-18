@@ -22,12 +22,11 @@ void main()
 	Normal = normal;
 	
 	vec3 pos = position.xyz
-					+ normal.xyz * (cos(time * 3.5f + position.y * 20.f) * 0.5f + 1.f)
-					* (sin(time + position.y * 10.f) * 0.5f + 1.0f) * 0.1f
-					+ normal.xyz * (cos(time * 3.5f + position.x * 20.f) * 0.5f + 1.f)
-					* (sin(time + position.x * 10.f) * 0.5f + 1.0f) * 0.1f;
+					/*+ normal.xyz * (cos(time * 3.5f + position.y * position.y * 30.f) * 0.5f + 1.5f)
+					* (sin(time + position.x * position.z * 20.f) * 0.5f + 1.0f) * 0.2f*/
+					+ normal.xyz * (sin(time * 4.f + position.y * 50.f)*0.5f+0.75f) * 0.4f;
 	
-	FragColor = vec4(pos.xyz / 2.0 + vec3(0.5), 1.0) * 1.f;
+	FragColor = vec4(pos.xyz / 2.0 + vec3(0.5), 1.0) * 1.1f;
 	
 	gl_Position = proj * view * model * vec4(pos, 1.0);
 }
