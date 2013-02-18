@@ -53,10 +53,10 @@ namespace
 	///////////////////////////////////////////////////////////////
 	void _setDefaultGLStates()
 	{
-		glFrontFace(GL_CCW);
+		/*glFrontFace(GL_CCW);
 		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
-
+		glCullFace(GL_BACK);*/
+		
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Wireframe
 
 		glEnable(GL_DEPTH_TEST);

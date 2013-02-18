@@ -17,7 +17,7 @@ void TestScene::load()
 {
 	try
 	{
-		test.loadFromFile("ball2.obj");
+		test.loadFromFile("box.obj");
 	}
 	catch(std::runtime_error& e) { std::cout << e.what(); }
 
@@ -42,7 +42,7 @@ void TestScene::update()
 	test.m_program->setUniform("time", time);
 
 	//test.setScale(1.f, cos(time*2.f)*0.5f+1.f, sin(time*2.f)*0.5f+1.f)
-	//float s = (cos(time / 10.f) * 0.5f + 1.f) * 0.2f;
+	//float s = 1.2f;//(cos(time / 10.f) * 0.5f + 1.f) * 0.2f;
 	//test.setScale(s, s, s);
 	test.setRotation(0.f, time * 25.f, 45.f);
 
