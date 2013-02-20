@@ -44,7 +44,8 @@ void main()
 	vec4 fogColor = ambientColor;
 	
 	vec4 lighting = ambdiffFactor + specularFactor;
-	vec4 c = texture(tex, uv) * FragColor * lighting * (1.f-intensity) + fogColor * intensity;
+	//vec3 FragColor = texture(tex, uv) * FragColor;
+	vec4 c = FragColor * lighting * (1.f-intensity) + fogColor * intensity;
 	c.r = clamp(c.r, 0.0, 1.0);
 	c.g = clamp(c.g, 0.0, 1.0);
 	c.b = clamp(c.b, 0.0, 1.0);
