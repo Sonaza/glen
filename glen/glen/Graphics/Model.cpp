@@ -85,21 +85,21 @@ bool Model::loadFromFile(const std::string& path)
 	glCheck(
 		glVertexAttribPointer(
 			m_program->attrib("position"), 3, GL_FLOAT, GL_FALSE,
-			sizeof(GLfloat) * 8, 0
+			sizeof(GLfloat) * 9, 0
 		));
 
 	glEnableVertexAttribArray(m_program->attrib("texcoord"));
 	glCheck(
 		glVertexAttribPointer(
-			m_program->attrib("texcoord"), 2, GL_FLOAT, GL_FALSE,
-			sizeof(GLfloat) * 8, (void*)(sizeof(GLfloat) * 3)
+			m_program->attrib("texcoord"), 3, GL_FLOAT, GL_FALSE,
+			sizeof(GLfloat) * 9, (void*)(sizeof(GLfloat) * 3)
 		));
 
 	glEnableVertexAttribArray(m_program->attrib("normal"));
 	glCheck(
 		glVertexAttribPointer(
 			m_program->attrib("normal"), 3, GL_FLOAT, GL_FALSE,
-			sizeof(GLfloat) * 8, (void*)(sizeof(GLfloat) * 5)
+			sizeof(GLfloat) * 9, (void*)(sizeof(GLfloat) * 6)
 		));
 
 	glBindVertexArray(0);

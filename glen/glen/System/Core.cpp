@@ -78,6 +78,7 @@ void Core::loop()
 
 		//Window::clear(Color(240, 40, 150));
 		Window::clear(Color(94, 65, 152));
+		Window::clear(Color(94*0.7f, 65*0.7f, 152*0.7f));
 
 		if(glfwGetKey(GLFW_KEY_ESC))
 			m_running = false;

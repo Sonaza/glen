@@ -5,7 +5,6 @@
 
 #include <glen/Config.hpp>
 #include <glen/Graphics/MeshLoader.hpp>
-#include <glen/System/Vector2.hpp>
 #include <glen/System/Vector3.hpp>
 
 namespace
@@ -41,7 +40,7 @@ namespace glen
 
 			std::vector<Vector3f> vertices;
 			std::vector<Vector3f> normals;
-			std::vector<Vector2f> texCoords;
+			std::vector<Vector3f> texCoords;
 
 			// Make sure data target is empty
 			out->data.clear();
@@ -72,11 +71,12 @@ namespace glen
 				}
 				else if(id == "vt") // Texture coordinates
 				{
-					data >> d1 >> d2;
+					data >> d1 >> d2 >> d3;
 
-					texCoords.push_back(Vector2f(
+					texCoords.push_back(Vector3f(
 						static_cast<float>(d1),
-						static_cast<float>(d2)
+						static_cast<float>(d2),
+						static_cast<float>(d3)
 					));
 				}
 				else if(id == "vn") // Vertex normals
@@ -134,7 +134,7 @@ namespace glen
 						int32 i = 0;
 						while(std::getline(temp, node, '/'))
 						{
-							int32 index = strto<int>(node)-1;
+							int32 index = strto<int>(node) - 1;
 
 							if(i == 0) // Vertex Coordinate
 							{
@@ -146,8 +146,18 @@ namespace glen
 							}
 							else if(i == 1) // Texture Coordinate
 							{
-								out->data.push_back(texCoords[index].x);
-								out->data.push_back(texCoords[index].y);
+								if(!texCoords.empty())
+								{
+									out->data.push_back(texCoords[index].x);
+									out->data.push_back(texCoords[index].y);
+									out->data.push_back(texCoords[index].z);
+								}
+								else
+								{
+									out->data.push_back(0.f);
+									out->data.push_back(0.f);
+									out->data.push_back(0.f);
+								}
 							}
 							else if(i == 2) // Vertex Normal
 							{
@@ -158,11 +168,15 @@ namespace glen
 
 							i++;
 						}
+
+						// If if there wasn't enough face data pad it out
+						if(i < 3)
+							for(int j=0; j < i * 3; ++j) out->data.push_back(0.f);
 					}
 				}
 			}
 
-			//std::cout << "Vertex Count: " << vertexDrawCount << std::endl;
+			//if(out->data.empty()) return false;
 
 			// Calculate amount of vertices to be drawn
 			out->drawCount = vertexDrawCount;

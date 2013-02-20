@@ -17,7 +17,7 @@ void TestScene::load()
 {
 	try
 	{
-		test.loadFromFile("ball2.obj");
+		test.loadFromFile("box.obj");
 	}
 	catch(std::runtime_error& e) { std::cout << e.what(); }
 
