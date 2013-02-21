@@ -12,7 +12,7 @@ uniform float time;
 
 uniform sampler2D tex;
 
-const vec3 lightPos = vec3(2.0, 2.0, 0.0);
+const vec3 lightPos = vec3(2.0, 2.0, 1.0);
 const vec4 ambientColor = vec4(94, 65, 152, 255) / 255.f;
 const vec4 diffuseColor = vec4(250, 215, 220, 255) / 255.f;
 const vec4 specularColor = vec4(255, 255, 255, 255) / 255.f;
@@ -28,13 +28,13 @@ void main()
 	vec3 reflection = reflect(lightDir.xyz, Normal);
 	vec3 eyes = normalize(FragPosition);
 	
-	float shininess = 15.f;
+	float shininess = 10.f;
 	vec4 specularFactor = max(pow(-dot(reflection, eyes), shininess), 0.0) * specularColor * lightIntensity;
 	
 	float d = (gl_FragCoord.z / gl_FragCoord.w) - 1.2f;
 	//d = clamp(d, 0.0, 1.0);
 	
-	float intensity = (exp(d/(cos(time/2.f) * 0.5f + 0.7f))-1.f)/5.0;
+	float intensity = (exp(d/(cos(time/2.f) * 0.5f + 1.f))-1.f)/5.0;
 	//if(intensity >= 1) discard;
 	
 	intensity = clamp(intensity, 0.f, 1.f);
