@@ -22,12 +22,12 @@ void main()
 {
 	TexCoord = texcoord.xy;
 	
-	vec3 pos = position.xyz;
+	vec3 pos = position.xyz
 					//+ normal.xyz * (cos(time * 3.5f + position.y * position.y * 30.f) * 0.5f + 1.5f)
 					//* (sin(time + position.x * position.z * 20.f) * 0.5f + 1.0f) * 0.08f;
-					//+ normal.xyz * (sin(time * 4.f + position.x * position.y * position.z * 220.f)*0.5f+0.75f) * 0.1f
+					+ normal.xyz * (sin(time * 4.f + position.x * position.y * position.z * 500.f)*0.5f+0.75f) * 0.1f
 					//* (cos(time * 2.f * position.y * position.z / 50.f)*0.5f+0.5f);
-					//* (cos(time * 2.f + position.y * position.z * 60.f)*0.5f+0.5f);
+					* (cos(time * 2.f + position.y * position.z * 60.f)*0.5f+0.5f);
 	
 	
 	
