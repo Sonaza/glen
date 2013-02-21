@@ -67,10 +67,14 @@ bool Model::loadFromFile(const std::string& path)
 	Shader* vertexShader = new(std::nothrow) Shader();
 	vertexShader->loadFromFile("shader.vert", Shader::Vertex);
 
+	Shader* geometryShader = new(std::nothrow) Shader();
+	geometryShader->loadFromFile("shader.geom", Shader::Geometry);
+
 	Shader* fragmentShader = new(std::nothrow) Shader();
 	fragmentShader->loadFromFile("shader.frag", Shader::Fragment);
 
 	m_shaders.push_back(vertexShader);
+	m_shaders.push_back(geometryShader);
 	m_shaders.push_back(fragmentShader);
 
 	// Link shader program

@@ -48,14 +48,14 @@ bool Shader::loadFromFile(const std::string &path, Type type)
 
 	m_filename = path;
 
-	return compile(code.c_str(), type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
+	return compile(code.c_str(), type);
 }
 
 ///////////////////////////////////////////////////////
 bool Shader::loadFromMemory(const char* data, Type type)
 {
 	m_filename = "Shader";
-	return compile(data, type == Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER);
+	return compile(data, type);
 }
 
 ///////////////////////////////////////////////////////

@@ -17,8 +17,9 @@ namespace glen
 	public:
 		enum Type
 		{
-			Vertex,
-			Fragment
+			Vertex		= GL_VERTEX_SHADER,
+			Geometry	= GL_GEOMETRY_SHADER,
+			Fragment	= GL_FRAGMENT_SHADER
 		};
 
 		Shader(void);

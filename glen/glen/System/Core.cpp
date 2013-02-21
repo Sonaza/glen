@@ -53,7 +53,7 @@ void Core::init()
 	m_sceneManager = new(std::nothrow) SceneManager(this);
 	m_sceneManager->add("test", new(std::nothrow) TestScene, true);
 	
-	Camera* asd = Camera::create(60.f, 0.01f, 100.f);
+	Camera* asd = Camera::create(45.f, 0.01f, 100.f);
 	asd->setPosition(1.2f, 0.f, 1.2f);
 	asd->lookAt(Vector3f::zero, Vector3f::up);
 }
