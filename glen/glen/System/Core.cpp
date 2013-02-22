@@ -54,7 +54,8 @@ void Core::init()
 	m_sceneManager->add("test", new(std::nothrow) TestScene, true);
 	
 	Camera* asd = Camera::create(45.f, 0.01f, 100.f);
-	asd->setPosition(1.2f, 0.f, 1.2f);
+	//asd->setPosition(1.2f, 0.f, 1.2f);
+	asd->setPosition(0.f, 0.f, 2.f);
 	asd->lookAt(Vector3f::zero, Vector3f::up);
 }
 
@@ -77,8 +78,7 @@ void Core::loop()
 		}*/
 
 		//Window::clear(Color(240, 40, 150));
-		Window::clear(Color(94, 65, 152));
-		//Window::clear(Color(94*0.7f, 65*0.7f, 152*0.7f));
+		Window::clear(Color(95, 35, 17));
 
 		if(glfwGetKey(GLFW_KEY_ESC))
 			m_running = false;
