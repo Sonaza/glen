@@ -45,7 +45,8 @@ void main()
 						sin(time + position.y * 15.f) * 0.06f * (cos(time / 2.f) * 0.5f + 0.5f),
 						cos(time + position.x * 4.f) * 0.05f,
 						sin(time * 2 + position.x * 10.f) * 0.05f
-					);
+					)
+	;
 	
 	vertTexCoord = texcoord.xy;
 	vertNormal = vec4(normal, 1.0);

@@ -50,9 +50,9 @@ void main()
 	
 	vec4 lighting = ambdiffFactor + specularFactor;
 	
-	vec2 bpos = vec2(cos(time * 3.f - TexCoord.x * TexCoord.y * 80.f) * 0.25f + 0.5f, sin(time * 3.f + TexCoord.x * TexCoord.y * 80.f) * 0.25f + 0.5f);
-	float bcol = 0.3f / ((bpos.x - TexCoord.x) * (bpos.x - TexCoord.x) + (bpos.y - TexCoord.y) * (bpos.y - TexCoord.y));
-	vec4 FragColor = vec4(vec3(bcol + 0.65f) * ambientColor.xyz * 1.5f, 1.0);
+	vec2 bpos = vec2(cos(time * 3.f - TexCoord.x * TexCoord.y * 80.f) * 0.25f + 0.5f, sin(time * 3.f + TexCoord.x * TexCoord.y * 80.f) * 0.25f + 0.75f);
+	float bcol = 0.3f / ((bpos.x - TexCoord.x) * (bpos.x - TexCoord.x) + (bpos.y - TexCoord.y) * (bpos.y - TexCoord.y)) / 40.f;
+	//vec4 FragColor = vec4(vec3(bcol + 1.f), 1.0);
 	
 	//vec4 FragColor = texture(tex, TexCoord) * FragColor;
 	vec4 c = FragColor * lighting * (1.f-intensity) + fogColor * intensity;

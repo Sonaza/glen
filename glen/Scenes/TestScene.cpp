@@ -44,8 +44,8 @@ void TestScene::update()
 	//test.setScale(1.f, cos(time*2.f)*0.5f+1.f, sin(time*2.f)*0.5f+1.f)
 	//float s = 1.2f;//(cos(time / 10.f) * 0.5f + 1.f) * 0.2f;
 	//test.setScale(s*0.1f, s*1.5f, s*1.5f);
-	//test.setRotation(0.f, time * 25.f, 45.f);
-	test.setRotation(0.f, 0.f, 25.f);
+	test.setRotation(0.f, cos(time) * 6.f, 45.f);
+	//test.setRotation(0.f, 0.f, 25.f);
 
 	//cam = Camera::activeCamera();
 	//cam->setPosition(1.5f, 1.7f+cos(time*2.f)*0.5f, 1.5f+sin(time*2.f)*0.5f);
