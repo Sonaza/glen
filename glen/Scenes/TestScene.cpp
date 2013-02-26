@@ -22,8 +22,11 @@ void TestScene::load()
 	catch(std::runtime_error& e) { std::cout << e.what(); }
 
 	tex.loadFromFile("sphere.png");
-	test.setTexture(tex);
 
+	Material basic;
+	basic.setTexture(Material::Diffuse, tex);
+
+	test.setMaterial(basic);
 	test.setPosition(0.f, 0.f, 0.f);
 }
 

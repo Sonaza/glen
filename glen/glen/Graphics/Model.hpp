@@ -4,8 +4,8 @@
 #include <glen/Graphics/MeshLoader.hpp>
 #include <glen/ogl.h>
 
-#include <glen/Graphics/ShaderProgram.hpp>
-#include <glen/Graphics/Shader.hpp>
+#include <glen/Graphics/Material.hpp>
+
 #include <glen/System/Transformable.hpp>
 
 #include <vector>
@@ -15,27 +15,24 @@
 namespace glen
 {
 
-	class Texture;
-
 	class Model : public Transformable
 	{
 	public:
 		Model(void);
 		~Model(void);
 
-		void setTexture(Texture& texture);
+		void setMaterial(Material& material);
 
 		bool loadFromFile(const std::string& path);
 
 		void render();
-		ShaderProgram*	m_program;
+		
 
 	protected:
 
-		ShaderList		m_shaders;
+		Material*	m_material;
 
 		MeshData*	m_meshdata;
-		Texture*	m_texture;
 
 		GLuint		m_vbo;
 		GLuint		m_vao;

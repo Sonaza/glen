@@ -1,16 +1,18 @@
 #include <glen/Graphics/Model.hpp>
 #include <glen/Graphics/Camera.hpp>
+
 #include <glen/Graphics/Texture.hpp>
+
+#include <glen/Graphics/ShaderProgram.hpp>
+#include <glen/Graphics/Shader.hpp>
 
 namespace glen
 {
 //////////////////////////////////////////////////
 Model::Model(void) :
-	m_program(NULL),
 	m_vbo(0),
 	m_vao(0),
-	m_meshdata(NULL),
-	m_texture(NULL)
+	m_meshdata(NULL)
 {
 }
 
@@ -19,25 +21,21 @@ Model::~Model(void)
 {
 	if(m_vao != 0) glDeleteVertexArrays(1, &m_vao);
 	if(m_vbo != 0) glDeleteBuffers(1, &m_vbo);
-
-	if(m_program != NULL)
-	{
-		delete m_program; m_program = NULL;
-	}
-
-	for(ShaderList::iterator it = m_shaders.begin();
-		it != m_shaders.end(); ++it)
-	{
-		delete *it;
-	}
-
-	m_shaders.clear();
 }
 
 //////////////////////////////////////////////////
-void Model::setTexture(Texture& texture)
+void Model::setMaterial(Material& material)
 {
-	m_texture = &texture;
+	m_material = &material;
+	assert(m_material != NULL && "Material can't be null");
+
+	glBindVertexArray(m_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+
+	m_material->_linkVertexAttrib();
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 //////////////////////////////////////////////////
@@ -52,6 +50,9 @@ bool Model::loadFromFile(const std::string& path)
 	// Attempt to load the mesh file
 	if(!MeshLoader::loadMesh(path, m_meshdata))
 	{
+		delete m_meshdata;
+		m_meshdata = NULL;
+
 		return false;
 	}
 	
@@ -64,7 +65,7 @@ bool Model::loadFromFile(const std::string& path)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * m_meshdata->data.size(), &m_meshdata->data[0], GL_STATIC_DRAW);
 
 	// Create shaders
-	Shader* vertexShader = new(std::nothrow) Shader();
+	/*Shader* vertexShader = new(std::nothrow) Shader();
 	vertexShader->loadFromFile("shader.vert", Shader::Vertex);
 
 	Shader* geometryShader = new(std::nothrow) Shader();
@@ -86,28 +87,25 @@ bool Model::loadFromFile(const std::string& path)
 
 	// Link the vertex data with the shaders
 	glEnableVertexAttribArray(m_program->attrib("position"));
-	glCheck(
-		glVertexAttribPointer(
+	glCheck(glVertexAttribPointer(
 			m_program->attrib("position"), 3, GL_FLOAT, GL_FALSE,
 			sizeof(GLfloat) * 9, 0
 		));
 
 	glEnableVertexAttribArray(m_program->attrib("texcoord"));
-	glCheck(
-		glVertexAttribPointer(
+	glCheck(glVertexAttribPointer(
 			m_program->attrib("texcoord"), 3, GL_FLOAT, GL_FALSE,
 			sizeof(GLfloat) * 9, (void*)(sizeof(GLfloat) * 3)
 		));
 
 	glEnableVertexAttribArray(m_program->attrib("normal"));
-	glCheck(
-		glVertexAttribPointer(
+	glCheck(glVertexAttribPointer(
 			m_program->attrib("normal"), 3, GL_FLOAT, GL_FALSE,
 			sizeof(GLfloat) * 9, (void*)(sizeof(GLfloat) * 6)
 		));
 
 	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);*/
 
 	return true;
 }
@@ -116,26 +114,28 @@ bool Model::loadFromFile(const std::string& path)
 void Model::render()
 {
 	glBindVertexArray(m_vao);
-	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+	//glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
-	m_program->use();
+	m_material->bind();
 
-	m_program->setUniform("model", getMatrix());
+	//m_program->use();
+
+	m_material->m_program->setUniform("model", getMatrix());
 	
 	Camera* camera = Camera::activeCamera();
 
-	m_program->setUniform("view", camera->getMatrix());
-	m_program->setUniform("proj", camera->getProjectionMatrix());
+	m_material->m_program->setUniform("view", camera->getMatrix());
+	m_material->m_program->setUniform("proj", camera->getProjectionMatrix());
 
-	if(m_texture)
-		m_texture->bind();
+	//if(m_texture)
+	//	m_texture->bind();
 
 	glCheck(glDrawArrays(GL_TRIANGLES, 0, m_meshdata->drawCount));
-
+	
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	m_program->unUse();
 }

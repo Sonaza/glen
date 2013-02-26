@@ -150,6 +150,9 @@
     <ClCompile Include="glen\glenError.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="glen\Graphics\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GL\wglew.h">
@@ -258,6 +261,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="glen\glenError.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glen\Graphics\Material.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
