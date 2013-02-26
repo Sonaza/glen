@@ -73,6 +73,7 @@
     <ClCompile Include="glen\Game\Entity.cpp" />
     <ClCompile Include="glen\Graphics\Color.cpp" />
     <ClCompile Include="glen\Graphics\Material.cpp" />
+    <ClCompile Include="glen\Graphics\Materials\DiffuseMaterial.cpp" />
     <ClCompile Include="glen\Graphics\MeshLoader.cpp" />
     <ClCompile Include="glen\Graphics\Model.cpp" />
     <ClCompile Include="glen\Graphics\ShaderProgram.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="glen\Config.hpp" />
     <ClInclude Include="glen\Graphics\Color.hpp" />
     <ClInclude Include="glen\Graphics\Material.hpp" />
+    <ClInclude Include="glen\Graphics\Materials\DiffuseMaterial.hpp" />
     <ClInclude Include="glen\Graphics\MeshData.hpp" />
     <ClInclude Include="glen\Graphics\MeshLoader.hpp" />
     <ClInclude Include="glen\Graphics\Model.hpp" />
