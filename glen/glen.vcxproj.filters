@@ -141,9 +141,6 @@
     <ClCompile Include="glen\Graphics\Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="glen\Graphics\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="glen\Graphics\stb_image\stb_image.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -153,7 +150,10 @@
     <ClCompile Include="glen\Graphics\Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="glen\Graphics\Materials\DiffuseMaterial.cpp">
+    <ClCompile Include="glen\Graphics\MaterialFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glen\Graphics\Texture2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -257,9 +257,6 @@
     <ClInclude Include="glen\Graphics\Model.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="glen\Graphics\Texture.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="glen\Graphics\stb_image\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -269,7 +266,10 @@
     <ClInclude Include="glen\Graphics\Material.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="glen\Graphics\Materials\DiffuseMaterial.hpp">
+    <ClInclude Include="glen\Graphics\MaterialFactory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glen\Graphics\Texture2D.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,8 +8,8 @@
 
 namespace glen
 {
-	class Shader;
 
+	class Shader;
 	typedef std::vector<Shader*> ShaderList;
 
 	class ShaderProgram

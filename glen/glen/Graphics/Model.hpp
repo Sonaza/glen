@@ -21,7 +21,7 @@ namespace glen
 		Model(void);
 		~Model(void);
 
-		void setMaterial(Material& material);
+		void setMaterial(Material* material);
 
 		bool loadFromFile(const std::string& path);
 

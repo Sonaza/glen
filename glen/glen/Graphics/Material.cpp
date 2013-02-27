@@ -1,5 +1,6 @@
+#include <glen/Graphics/ShaderProgram.hpp>
+#include <glen/Graphics/Shader.hpp>
 #include <glen/Graphics/Material.hpp>
-#include <glen/Graphics/Texture.hpp>
 
 #define ATTRIB_POINTER(NAME, SIZE, STRIDE, OFFSET) \
 	do { glEnableVertexAttribArray(m_program->attrib(NAME)); \
@@ -38,22 +39,22 @@ Material::~Material(void)
 ///////////////////////////////////////////////////
 void Material::bind() const
 {
-	assert(m_program != NULL && "Program must be initialised");
+	assert(m_program != NULL && "Program must be initialized");
 	m_program->use();
 }
 
 ///////////////////////////////////////////////////
 void Material::unbind() const
 {
-	assert(m_program != NULL && "Program must be initialised");
+	assert(m_program != NULL && "Program must be initialized");
 	m_program->unUse();
 }
 
 ///////////////////////////////////////////////////
-void Material::setTexture(TextureType type, Texture& texture)
+/*void Material::setTexture(Texture::TextureType type, Texture& texture)
 {
 	m_textures.insert(std::make_pair(type, &texture));
-}
+}*/
 
 ///////////////////////////////////////////////////
 bool Material::_loadshaders(const std::string& vertex, const std::string& fragment)
@@ -90,9 +91,9 @@ bool Material::_loadshaders(const std::string& vertex, const std::string& fragme
 	m_program->use();
 
 	// Set texturing uniforms
-	m_program->setUniform("u_diffuse", Diffuse);
-	m_program->setUniform("u_normal", Normal);
-	m_program->setUniform("u_specular", Specular);
+	m_program->setUniform("u_diffuse", Texture2D::Diffuse);
+	m_program->setUniform("u_normal", Texture2D::Normal);
+	m_program->setUniform("u_specular", Texture2D::Specular);
 
 	m_program->unUse();
 
@@ -110,7 +111,7 @@ void Material::_linkVertexAttrib()
 ///////////////////////////////////////////////////
 void Material::_bindTextures()
 {
-	for(std::map<TextureType, Texture*>::iterator it = m_textures.begin();
+	for(TextureList::iterator it = m_textures.begin();
 		it != m_textures.end(); ++it)
 	{
 		glActiveTexture(GL_TEXTURE0 + it->first);

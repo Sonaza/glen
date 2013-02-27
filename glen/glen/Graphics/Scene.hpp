@@ -8,7 +8,9 @@
 
 #include <glen/Graphics/Color.hpp>
 #include <glen/Graphics/Model.hpp>
-#include <glen/Graphics/Texture.hpp>
+#include <glen/Graphics/Texture2D.hpp>
+
+#include <glen/Graphics/MaterialFactory.hpp>
 
 namespace glen
 {

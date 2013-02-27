@@ -1,7 +1,7 @@
 #include <glen/Graphics/Model.hpp>
 #include <glen/Graphics/Camera.hpp>
 
-#include <glen/Graphics/Texture.hpp>
+#include <glen/Graphics/Texture2D.hpp>
 
 #include <glen/Graphics/ShaderProgram.hpp>
 #include <glen/Graphics/Shader.hpp>
@@ -25,9 +25,9 @@ Model::~Model(void)
 }
 
 //////////////////////////////////////////////////
-void Model::setMaterial(Material& material)
+void Model::setMaterial(Material* material)
 {
-	m_material = &material;
+	m_material = material;
 	assert(m_material != NULL && "Material can't be null");
 
 	//m_material->bind();
@@ -68,50 +68,7 @@ bool Model::loadFromFile(const std::string& path)
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * m_meshdata->data.size(), &m_meshdata->data[0], GL_STATIC_DRAW);
-
-	// Create shaders
-	/*Shader* vertexShader = new(std::nothrow) Shader();
-	vertexShader->loadFromFile("shader.vert", Shader::Vertex);
-
-	Shader* geometryShader = new(std::nothrow) Shader();
-	geometryShader->loadFromFile("shader.geom", Shader::Geometry);
-
-	Shader* fragmentShader = new(std::nothrow) Shader();
-	fragmentShader->loadFromFile("shader.frag", Shader::Fragment);
-
-	m_shaders.push_back(vertexShader);
-	m_shaders.push_back(geometryShader);
-	m_shaders.push_back(fragmentShader);
-
-	// Link shader program
-	m_program = new(std::nothrow) ShaderProgram();
-	if(!m_program->compile(m_shaders))
-	{
-		return false;
-	}
-
-	// Link the vertex data with the shaders
-	glEnableVertexAttribArray(m_program->attrib("position"));
-	glCheck(glVertexAttribPointer(
-			m_program->attrib("position"), 3, GL_FLOAT, GL_FALSE,
-			sizeof(GLfloat) * 9, 0
-		));
-
-	glEnableVertexAttribArray(m_program->attrib("texcoord"));
-	glCheck(glVertexAttribPointer(
-			m_program->attrib("texcoord"), 3, GL_FLOAT, GL_FALSE,
-			sizeof(GLfloat) * 9, (void*)(sizeof(GLfloat) * 3)
-		));
-
-	glEnableVertexAttribArray(m_program->attrib("normal"));
-	glCheck(glVertexAttribPointer(
-			m_program->attrib("normal"), 3, GL_FLOAT, GL_FALSE,
-			sizeof(GLfloat) * 9, (void*)(sizeof(GLfloat) * 6)
-		));
-
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);*/
-
+	
 	return true;
 }
 

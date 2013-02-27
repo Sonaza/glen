@@ -73,12 +73,11 @@
     <ClCompile Include="glen\Game\Entity.cpp" />
     <ClCompile Include="glen\Graphics\Color.cpp" />
     <ClCompile Include="glen\Graphics\Material.cpp" />
-    <ClCompile Include="glen\Graphics\Materials\DiffuseMaterial.cpp" />
     <ClCompile Include="glen\Graphics\MeshLoader.cpp" />
     <ClCompile Include="glen\Graphics\Model.cpp" />
     <ClCompile Include="glen\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="glen\Graphics\stb_image\stb_image.c" />
-    <ClCompile Include="glen\Graphics\Texture.cpp" />
+    <ClCompile Include="glen\Graphics\Texture2D.cpp" />
     <ClCompile Include="glen\System\Core.cpp" />
     <ClCompile Include="glen\Window\MessageBox.cpp" />
     <ClCompile Include="glen\Window\VideoMode.cpp" />
@@ -110,6 +109,7 @@
     <ClCompile Include="glen\Graphics\Shader.cpp" />
     <ClCompile Include="glen\Graphics\Scene.cpp" />
     <ClCompile Include="glen\System\SceneManager.cpp" />
+    <ClCompile Include="glen\Graphics\MaterialFactory.cpp" />
     <ClCompile Include="Scenes\TestScene.cpp" />
     <ClCompile Include="glen\System\Sleep.cpp" />
     <ClCompile Include="glen\System\Time.cpp" />
@@ -123,13 +123,12 @@
     <ClInclude Include="glen\Config.hpp" />
     <ClInclude Include="glen\Graphics\Color.hpp" />
     <ClInclude Include="glen\Graphics\Material.hpp" />
-    <ClInclude Include="glen\Graphics\Materials\DiffuseMaterial.hpp" />
     <ClInclude Include="glen\Graphics\MeshData.hpp" />
     <ClInclude Include="glen\Graphics\MeshLoader.hpp" />
     <ClInclude Include="glen\Graphics\Model.hpp" />
     <ClInclude Include="glen\Graphics\ShaderProgram.hpp" />
     <ClInclude Include="glen\Graphics\stb_image\stb_image.h" />
-    <ClInclude Include="glen\Graphics\Texture.hpp" />
+    <ClInclude Include="glen\Graphics\Texture2D.hpp" />
     <ClInclude Include="glen\System\Core.hpp" />
     <ClInclude Include="glen\glen.h" />
     <ClInclude Include="glen\ogl.h" />
@@ -150,6 +149,7 @@
     <ClInclude Include="glen\Graphics\Shader.hpp" />
     <ClInclude Include="glen\Graphics\Scene.hpp" />
     <ClInclude Include="glen\System\SceneManager.hpp" />
+    <ClInclude Include="glen\Graphics\MaterialFactory.hpp" />
     <ClInclude Include="Scenes\TestScene.hpp" />
     <ClInclude Include="glen\System\Sleep.hpp" />
     <ClInclude Include="glen\System\Time.hpp" />

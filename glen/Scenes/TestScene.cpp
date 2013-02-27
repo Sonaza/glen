@@ -15,26 +15,27 @@ TestScene::~TestScene(void)
 //////////////////////////////////////////////////////
 void TestScene::load()
 {
-	try
-	{
-		test.loadFromFile("box.obj");
-	}
-	catch(std::runtime_error& e) { std::cout << e.what(); }
+	Camera* asd = Camera::create(45.f, 0.01f, 100.f);
+	asd->setPosition(0.f, 0.5f, 1.5f);
+	asd->lookAt(Vector3f::zero, Vector3f::up);
 
-	tex.loadFromFile("test.png");
-	decal.loadFromFile("decal.png");
+	object.loadFromFile("box2.obj");
 
-	basic.setTexture(Material::Diffuse, tex);
-	basic.setTexture(Material::Specular, decal);
+	tex.loadFromFile("test2.png");
+	decal.loadFromFile("sphere.png");
 
-	test.setMaterial(basic);
-	test.setPosition(0.f, 0.f, 0.f);
+	basic = MaterialFactory::diffuse(tex);
+	basic->setTexture<Texture2D::Specular>(decal);
+
+	object.setMaterial(basic);
+	//object.setScale(40.f, 20.0f, 40.f);
+	//object.setPosition(0.f, -3.f, -1.f);
 }
 
 //////////////////////////////////////////////////////
 void TestScene::unload()
 {
-
+	//MaterialFactory::unload(basic);
 }
 
 //////////////////////////////////////////////////////
@@ -48,7 +49,7 @@ void TestScene::update()
 	//test.setScale(1.f, cos(time*2.f)*0.5f+1.f, sin(time*2.f)*0.5f+1.f)
 	//float s = 1.2f;//(cos(time / 10.f) * 0.5f + 1.f) * 0.2f;
 	//test.setScale(s*0.1f, s*1.5f, s*1.5f);
-	test.setRotation(0.f, cos(time/2.f) * 90.f, 22.f);
+	object.setRotation(0.f, cos(time/2.f) * 90.f, 0.f);
 	//test.setRotation(0.f, 0.f, 25.f);
 
 	//cam = Camera::activeCamera();
@@ -59,5 +60,5 @@ void TestScene::update()
 //////////////////////////////////////////////////////
 void TestScene::draw()
 {
-	test.render();
+	object.render();
 }

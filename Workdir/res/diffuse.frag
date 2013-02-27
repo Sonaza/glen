@@ -21,4 +21,6 @@ void main()
 	/*finalColor = vec4(
 		diffuse.rgb * (1.f - decal.a) + decal.rgb * decal.a, diffuse.a
 	);*/
+
+	//finalColor = mix(diffuse, decal, decal.a);
 }

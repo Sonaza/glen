@@ -3,10 +3,6 @@
 #include <glen/System/Core.hpp>
 #include <glen/Window/Window.hpp>
 
-#include <iostream>
-#include <cassert>
-#include <stdexcept>
-
 #include <glen/Window/MessageBox.hpp>
 #include <glen/System/SceneManager.hpp>
 
@@ -14,6 +10,12 @@
 
 #include <glen/Graphics/MeshLoader.hpp>
 #include <glen/System/Vector3.hpp>
+
+#include <glen/Graphics/MaterialFactory.hpp>
+
+#include <iostream>
+#include <cassert>
+#include <stdexcept>
 
 namespace glen
 {
@@ -27,6 +29,7 @@ Core::Core(void)
 Core::~Core(void)
 {
 	Window::deinit();
+	MaterialFactory::deinit();
 
 	if(m_sceneManager) { delete m_sceneManager; m_sceneManager = NULL; }
 }
@@ -34,11 +37,7 @@ Core::~Core(void)
 ////////////////////////////////////////////////////////////
 int Core::start()
 {
-	try
-	{
-		Window::create(VideoMode(1280, 720), "Derp", Style::Resize);
-	}
-	catch(std::exception &e) { msgError("Exception", e.what()); }
+	Window::create(VideoMode(1280, 720), "Derp", Style::Resize);
 
 	init();
 
@@ -52,11 +51,6 @@ void Core::init()
 {
 	m_sceneManager = new(std::nothrow) SceneManager(this);
 	m_sceneManager->add("test", new(std::nothrow) TestScene, true);
-	
-	Camera* asd = Camera::create(45.f, 0.01f, 100.f);
-	//asd->setPosition(1.2f, 0.f, 1.2f);
-	asd->setPosition(0.f, 0.f, 2.f);
-	asd->lookAt(Vector3f::zero, Vector3f::up);
 }
 
 ////////////////////////////////////////////////////////////

@@ -4,8 +4,6 @@
 #include <glen/Graphics/Scene.hpp>
 #include <iostream>
 
-#include <glen/Graphics/Materials/DiffuseMaterial.hpp>
-
 using namespace glen;
 
 class TestScene : public Scene
@@ -27,9 +25,9 @@ private:
 
 	float time;
 
-	Model test;
-	Texture tex, decal;
-	DiffuseMaterial basic;
+	Model object;
+	Texture2D tex, decal;
+	Material* basic;
 
 };
 
