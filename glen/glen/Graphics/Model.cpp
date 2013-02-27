@@ -12,7 +12,8 @@ namespace glen
 Model::Model(void) :
 	m_vbo(0),
 	m_vao(0),
-	m_meshdata(NULL)
+	m_meshdata(NULL),
+	m_material(NULL)
 {
 }
 
@@ -29,6 +30,8 @@ void Model::setMaterial(Material& material)
 	m_material = &material;
 	assert(m_material != NULL && "Material can't be null");
 
+	//m_material->bind();
+
 	glBindVertexArray(m_vao);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
@@ -36,6 +39,8 @@ void Model::setMaterial(Material& material)
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	//m_material->unbind();
 }
 
 //////////////////////////////////////////////////
@@ -116,28 +121,26 @@ void Model::render()
 	glBindVertexArray(m_vao);
 	//glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
+	// Set model material in use
 	m_material->bind();
 
-	//m_program->use();
-
-	m_material->m_program->setUniform("model", getMatrix());
+	m_material->m_program->setUniform("u_model", getMatrix());
 	
 	Camera* camera = Camera::activeCamera();
 
-	m_material->m_program->setUniform("view", camera->getMatrix());
-	m_material->m_program->setUniform("proj", camera->getProjectionMatrix());
+	m_material->m_program->setUniform("u_view", camera->getMatrix());
+	m_material->m_program->setUniform("u_proj", camera->getProjectionMatrix());
 
-	//if(m_texture)
-	//	m_texture->bind();
+	// Bind material textures
+	m_material->_bindTextures();
 
+	// Render model on screen
 	glCheck(glDrawArrays(GL_TRIANGLES, 0, m_meshdata->drawCount));
 	
-	glBindTexture(GL_TEXTURE_2D, 0);
-
 	glBindVertexArray(0);
 	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	m_program->unUse();
+	
+	m_material->unbind();
 }
 
 }

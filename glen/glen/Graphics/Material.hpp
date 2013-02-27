@@ -21,21 +21,26 @@ namespace glen
 		virtual ~Material(void);
 
 		void bind() const;
+		void unbind() const;
 
 		enum TextureType
 		{
-			Diffuse,	// Base image
-			Normal,		// Normal Map
-			Specular,	// Specular Map
+			Diffuse		= 0,	// Base image
+			Normal		= 1,	// Normal Map
+			Specular	= 2,	// Specular Map
+			//ShadowMap	= 4,	// Shadow Map
 		};
 
-		void setTexture(TextureType type, const Texture& texture);
+		void setTexture(TextureType type, Texture& texture);
 
 	protected:
+
+		virtual void foobar() =0;
 
 		bool _loadshaders(const std::string& vertex, const std::string& fragment);
 
 		void _linkVertexAttrib();
+		virtual void _bindTextures();
 
 		ShaderProgram*	m_program;
 		ShaderList		m_shaders;

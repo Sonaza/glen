@@ -23,16 +23,13 @@ namespace
 		GLenum code = glewInit();
 		if(code != GLEW_OK)
 		{
-			std::stringstream err;
-			err << "glewInit failed: " << glewGetErrorString(code);
-
-			throw std::runtime_error(err.str());
+			std::cout << "glewInit failed: " << glewGetErrorString(code) << std::endl;
 			return false;
 		}
 
 		if(!GLEW_VERSION_3_2)
 		{
-			throw std::runtime_error("OpenGL 3.2 API is not available");
+			std::cout << "OpenGL 3.2 API is not available" << std::endl;
 			return false;
 		}
 
@@ -136,7 +133,7 @@ namespace Window
 		// Attempt to initialize GLFW
 		if(! glfwInit())
 		{
-			throw std::runtime_error("glfwInit failed");
+			std::cout << "glfwInit failed" << std::endl;
 			return false;
 		}
 
@@ -175,7 +172,7 @@ namespace Window
 		// Try to open the window itself
 		if(! glfwOpenWindow(mode.width, mode.height, 8, 8, 8, 8, 24, 0, windowMode))
 		{
-			throw std::runtime_error("glfwOpenWindow failed");
+			std::cout << "glfwOpenWindow failed" << std::endl;
 		}
 
 		// Set resize event callback

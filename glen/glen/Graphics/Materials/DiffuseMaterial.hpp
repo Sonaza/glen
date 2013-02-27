@@ -10,7 +10,8 @@ namespace glen
 	{
 	public:
 		DiffuseMaterial(void);
-		~DiffuseMaterial(void);
+
+		void foobar(){}
 	};
 
 }

@@ -14,9 +14,9 @@ uniform mat4 u_proj;
 
 void main()
 {
-	v_texcoord	= texcoord.xy;
-	v_normal	= vec4(normal, 1.0);
+	v_texcoord	= vec2(a_texcoord.x, 1.0 - a_texcoord.y);
+	v_normal	= vec4(a_normal, 1.0);
 	
-	v_fragposition = view * model * vec4(pos, 1.0);
-	gl_Position = proj * view * model * vec4(pos, 1.0);
+	v_fragposition = u_view * u_model * vec4(a_position, 1.0);
+	gl_Position = u_proj * u_view * u_model * vec4(a_position, 1.0);
 }

@@ -58,7 +58,6 @@ GLuint ShaderProgram::uniform(const GLchar* uniformName) const
 	return glGetUniformLocation(m_program, uniformName);
 }
 
-//isInUse()
 #define _GLEN_SHADERPROGRAM_SETTER_IMPL(GL_TYPE, TYPE_PREFIX, TYPE_SUFFIX) \
 	void ShaderProgram::setAttrib(const GLchar* name, GL_TYPE v0) \
 		{ assert(isInUse()); glVertexAttrib ## TYPE_PREFIX ## 1 ## TYPE_SUFFIX (attrib(name), v0); } \

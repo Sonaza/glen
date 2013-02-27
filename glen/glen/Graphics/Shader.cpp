@@ -36,7 +36,7 @@ bool Shader::loadFromFile(const std::string &path, Type type)
 
 	if(!file.is_open())
 	{
-		throw std::runtime_error("Unable to open shader file: " + path);
+		std::cout << "Unable to open shader file: " + path << std::endl;
 		return false;
 	}
 
@@ -66,7 +66,7 @@ bool Shader::compile(const char* code, GLenum type)
 
 	if(m_shader == 0)
 	{
-		throw std::runtime_error("glCreateShader failed");
+		std::cout << "glCreateShader failed" << std::endl;
 		return false;
 	}
 

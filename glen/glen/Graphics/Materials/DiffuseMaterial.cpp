@@ -4,7 +4,8 @@ namespace glen
 {
 
 ///////////////////////////////////////////////////////	
-DiffuseMaterial::DiffuseMaterial(void)
+DiffuseMaterial::DiffuseMaterial(void) :
+	Material()
 {
 	_loadshaders("res/diffuse.vert", "res/diffuse.frag");
 }

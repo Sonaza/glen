@@ -17,14 +17,15 @@ void TestScene::load()
 {
 	try
 	{
-		test.loadFromFile("ball2.obj");
+		test.loadFromFile("box.obj");
 	}
 	catch(std::runtime_error& e) { std::cout << e.what(); }
 
-	tex.loadFromFile("sphere.png");
+	tex.loadFromFile("test.png");
+	decal.loadFromFile("decal.png");
 
-	Material basic;
 	basic.setTexture(Material::Diffuse, tex);
+	basic.setTexture(Material::Specular, decal);
 
 	test.setMaterial(basic);
 	test.setPosition(0.f, 0.f, 0.f);
@@ -41,13 +42,13 @@ void TestScene::update()
 {
 	time = GetTickCount() / 1000.f;
 
-	test.m_program->use();
-	test.m_program->setUniform("time", time);
+	//test.m_program->use();
+	//test.m_program->setUniform("time", time);
 
 	//test.setScale(1.f, cos(time*2.f)*0.5f+1.f, sin(time*2.f)*0.5f+1.f)
 	//float s = 1.2f;//(cos(time / 10.f) * 0.5f + 1.f) * 0.2f;
 	//test.setScale(s*0.1f, s*1.5f, s*1.5f);
-	test.setRotation(0.f, cos(time) * 6.f, 45.f);
+	test.setRotation(0.f, cos(time/2.f) * 90.f, 22.f);
 	//test.setRotation(0.f, 0.f, 25.f);
 
 	//cam = Camera::activeCamera();
