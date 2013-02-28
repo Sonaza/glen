@@ -1,5 +1,5 @@
 #include <glen/Graphics/Texture2D.hpp>
-#include <iostream>
+#include <glen/System/GlenError.hpp>
 
 namespace glen
 {
@@ -32,7 +32,7 @@ bool Texture2D::loadFromFile(const std::string& path)
 
 	if(!data)
 	{
-		std::cout << "Unable to open image: " << path << std::endl;
+		err << "Unable to open image: " << path << Error::error;
 		return false;
 	}
 
@@ -49,9 +49,9 @@ bool Texture2D::loadFromFile(const std::string& path)
 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 16);
 

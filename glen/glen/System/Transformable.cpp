@@ -31,6 +31,38 @@ Vector3f Transformable::getPosition() const
 }
 
 //////////////////////////////////////////////////
+void Transformable::move(const Vector3f& delta)
+{
+	m_position += delta;
+	m_updateMatrix = true;
+}
+
+//////////////////////////////////////////////////
+void Transformable::move(float x, float y, float z)
+{
+	move(Vector3f(x, y, z));
+}
+
+//////////////////////////////////////////////////
+void Transformable::setPivot(const Vector3f& v)
+{
+	m_pivot = v;
+	m_updateMatrix = true;
+}
+
+//////////////////////////////////////////////////
+void Transformable::setPivot(float x, float y, float z)
+{
+	setPivot(Vector3f(x, y, z));
+}
+
+//////////////////////////////////////////////////
+Vector3f Transformable::getPivot() const
+{
+	return m_pivot;
+}
+
+//////////////////////////////////////////////////
 void Transformable::setRotation(const Vector3f& v)
 {
 	m_rotation = v;
@@ -80,6 +112,8 @@ glm::mat4 Transformable::getMatrix()
 		m_matrix = glm::rotate(m_matrix, m_rotation.x, glm::vec3(1.f, 0.f, 0.f));
 		m_matrix = glm::rotate(m_matrix, m_rotation.y, glm::vec3(0.f, 1.f, 0.f));
 		m_matrix = glm::rotate(m_matrix, m_rotation.z, glm::vec3(0.f, 0.f, 1.f));
+
+		m_matrix = glm::translate(m_matrix, glm::vec3(m_pivot.x, m_pivot.y, m_pivot.z));
 
 		m_matrix = glm::scale(m_matrix, glm::vec3(m_scale.x, m_scale.y, m_scale.z));
 

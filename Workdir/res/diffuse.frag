@@ -9,6 +9,8 @@ in vec4 v_fragposition;
 uniform sampler2D u_diffuse;
 uniform sampler2D u_specular;
 
+
+
 void main()
 {
 	vec4 diffuse = texture(u_diffuse, v_texcoord);

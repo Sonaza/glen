@@ -71,8 +71,8 @@ void Core::loop()
 			m_outTimer = m_fpsTimer+1.f;
 		}*/
 
-		Window::clear(Color(240, 40, 150));
-		//Window::clear(Color(95, 35, 17));
+		//Window::clear(Color(240, 40, 150));
+		Window::clear(Color(40, 150, 240));
 
 		if(glfwGetKey(GLFW_KEY_ESC))
 			m_running = false;

@@ -7,6 +7,8 @@
 #include <glen/Graphics/MeshLoader.hpp>
 #include <glen/System/Vector3.hpp>
 
+#include <glen/System/GlenError.hpp>
+
 namespace
 {
 	//////////////////////////////////////////////////////////////
@@ -34,7 +36,7 @@ namespace glen
 
 			if(!file.is_open())
 			{
-				std::cout << "Unable to open mesh file: " <<  path << std::endl;
+				err << "Unable to open mesh file: " << path << Error::error;
 				return false;
 			}
 
@@ -103,7 +105,7 @@ namespace glen
 					// Check if face is unsupported
 					if(indices.size() > 4)
 					{
-						std::cout << "OBJ Loader supports meshes with only triangles or quads" << std::endl;
+						err << "OBJ Loader supports meshes with only triangles or quads." << Error::error;
 						return false;
 					}
 

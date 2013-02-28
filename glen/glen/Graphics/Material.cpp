@@ -1,6 +1,7 @@
 #include <glen/Graphics/ShaderProgram.hpp>
 #include <glen/Graphics/Shader.hpp>
 #include <glen/Graphics/Material.hpp>
+#include <glen/Graphics/Camera.hpp>
 
 #define ATTRIB_POINTER(NAME, SIZE, STRIDE, OFFSET) \
 	do { glEnableVertexAttribArray(m_program->attrib(NAME)); \
@@ -50,11 +51,14 @@ void Material::unbind() const
 	m_program->unUse();
 }
 
-///////////////////////////////////////////////////
-/*void Material::setTexture(Texture::TextureType type, Texture& texture)
+void Material::updateMatrix(glm::mat4& model)
 {
-	m_textures.insert(std::make_pair(type, &texture));
-}*/
+	Camera* camera = Camera::activeCamera();
+	
+	m_program->setUniform("u_model", model);
+	m_program->setUniform("u_view", camera->getMatrix());
+	m_program->setUniform("u_proj", camera->getProjectionMatrix());
+}
 
 ///////////////////////////////////////////////////
 bool Material::_loadshaders(const std::string& vertex, const std::string& fragment)

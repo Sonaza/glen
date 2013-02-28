@@ -1,5 +1,4 @@
 #include <glen/Graphics/Model.hpp>
-#include <glen/Graphics/Camera.hpp>
 
 #include <glen/Graphics/Texture2D.hpp>
 
@@ -67,8 +66,12 @@ bool Model::loadFromFile(const std::string& path)
 
 	glGenBuffers(1, &m_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * m_meshdata->data.size(), &m_meshdata->data[0], GL_STATIC_DRAW);
 	
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 	return true;
 }
 
@@ -76,17 +79,11 @@ bool Model::loadFromFile(const std::string& path)
 void Model::render()
 {
 	glBindVertexArray(m_vao);
-	//glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-
-	// Set model material in use
 	m_material->bind();
 
-	m_material->m_program->setUniform("u_model", getMatrix());
-	
-	Camera* camera = Camera::activeCamera();
+	//m_material->m_program->setUniform("u_time", GetTickCount() / 1000.f);
 
-	m_material->m_program->setUniform("u_view", camera->getMatrix());
-	m_material->m_program->setUniform("u_proj", camera->getProjectionMatrix());
+	m_material->updateMatrix(getMatrix());
 
 	// Bind material textures
 	m_material->_bindTextures();
@@ -95,8 +92,6 @@ void Model::render()
 	glCheck(glDrawArrays(GL_TRIANGLES, 0, m_meshdata->drawCount));
 	
 	glBindVertexArray(0);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-	
 	m_material->unbind();
 }
 

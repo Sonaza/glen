@@ -16,6 +16,13 @@ namespace glen
 		void setPosition(float x, float y, float z);
 		Vector3f getPosition() const;
 
+		void move(const Vector3f& delta);
+		void move(float x, float y, float z);
+
+		void setPivot(const Vector3f& v);
+		void setPivot(float x, float y, float z);
+		Vector3f getPivot() const;
+
 		void setRotation(const Vector3f& v);
 		void setRotation(float x, float y, float z);
 		Vector3f getRotation() const;
@@ -29,6 +36,7 @@ namespace glen
 	private:
 
 		Vector3f	m_position;
+		Vector3f	m_pivot;
 		Vector3f	m_rotation;
 		Vector3f	m_scale;
 

@@ -72,6 +72,7 @@
     <ClCompile Include="glen\Game\Component.cpp" />
     <ClCompile Include="glen\Game\Entity.cpp" />
     <ClCompile Include="glen\Graphics\Color.cpp" />
+    <ClCompile Include="glen\Graphics\Light.cpp" />
     <ClCompile Include="glen\Graphics\Material.cpp" />
     <ClCompile Include="glen\Graphics\MeshLoader.cpp" />
     <ClCompile Include="glen\Graphics\Model.cpp" />
@@ -79,6 +80,7 @@
     <ClCompile Include="glen\Graphics\stb_image\stb_image.c" />
     <ClCompile Include="glen\Graphics\Texture2D.cpp" />
     <ClCompile Include="glen\System\Core.cpp" />
+    <ClCompile Include="glen\System\GlenError.cpp" />
     <ClCompile Include="glen\Window\MessageBox.cpp" />
     <ClCompile Include="glen\Window\VideoMode.cpp" />
     <ClCompile Include="GL\glfw\enable.c" />
@@ -122,6 +124,7 @@
     <ClInclude Include="glen\Game\Entity.hpp" />
     <ClInclude Include="glen\Config.hpp" />
     <ClInclude Include="glen\Graphics\Color.hpp" />
+    <ClInclude Include="glen\Graphics\Light.hpp" />
     <ClInclude Include="glen\Graphics\Material.hpp" />
     <ClInclude Include="glen\Graphics\MeshData.hpp" />
     <ClInclude Include="glen\Graphics\MeshLoader.hpp" />
@@ -132,6 +135,7 @@
     <ClInclude Include="glen\System\Core.hpp" />
     <ClInclude Include="glen\glen.h" />
     <ClInclude Include="glen\ogl.h" />
+    <ClInclude Include="glen\System\GlenError.hpp" />
     <ClInclude Include="glen\System\Vector2.hpp" />
     <ClInclude Include="glen\System\Vector3.hpp" />
     <ClInclude Include="glen\System\Vector4.hpp" />

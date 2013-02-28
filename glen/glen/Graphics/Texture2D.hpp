@@ -28,7 +28,7 @@ namespace glen
 		{
 			Settings()
 			{
-				clamping = Clamp;
+				clamping = Repeat;
 				filtering = Linear;
 			}
 

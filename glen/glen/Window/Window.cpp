@@ -1,6 +1,7 @@
 #include <glen/ogl.h>
 #include <glen/Window/Window.hpp>
 #include <glen/Graphics/Camera.hpp>
+#include <glen/System/GlenError.hpp>
 
 #include <iostream>
 #include <sstream>
@@ -23,13 +24,13 @@ namespace
 		GLenum code = glewInit();
 		if(code != GLEW_OK)
 		{
-			std::cout << "glewInit failed: " << glewGetErrorString(code) << std::endl;
+			err << "glewInit failed: " << glewGetErrorString(code) << Error::error;
 			return false;
 		}
 
 		if(!GLEW_VERSION_3_2)
 		{
-			std::cout << "OpenGL 3.2 API is not available" << std::endl;
+			err << "OpenGL 3.2 API is not available" << Error::error;
 			return false;
 		}
 
@@ -40,8 +41,8 @@ namespace
 	void GLFWCALL _glfwResizeCallback(int width, int height)
 	{
 		std::cout << "Window resized: " << width << " x " << height << std::endl;
-		m_videoMode = VideoMode(width, height);
 
+		m_videoMode = VideoMode(width, height);
 		glViewport(0, 0, width, height);
 
 		Camera::refreshProjection();
@@ -133,7 +134,7 @@ namespace Window
 		// Attempt to initialize GLFW
 		if(! glfwInit())
 		{
-			std::cout << "glfwInit failed" << std::endl;
+			err << "glfwInit failed" << Error::error;
 			return false;
 		}
 
@@ -172,7 +173,7 @@ namespace Window
 		// Try to open the window itself
 		if(! glfwOpenWindow(mode.width, mode.height, 8, 8, 8, 8, 24, 0, windowMode))
 		{
-			std::cout << "glfwOpenWindow failed" << std::endl;
+			err << "glfwOpenWindow failed" << Error::error;
 		}
 
 		// Set resize event callback

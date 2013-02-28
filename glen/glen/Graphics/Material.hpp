@@ -4,6 +4,8 @@
 #include <glen/Graphics/Texture2D.hpp>
 #include <glen/Graphics/Color.hpp>
 
+#include <glm/glm.hpp>
+
 #include <map>
 #include <vector>
 #include <string>
@@ -30,6 +32,8 @@ namespace glen
 
 		template<Texture2D::TextureType type>
 		void setTexture(Texture2D& texture) { m_textures[type] = &texture; }
+
+		void updateMatrix(glm::mat4& modelMatrix);
 
 		void bind() const;
 		void unbind() const;

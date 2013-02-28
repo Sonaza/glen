@@ -1,5 +1,6 @@
 #include <glen/Graphics/ShaderProgram.hpp>
 #include <glen/Graphics/Shader.hpp>
+#include <glen/System/GlenError.hpp>
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -145,11 +146,7 @@ void ShaderProgram::setUniform(const GLchar* name, glm::mat4& m, GLboolean trans
 //////////////////////////////////////////////////////////
 bool ShaderProgram::compile(ShaderList &shaders)
 {
-	if(shaders.empty())
-	{
-		throw std::runtime_error("Shaderlist can't be empty");
-		return false;
-	}
+	assert(!shaders.empty() && "Shaderlist can't be empty");
 
 	// Attach all shaders
 	for(ShaderList::iterator it = shaders.begin();
@@ -190,7 +187,7 @@ bool ShaderProgram::compile(ShaderList &shaders)
 		glDeleteProgram(m_program);
 		m_program = 0;
 
-		throw std::runtime_error("Shader program linking failed");
+		err << "Shader program linking failed" << Error::error;
 		return false;
 	}
 

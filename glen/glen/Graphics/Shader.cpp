@@ -4,6 +4,8 @@
 #include <sstream>
 #include <fstream>
 
+#include <glen/System/GlenError.hpp>
+
 namespace glen
 {
 
@@ -36,7 +38,7 @@ bool Shader::loadFromFile(const std::string &path, Type type)
 
 	if(!file.is_open())
 	{
-		std::cout << "Unable to open shader file: " + path << std::endl;
+		err << "Unable to open shader file: " << path << Error::error;
 		return false;
 	}
 
@@ -66,7 +68,7 @@ bool Shader::compile(const char* code, GLenum type)
 
 	if(m_shader == 0)
 	{
-		std::cout << "glCreateShader failed" << std::endl;
+		err << "glCreateShader failed" << Error::error;
 		return false;
 	}
 
@@ -74,7 +76,6 @@ bool Shader::compile(const char* code, GLenum type)
 
 	// Attempt to compile the shader
 	glCheck(glCompileShader(m_shader));
-
 
 	// Output compilation log
 	GLint infoLen = 0;
@@ -101,7 +102,7 @@ bool Shader::compile(const char* code, GLenum type)
 		glDeleteShader(m_shader);
 		m_shader = 0;
 
-		std::cout << m_filename << " compilation failed" << std::endl;
+		std::cout << m_filename << " compilation failed\n===================================\n" << std::endl;
 		m_filename = "";
 
 		return false;
