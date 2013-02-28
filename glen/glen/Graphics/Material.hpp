@@ -3,6 +3,7 @@
 
 #include <glen/Graphics/Texture2D.hpp>
 #include <glen/Graphics/Color.hpp>
+#include <glen/Graphics/TextureTransform.hpp>
 
 #include <glm/glm.hpp>
 
@@ -18,6 +19,7 @@ namespace glen
 
 	typedef std::vector<Shader*> ShaderList;
 	typedef std::map<Texture2D::TextureType, Texture2D*> TextureList;
+	typedef std::map<Texture2D::TextureType, TextureTransform> TextureTransforms;
 
 	class Material
 	{
@@ -28,15 +30,18 @@ namespace glen
 		Material(void);
 		virtual ~Material(void);
 
-		/*struct TextureTransform
-		{
-
-		};*/
-
-		void setTexture(Texture2D& texture) { m_textures[Texture2D::Diffuse] = &texture; }
+		void setTexture(Texture2D& texture) { m_textures[Texture2D::Diffuse] = &texture; m_transforms[Texture2D::Diffuse] = TextureTransform(); }
 
 		template<Texture2D::TextureType type>
-		void setTexture(Texture2D& texture) { m_textures[type] = &texture; }
+		void setTexture(Texture2D& texture) { m_textures[type] = &texture; m_transforms[type] = TextureTransform(); }
+		
+		template<Texture2D::TextureType type>
+		TextureTransform* getTransform() const
+		{
+			return m_transforms.find(type) != m_transforms.end()
+				? &m_transforms[type]
+				: NULL;
+		}
 
 		void updateMatrix(glm::mat4& modelMatrix);
 
@@ -52,7 +57,9 @@ namespace glen
 
 		ShaderProgram*	m_program;
 		ShaderList		m_shaders;
-		TextureList		m_textures;
+
+		TextureList			m_textures;
+		TextureTransforms	m_transforms;
 
 	};
 

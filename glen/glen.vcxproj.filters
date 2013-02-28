@@ -162,6 +162,9 @@
     <ClCompile Include="glen\Graphics\Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="glen\Graphics\TextureTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GL\wglew.h">
@@ -282,6 +285,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="glen\Graphics\Light.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glen\Graphics\TextureTransform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

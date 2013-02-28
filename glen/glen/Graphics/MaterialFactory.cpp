@@ -1,5 +1,5 @@
 #include <glen/Graphics/MaterialFactory.hpp>
-
+#include <glen/Graphics/Material.hpp>
 
 namespace glen
 {

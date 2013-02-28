@@ -31,9 +31,9 @@ namespace glen
 		void setScale(float x, float y, float z);
 		Vector3f getScale() const;
 
-		glm::mat4 getMatrix();
+		virtual glm::mat4 getMatrix();
 		
-	private:
+	protected:
 
 		Vector3f	m_position;
 		Vector3f	m_pivot;

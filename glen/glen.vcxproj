@@ -116,6 +116,7 @@
     <ClCompile Include="glen\System\Sleep.cpp" />
     <ClCompile Include="glen\System\Time.cpp" />
     <ClCompile Include="glen\System\Transformable.cpp" />
+    <ClCompile Include="glen\Graphics\TextureTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glen\glenError.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="glen\System\Sleep.hpp" />
     <ClInclude Include="glen\System\Time.hpp" />
     <ClInclude Include="glen\System\Transformable.hpp" />
+    <ClInclude Include="glen\Graphics\TextureTransform.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="glen\System\Vector2.inl" />

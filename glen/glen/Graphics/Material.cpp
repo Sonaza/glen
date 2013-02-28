@@ -121,6 +121,12 @@ void Material::_bindTextures()
 		glActiveTexture(GL_TEXTURE0 + it->first);
 		it->second->bind();
 	}
+
+	if(m_transforms.find(Texture2D::Diffuse) != m_transforms.end())
+		m_program->setUniform("u_diffusemat", m_transforms[Texture2D::Diffuse].getMatrix());
+	
+	if(m_transforms.find(Texture2D::Specular) != m_transforms.end())
+		m_program->setUniform("u_specularmat", m_transforms[Texture2D::Specular].getMatrix());
 }
 
 }

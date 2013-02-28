@@ -1,8 +1,6 @@
 #ifndef GLEN_MATERIALFACTORY_HPP
 #define GLEN_MATERIALFACTORY_HPP
 
-#include <glen/Graphics/Material.hpp>
-
 #include <cassert>
 #include <vector>
 #include <algorithm>
@@ -11,6 +9,7 @@ namespace glen
 {
 
 	class Texture2D;
+	class Material;
 
 	class MaterialFactory
 	{

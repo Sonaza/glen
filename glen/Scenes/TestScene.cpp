@@ -22,7 +22,7 @@ void TestScene::load()
 	object.loadFromFile("torus.obj");
 
 	tex.loadFromFile("test2.png");
-	decal.loadFromFile("sphere.png");
+	decal.loadFromFile("decal2.png");
 
 	basic = MaterialFactory::diffuse(tex);
 	basic->setTexture<Texture2D::Specular>(decal);
@@ -44,6 +44,8 @@ void TestScene::unload()
 void TestScene::update()
 {
 	time = GetTickCount() / 1000.f;
+
+	basic->getTransform<Texture2D::Specular>()->setPosition(1.f * time, 0.f, 0.f);
 
 	//test.m_program->use();
 	//test.m_program->setUniform("time", time);
