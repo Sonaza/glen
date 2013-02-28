@@ -22,10 +22,10 @@ void TestScene::load()
 	object.loadFromFile("torus.obj");
 
 	tex.loadFromFile("test2.png");
-	//decal.loadFromFile("sphere.png");
+	decal.loadFromFile("sphere.png");
 
 	basic = MaterialFactory::diffuse(tex);
-	//basic->setTexture<Texture2D::Specular>(decal);
+	basic->setTexture<Texture2D::Specular>(decal);
 
 	object.setMaterial(basic);
 	//object.setScale(0.1f, 0.1f, 0.1f);

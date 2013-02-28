@@ -28,6 +28,11 @@ namespace glen
 		Material(void);
 		virtual ~Material(void);
 
+		/*struct TextureTransform
+		{
+
+		};*/
+
 		void setTexture(Texture2D& texture) { m_textures[Texture2D::Diffuse] = &texture; }
 
 		template<Texture2D::TextureType type>
