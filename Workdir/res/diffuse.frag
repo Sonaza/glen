@@ -1,5 +1,7 @@
 #version 150
 
+precision highp float;
+
 out vec4 finalColor;
 
 in vec2 v_texcoord;
@@ -14,8 +16,8 @@ uniform sampler2D u_specular;
 
 void main()
 {
-	vec4 diffuse = texture(u_diffuse, v_diffusemat);
-	vec4 decal = texture(u_specular, v_specularmat);
+	vec4 diffuse = texture(u_diffuse, v_diffusecoord);
+	vec4 decal = texture(u_specular, v_specularcoord);
 	
 	finalColor = vec4(
 		diffuse.rgb + decal.rgb * decal.a, diffuse.a

@@ -1,6 +1,7 @@
+#include <glen/Graphics/Material.hpp>
+
 #include <glen/Graphics/ShaderProgram.hpp>
 #include <glen/Graphics/Shader.hpp>
-#include <glen/Graphics/Material.hpp>
 #include <glen/Graphics/Camera.hpp>
 
 #define ATTRIB_POINTER(NAME, SIZE, STRIDE, OFFSET) \
@@ -51,6 +52,7 @@ void Material::unbind() const
 	m_program->unUse();
 }
 
+///////////////////////////////////////////////////
 void Material::updateMatrix(glm::mat4& model)
 {
 	Camera* camera = Camera::activeCamera();

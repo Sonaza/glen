@@ -19,10 +19,10 @@ void TestScene::load()
 	asd->setPosition(0.f, 1.f, 3.5f);
 	asd->lookAt(Vector3f::zero, Vector3f::up);
 
-	object.loadFromFile("torus.obj");
+	object.loadFromFile("ball2.obj");
 
 	tex.loadFromFile("test2.png");
-	decal.loadFromFile("decal2.png");
+	decal.loadFromFile("decal.png");
 
 	basic = MaterialFactory::diffuse(tex);
 	basic->setTexture<Texture2D::Specular>(decal);
@@ -45,7 +45,9 @@ void TestScene::update()
 {
 	time = GetTickCount() / 1000.f;
 
-	basic->getTransform<Texture2D::Specular>()->setPosition(1.f * time, 0.f, 0.f);
+	basic->getTransform<Texture2D::Diffuse>()->setScale(3.f, 2.f, 1.f);
+	basic->getTransform<Texture2D::Specular>()->setScale(7.f, 4.f, 1.f);
+	basic->getTransform<Texture2D::Specular>()->setPosition(0.09f * time, 0.02f * time, 0.f);
 
 	//test.m_program->use();
 	//test.m_program->setUniform("time", time);

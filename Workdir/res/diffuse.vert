@@ -26,8 +26,8 @@ void main()
 {
 	v_texcoord	= vec2(a_texcoord.x, 1.0 - a_texcoord.y);
 	
-	v_diffusemat = (u_diffusemat * vec4(v_texcoord, 0.f, 1.f)).xy;
-	v_specularmat = (u_specularmat * vec4(v_texcoord, 0.f, 1.f)).xy;
+	v_diffusecoord = (u_diffusemat * vec4(v_texcoord, 0.f, 1.f)).xy;
+	v_specularcoord = (u_specularmat * vec4(v_texcoord, 0.f, 1.f)).xy;
 	
 	v_normal	= vec4(a_normal, 1.0);
 	

@@ -19,7 +19,7 @@ namespace glen
 
 	typedef std::vector<Shader*> ShaderList;
 	typedef std::map<Texture2D::TextureType, Texture2D*> TextureList;
-	typedef std::map<Texture2D::TextureType, TextureTransform> TextureTransforms;
+	typedef std::map<Texture2D::TextureType, TextureTransform> TextureTrans;
 
 	class Material
 	{
@@ -36,7 +36,7 @@ namespace glen
 		void setTexture(Texture2D& texture) { m_textures[type] = &texture; m_transforms[type] = TextureTransform(); }
 		
 		template<Texture2D::TextureType type>
-		TextureTransform* getTransform() const
+		TextureTransform* getTransform()
 		{
 			return m_transforms.find(type) != m_transforms.end()
 				? &m_transforms[type]
@@ -58,8 +58,8 @@ namespace glen
 		ShaderProgram*	m_program;
 		ShaderList		m_shaders;
 
-		TextureList			m_textures;
-		TextureTransforms	m_transforms;
+		TextureList		m_textures;
+		TextureTrans	m_transforms;
 
 	};
 
