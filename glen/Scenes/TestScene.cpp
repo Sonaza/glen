@@ -19,10 +19,10 @@ void TestScene::load()
 	asd->setPosition(0.f, 1.f, 2.f);
 	asd->lookAt(Vector3f::zero, Vector3f::up);
 
-	object.loadFromFile("ball2.obj");
+	object.loadFromFile("cube.obj");
 
-	tex.loadFromFile("sphere.png");
-	decal.loadFromFile("test2.png");
+	tex.loadFromFile("test.jpg");
+	decal.loadFromFile("decal.png");
 
 	basic = MaterialFactory::diffuse(tex);
 	basic->setTexture<Texture2D::Specular>(decal);
@@ -46,11 +46,9 @@ void TestScene::update()
 	time = GetTickCount() / 1000.f;
 
 	//basic->getTransform<Texture2D::Diffuse>()->setPivot(0.5f, 0.5f, 0.f);
-	basic->getTransform<Texture2D::Diffuse>()->setRotation(0.f, 0.f, 25.f * time);
-	basic->getTransform<Texture2D::Diffuse>()->setScale(0.5f, 0.5f, 1.f);
+	//basic->getTransform<Texture2D::Diffuse>()->setScale(2.f, 2.f, 1.f);
 
-	basic->getTransform<Texture2D::Specular>()->setRotation(0.f, 0.f, 45.f * time);
-	basic->getTransform<Texture2D::Specular>()->setScale(1.f, 1.f, 1.f);
+	basic->getTransform<Texture2D::Specular>()->setScale(2.f, 2.f, 0.f);
 	basic->getTransform<Texture2D::Specular>()->setPosition(0.2f * time, 0.1f * time, 0.f);
 
 	//test.m_program->use();
