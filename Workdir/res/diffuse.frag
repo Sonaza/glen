@@ -7,6 +7,8 @@ out vec4 finalColor;
 in vec2 v_texcoord;
 in vec4 v_normal;
 in vec4 v_fragposition;
+in vec4 v_fragcolor;
+
 /*
 in vec2 v_diffusecoord;
 in vec2 v_specularcoord;*/
@@ -25,14 +27,9 @@ void main()
 	vec4 diffuse = texture(u_diffuse, v_diffusecoord);
 	vec4 decal = texture(u_specular, v_specularcoord);
 	
-	finalColor = vec4(
-		diffuse.rgb + decal.rgb * decal.a, diffuse.a * decal.a
+	finalColor = vec4(v_fragcolor.xyz, decal.a) * vec4(
+		diffuse.rgb + decal.rgb * decal.a, diffuse.a
 	);
-	
-	if(!gl_FrontFacing)
-		finalColor *= vec4(vec3(0.2), 0.8);
-	
-	if(finalColor.a <= 0.1) discard;
 	
 	/*finalColor = vec4(
 		diffuse.rgb * (vec3(1.0) - decal.rgb), diffuse.a * decal.a

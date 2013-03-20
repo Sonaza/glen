@@ -9,6 +9,8 @@ in vec3 a_normal;
 out vec2 v_texcoord;
 out vec4 v_normal;
 out vec4 v_fragposition;
+out vec4 v_fragcolor;
+
 /*
 out vec2 v_diffusecoord;
 out vec2 v_specularcoord;
@@ -24,6 +26,8 @@ uniform float u_time;
 
 void main()
 {
+	v_fragcolor = vec4(a_normal.xyz * 0.5f + vec3(0.5f), 1.f);
+	
 	v_texcoord	= vec2(a_texcoord.x, 1.0 - a_texcoord.y);
 	
 	v_normal	= vec4(a_normal, 1.0);
