@@ -22,7 +22,7 @@ void TestScene::load()
 	object.loadFromFile("torus.obj");
 
 	tex.loadFromFile("test2.png");
-	decal.loadFromFile("crome.png");
+	decal.loadFromFile("sphere.png");
 
 	basic = MaterialFactory::diffuse(tex);
 	basic->setTexture<Texture2D::Specular>(decal);
@@ -49,7 +49,7 @@ void TestScene::update()
 	basic->getTransform<Texture2D::Diffuse>()->setScale(2.f, 7.f, 1.f);
 	basic->getTransform<Texture2D::Diffuse>()->setRotation(0.f, 0.f, -90.f);
 
-	basic->getTransform<Texture2D::Specular>()->setScale(2.f, 9.f, 0.f);
+	basic->getTransform<Texture2D::Specular>()->setScale(5.f, 20.f, 0.f);
 	basic->getTransform<Texture2D::Specular>()->setPosition(0.2f * time, 0.04f * time, 0.f);
 	basic->getTransform<Texture2D::Specular>()->setRotation(0.f, 0.f, -90.f);
 

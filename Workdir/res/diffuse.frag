@@ -29,10 +29,10 @@ void main()
 		diffuse.rgb + decal.rgb * decal.a, diffuse.a * decal.a
 	);
 	
-	//if(!gl_FrontFacing)
-	//	finalColor *= vec4(vec3(0.2), 0.8);
+	if(!gl_FrontFacing)
+		finalColor *= vec4(vec3(0.2), 0.8);
 	
-	//if(finalColor.a <= 0.1) discard;
+	if(finalColor.a <= 0.1) discard;
 	
 	/*finalColor = vec4(
 		diffuse.rgb * (vec3(1.0) - decal.rgb), diffuse.a * decal.a
