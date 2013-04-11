@@ -2,6 +2,6 @@
 
 My practice/school work in creating an OpenGL 3D game engine.
 
-# Dependencies
+## Dependencies
 
-glen uses GLFW, GLEW, GLM and stb_image.
+glen uses GLFW, GLEW, GLM, boost and stb_image.
