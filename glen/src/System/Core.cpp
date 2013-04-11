@@ -13,7 +13,6 @@
 
 #include <iostream>
 #include <cassert>
-#include <stdexcept>
 
 namespace glen
 {
@@ -78,7 +77,7 @@ void Core::loop()
 
 		Window::display();
 
-		//sleep(milliseconds(5));
+		sleep(milliseconds(5));
 	}
 }
 

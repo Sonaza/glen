@@ -4,8 +4,6 @@
 #include <glen/Graphics/Camera.hpp>
 #include <glen/System/Sleep.hpp>
 
-#include <string>
-
 namespace glen
 {
 
