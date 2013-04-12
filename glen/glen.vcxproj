@@ -28,6 +28,7 @@
     <ClCompile Include="src\opengl.cpp" />
     <ClCompile Include="src\System\Assets\ModelAsset.cpp" />
     <ClCompile Include="src\System\Assets\Texture2DAsset.cpp" />
+    <ClCompile Include="src\System\InputManager.cpp" />
     <ClCompile Include="src\System\Scene.cpp" />
     <ClCompile Include="src\Graphics\Shader.cpp" />
     <ClCompile Include="src\Graphics\ShaderProgram.cpp" />
@@ -44,27 +45,6 @@
     <ClCompile Include="src\Window\VideoMode.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="thirdparty\GL\glew.c" />
-    <ClCompile Include="thirdparty\glfw\enable.c" />
-    <ClCompile Include="thirdparty\glfw\fullscreen.c" />
-    <ClCompile Include="thirdparty\glfw\glext.c" />
-    <ClCompile Include="thirdparty\glfw\image.c" />
-    <ClCompile Include="thirdparty\glfw\init.c" />
-    <ClCompile Include="thirdparty\glfw\input.c" />
-    <ClCompile Include="thirdparty\glfw\joystick.c" />
-    <ClCompile Include="thirdparty\glfw\stream.c" />
-    <ClCompile Include="thirdparty\glfw\tga.c" />
-    <ClCompile Include="thirdparty\glfw\thread.c" />
-    <ClCompile Include="thirdparty\glfw\time.c" />
-    <ClCompile Include="thirdparty\glfw\win32_dllmain.c" />
-    <ClCompile Include="thirdparty\glfw\win32_enable.c" />
-    <ClCompile Include="thirdparty\glfw\win32_fullscreen.c" />
-    <ClCompile Include="thirdparty\glfw\win32_glext.c" />
-    <ClCompile Include="thirdparty\glfw\win32_init.c" />
-    <ClCompile Include="thirdparty\glfw\win32_joystick.c" />
-    <ClCompile Include="thirdparty\glfw\win32_thread.c" />
-    <ClCompile Include="thirdparty\glfw\win32_time.c" />
-    <ClCompile Include="thirdparty\glfw\win32_window.c" />
-    <ClCompile Include="thirdparty\glfw\window.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\glen\Config.hpp" />
@@ -89,6 +69,7 @@
     <ClInclude Include="inc\glen\System\Assets\ModelAsset.hpp" />
     <ClInclude Include="inc\glen\System\Assets\TAsset.hpp" />
     <ClInclude Include="inc\glen\System\Assets\Texture2DAsset.hpp" />
+    <ClInclude Include="inc\glen\System\InputManager.hpp" />
     <ClInclude Include="inc\glen\System\Scene.hpp" />
     <ClInclude Include="inc\glen\Graphics\Shader.hpp" />
     <ClInclude Include="inc\glen\Graphics\ShaderProgram.hpp" />
@@ -232,9 +213,6 @@
     <ClInclude Include="thirdparty\glm\gtx\wrap.hpp" />
     <ClInclude Include="thirdparty\glm\virtrev\xstream.hpp" />
     <ClInclude Include="thirdparty\GL\glew.h" />
-    <ClInclude Include="thirdparty\GL\glfw.h" />
-    <ClInclude Include="thirdparty\glfw\internal.h" />
-    <ClInclude Include="thirdparty\glfw\platform.h" />
     <ClInclude Include="thirdparty\GL\glxew.h" />
     <ClInclude Include="thirdparty\GL\wglew.h" />
   </ItemGroup>
@@ -341,7 +319,6 @@
     <None Include="thirdparty\glm\gtx\vector_query.inl" />
     <None Include="thirdparty\glm\gtx\verbose_operator.inl" />
     <None Include="thirdparty\glm\gtx\wrap.inl" />
-    <None Include="thirdparty\glfw\glfwdll.def" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AF6AE1F6-6AD9-4C45-9088-B2FFF51AB8CA}</ProjectGuid>
@@ -388,6 +365,10 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -404,6 +385,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

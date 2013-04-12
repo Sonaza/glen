@@ -39,6 +39,7 @@ void Transform::attached()
 void Transform::setPosition(const Vector3f &v)
 {
 	m_position = v;
+	m_updateMatrix = true;
 }
 
 ////////////////////////////////////////////////////
@@ -58,6 +59,7 @@ void Transform::setPosition(const Message &msg)
 void Transform::setPivot(const Vector3f &v)
 {
 	m_pivot = v;
+	m_updateMatrix = true;
 }
 
 ////////////////////////////////////////////////////
@@ -77,12 +79,13 @@ void Transform::setPivot(const Message &msg)
 void Transform::setRotation(const Vector3f &v)
 {
 	m_rotation = v;
+	m_updateMatrix = true;
 }
 
 ////////////////////////////////////////////////////
 void Transform::setRotation(float x, float y, float z)
 {
-	m_rotation = Vector3f(x, y, z);
+	setRotation(Vector3f(x, y, z));
 }
 
 ////////////////////////////////////////////////////
@@ -96,6 +99,7 @@ void Transform::setRotation(const Message &msg)
 void Transform::setScale(const Vector3f &v)
 {
 	m_scale = v;
+	m_updateMatrix = true;
 }
 
 ////////////////////////////////////////////////////

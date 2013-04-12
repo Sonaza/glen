@@ -1,7 +1,7 @@
 # Wot?
 
-My practice/school work in creating an OpenGL 3D game engine.
+My practice/school work in creating a very basic OpenGL 3D (game) engine.
 
 ## Dependencies
 
-glen uses GLFW, GLEW, GLM, boost and stb_image.
+glen uses SFML for windowing, GLEW, GLM, boost and stb_image.

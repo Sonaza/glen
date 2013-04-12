@@ -26,9 +26,9 @@ uniform float u_time;
 
 void main()
 {
-	vec4 normal = u_model * vec4(a_normal, 1.0);
+	//vec4 normal = u_model * vec4(a_normal, 1.0);
 	
-	v_fragcolor = vec4(normal.xyz * 0.5f + vec3(0.5f), 1.f);
+	v_fragcolor = vec4(a_normal.xyz * 0.5f + vec3(0.5f), 1.f);
 	
 	v_texcoord	= vec2(a_texcoord.x, 1.0 - a_texcoord.y);
 	

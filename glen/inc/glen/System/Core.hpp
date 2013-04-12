@@ -13,6 +13,8 @@
 #include <glen/Graphics/Camera.hpp>
 #include <glen/System/Sleep.hpp>
 
+#include <iostream>
+
 namespace glen
 {
 
@@ -29,6 +31,8 @@ namespace glen
 		void uninitialize();
 
 		void loop();
+
+		void events();
 
 		void update();
 		void render();

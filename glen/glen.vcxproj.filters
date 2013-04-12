@@ -96,69 +96,6 @@
     <ClCompile Include="src\System\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="thirdparty\glfw\enable.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\fullscreen.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\glext.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\image.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\init.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\input.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\joystick.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\stream.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\tga.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\thread.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\time.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\win32_dllmain.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\win32_enable.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\win32_fullscreen.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\win32_glext.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\win32_init.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\win32_joystick.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\win32_thread.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\win32_time.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\win32_window.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="thirdparty\glfw\window.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\opengl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -175,6 +112,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\System\Transformable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\System\InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -273,9 +213,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="thirdparty\GL\glew.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="thirdparty\GL\glfw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="thirdparty\GL\glxew.h">
@@ -662,12 +599,6 @@
     <ClInclude Include="inc\glen\System\Scene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="thirdparty\glfw\internal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="thirdparty\glfw\platform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="inc\glen\Graphics\stb_image\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -687,6 +618,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\glen\System\Transformable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\glen\System\InputManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -996,9 +930,6 @@
     </None>
     <None Include="thirdparty\glm\gtx\wrap.inl">
       <Filter>Header Files</Filter>
-    </None>
-    <None Include="thirdparty\glfw\glfwdll.def">
-      <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
 </Project>

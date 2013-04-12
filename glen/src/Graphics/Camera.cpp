@@ -6,8 +6,8 @@
 #include <cassert>
 #include <memory>
 
-namespace glen
-{
+using namespace glen;
+
 namespace
 {
 	typedef std::shared_ptr<Camera> CameraPtr;
@@ -124,7 +124,4 @@ void Camera::refreshProjection()
 	{
 		(*it)->m_updateProjMatrix = true;
 	}
-}
-
-
 }

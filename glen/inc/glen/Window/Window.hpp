@@ -10,6 +10,11 @@
 
 #include <string>
 
+namespace sf
+{
+	class Window;
+}
+
 namespace glen
 {
 
@@ -18,7 +23,7 @@ namespace glen
 
 		extern void uninit();
 
-		extern bool create(VideoMode mode, const std::string &title = "GLEN Window", uint16 style = Style::Default);
+		extern bool create(VideoMode mode, const std::string &title = "GLEN Window", uint32 style = Style::Default);
 
 		extern void clear(Color c = Color::Black);
 		extern void display();
@@ -29,9 +34,12 @@ namespace glen
 		extern void setPosition(const int32 x, const int32 y);
 
 		extern bool isOpen();
+		extern bool isActive();
 
 		extern Vector2u getDimensions();
 		extern float getAspectRatio();
+
+		extern sf::Window* getWindow();
 
 	}
 

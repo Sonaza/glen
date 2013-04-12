@@ -10,7 +10,11 @@
 	#define _CRT_SECURE_NO_DEPRECATE
 
 	#include <GL/glew.h>
-	#include <GL/glfw.h>
+	
+	#define SFML_STATIC
+
+	#include <SFML/Window.hpp>
+	#include <SFML/OpenGL.hpp>
 
 #pragma warning( pop ) 
 

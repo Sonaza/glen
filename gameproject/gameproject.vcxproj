@@ -46,7 +46,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)glen\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glen-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glen-d.lib;sfml-system-s-d.lib;sfml-window-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -62,7 +62,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)glen\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glen.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glen.lib;sfml-system-s.lib;sfml-window-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

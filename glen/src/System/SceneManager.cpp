@@ -33,16 +33,15 @@ void SceneManager::update()
 		_switchScene();
 	}
 
-	if(m_currentScene)
-	{
-		m_currentScene->update();
-	}
+	m_currentScene->updateClocks();
+	m_currentScene->update();
 }
 
 ///////////////////////////////////////////////////////////
 void SceneManager::render()
 {
 	assert(m_currentScene && "Scene must be set");
+
 	m_currentScene->render();
 }
 

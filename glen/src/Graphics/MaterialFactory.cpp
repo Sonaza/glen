@@ -4,6 +4,8 @@
 #include <glen/System/AssetManager.hpp>
 #include <glen/System/Assets/Texture2DAsset.hpp>
 
+#include <glen/System/ErrorStream.hpp>
+
 using namespace glen;
 
 //////////////////////////////////////////////////////
@@ -53,8 +55,19 @@ Material* MaterialFactory::diffuse(const std::string &diffuse)
 	{
 		result->_loadshaders("res/diffuse.vert", "res/diffuse.frag");
 
-		Texture2DAsset* ta = AssetManager::getTexture2D("diffuse");
-		result->setTexture<Texture2D::Diffuse>(*ta->getAsset());
+		Texture2DAsset* asset = AssetManager::getTexture2D(diffuse);
+		assert(asset != NULL && "Texture asset not found");
+
+		// Failure in asset loading
+		if(!asset)
+		{
+			err << "Texture2D '" << diffuse << "' is not loaded" << ErrorStream::error;
+
+			delete result;
+			return NULL;
+		}
+
+		result->setTexture<Texture2D::Diffuse>(*asset->getAsset());
 
 		//_materials.push_back(result);
 	}

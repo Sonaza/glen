@@ -27,9 +27,7 @@ void main()
 	vec4 diffuse = texture(u_diffuse, v_diffusecoord);
 	vec4 decal = texture(u_specular, v_specularcoord);
 		
-	finalColor = v_fragcolor * vec4(
-		diffuse.rgb + decal.rgb * decal.a, diffuse.a
-	);
+	finalColor = v_fragcolor * diffuse * vec4(vec3(2.f), 1.f);
 	
 	/*finalColor = vec4(
 		diffuse.rgb * (vec3(1.0) - decal.rgb), diffuse.a * decal.a

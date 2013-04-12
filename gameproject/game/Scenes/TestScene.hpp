@@ -2,7 +2,7 @@
 #define TESTSCENE_HPP
 
 #include <glen/glen.hpp>
-#include <iostream>
+#include <algorithm>
 
 using namespace glen;
 
@@ -23,13 +23,22 @@ private:
 
 	Camera* cam;
 
-	float time;
-
 	/*Model object;
 	Texture2D tex, decal;
 	Material* basic;*/
 
+	sf::Clock m_timer;
+
 	Entity* test;
+	Entity* test2;
+
+	float yvel;
+	float ypos;
+
+	float yscale;
+	float yscalevel;
+
+	bool bounce;
 
 };
 

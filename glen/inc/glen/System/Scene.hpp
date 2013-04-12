@@ -19,6 +19,8 @@ namespace glen
 
 	class Scene
 	{
+		friend class SceneManager;
+
 	public:
 		Scene(void);
 		virtual ~Scene(void);
@@ -30,10 +32,28 @@ namespace glen
 
 		virtual void render() =0;
 
-	private:
+	protected:
 
-		// True when scene assets have been loaded
-		bool	m_loaded;
+		void updateClocks();
+
+		struct Clocks
+		{
+			Clocks() : total(0.f), delta(0.f) {}
+
+			float total;
+			float delta;
+		} Time;
+
+		sf::Clock	m_totalTimeClock;
+		sf::Clock	m_deltaTimeClock;
+
+		struct ScreenInfo
+		{
+			ScreenInfo() : width(0), height(0) {}
+
+			sf::Uint32 width;
+			sf::Uint32 height;
+		} Screen;
 
 	};
 
