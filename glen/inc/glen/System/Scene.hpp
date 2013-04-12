@@ -23,28 +23,15 @@ namespace glen
 		Scene(void);
 		virtual ~Scene(void);
 
-		inline void init(Core* c) { p_core = c; }
-
 		virtual void load() =0;
 		virtual void unload() =0;
 
 		virtual void update() =0;
 
-		virtual void draw() =0;
-
-		inline bool isActive() const { return m_active; }
-
-		inline void activate() { m_active = true; }
-		inline void deactivate() { m_active = false; }
-
-	protected:
-
-		Core*	p_core;
+		virtual void render() =0;
 
 	private:
 
-		// Determines if scene is active
-		bool	m_active;
 		// True when scene assets have been loaded
 		bool	m_loaded;
 

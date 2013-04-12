@@ -17,7 +17,7 @@ public:
 
 	void update();
 
-	void draw();
+	void render();
 
 private:
 
@@ -25,9 +25,11 @@ private:
 
 	float time;
 
-	Model object;
+	/*Model object;
 	Texture2D tex, decal;
-	Material* basic;
+	Material* basic;*/
+
+	Entity* test;
 
 };
 

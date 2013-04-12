@@ -15,7 +15,7 @@
 #pragma warning( pop ) 
 
 // Outputs OpenGL error code as string
-extern const char* glenErrStr(unsigned int error);
+extern const char* glenErrorString(unsigned int error);
 
 #if defined(DEBUG)
 
@@ -24,7 +24,7 @@ extern const char* glenErrStr(unsigned int error);
 			x; \
 			GLenum glerr = glGetError(); \
 			if (glerr != GL_NO_ERROR) { \
-				printf("OpenGL error: 0x%x, %s\nFile: %s, line: %d\n\n", glerr, glenErrStr(glerr), __FILE__, __LINE__); \
+				printf("OpenGL error: 0x%x, %s\nFile: %s, line: %d\n\n", glerr, glenErrorString(glerr), __FILE__, __LINE__); \
 			} \
 		} while (0)
 

@@ -2,13 +2,11 @@
 #define GLEN_MATERIALFACTORY_HPP
 
 #include <cassert>
-#include <vector>
-#include <algorithm>
+#include <string>
 
 namespace glen
 {
 
-	class Texture2D;
 	class Material;
 
 	class MaterialFactory
@@ -17,11 +15,11 @@ namespace glen
 		MaterialFactory(void);
 		~MaterialFactory(void);
 
-		static void deinit();
+		//static void uninit();
 
-		static void unload(Material* material);
+		//static void unload(Material* material);
 
-		static Material* diffuse(Texture2D& diffuse);
+		static Material* diffuse(const std::string &diffuse);
 	};
 
 }

@@ -1,13 +1,15 @@
 #include <glen/Game/Components/Transform.hpp>
-#include <iostream>
+#include <glm/gtc/matrix_transform.hpp>
 
 using namespace glen;
 
 ////////////////////////////////////////////////////
 Transform::Transform() : Component("transform"),
-	m_position(0.f, 0.f),
-	m_rotation(0.f),
-	m_scale(1.f, 1.f)
+	m_position(0.f, 0.f, 0.f),
+	m_pivot(0.f, 0.f, 0.f),
+	m_rotation(0.f, 0.f, 0.f),
+	m_scale(1.f, 1.f, 1.f),
+	m_updateMatrix(true)
 {
 	
 }
@@ -15,84 +17,119 @@ Transform::Transform() : Component("transform"),
 ////////////////////////////////////////////////////
 Transform::~Transform()
 {
-	
 }
 
 ////////////////////////////////////////////////////
 void Transform::attached()
 {
-	listen("setPosition", &Transform::setPosition);
-	listen("setRotation", &Transform::setRotation);
-	listen("setScale", &Transform::setScale);
+	listen("setPosition",	&Transform::setPosition);
+	listen("setPivot",		&Transform::setPivot);
+	listen("setRotation",	&Transform::setRotation);
+	listen("setScale",		&Transform::setScale);
 
-	listen("getPosition", &Transform::getPositionRequest);
-	listen("getRotation", &Transform::getRotationRequest);
-	listen("getScale", &Transform::getScaleRequest);
+	listen("getPosition",	&Transform::getPositionRequest);
+	listen("getPivot",		&Transform::getPivotRequest);
+	listen("getRotation",	&Transform::getRotationRequest);
+	listen("getScale",		&Transform::getScaleRequest);
+
+	listen("getMatrix",		&Transform::getMatrixRequest);
 }
 
 ////////////////////////////////////////////////////
-void Transform::setPosition(Vector2f v)
+void Transform::setPosition(const Vector3f &v)
 {
-	v.y = -v.y;
 	m_position = v;
 }
 
 ////////////////////////////////////////////////////
-void Transform::setPosition(float x, float y)
+void Transform::setPosition(float x, float y, float z)
 {
-	setPosition(Vector2f(x, y));
+	setPosition(Vector3f(x, y, z));
 }
 
 ////////////////////////////////////////////////////
 void Transform::setPosition(const Message &msg)
 {
-	setPosition(boost::any_cast<Vector2f>(msg.data));
+	assert(msg.data.type() == typeid(Vector3f) && "Wrong data type");
+	setPosition(boost::any_cast<Vector3f>(msg.data));
 }
 
 ////////////////////////////////////////////////////
-void Transform::move(Vector2f v)
+void Transform::setPivot(const Vector3f &v)
 {
-	m_position += v;
+	m_pivot = v;
 }
 
 ////////////////////////////////////////////////////
-void Transform::move(float x, float y)
+void Transform::setPivot(float x, float y, float z)
 {
-	move(Vector2f(x, y));
+	setPivot(Vector3f(x, y, z));
 }
 
 ////////////////////////////////////////////////////
-void Transform::setRotation(float a)
+void Transform::setPivot(const Message &msg)
 {
-	m_rotation = a;
+	assert(msg.data.type() == typeid(Vector3f) && "Wrong data type");
+	setPivot(boost::any_cast<Vector3f>(msg.data));
 }
 
 ////////////////////////////////////////////////////
-void Transform::rotate(float a)
+void Transform::setRotation(const Vector3f &v)
 {
-	m_rotation += a;
+	m_rotation = v;
+}
+
+////////////////////////////////////////////////////
+void Transform::setRotation(float x, float y, float z)
+{
+	m_rotation = Vector3f(x, y, z);
 }
 
 ////////////////////////////////////////////////////
 void Transform::setRotation(const Message &msg)
 {
-	setRotation(boost::any_cast<float>(msg.data));
+	assert(msg.data.type() == typeid(Vector3f) && "Wrong data type");
+	setRotation(boost::any_cast<Vector3f>(msg.data));
 }
 
 ////////////////////////////////////////////////////
-void Transform::setScale(Vector2f v)
+void Transform::setScale(const Vector3f &v)
 {
 	m_scale = v;
 }
 
 ////////////////////////////////////////////////////
-void Transform::setScale(float x, float y)
+void Transform::setScale(float x, float y, float z)
 {
-	setScale(Vector2f(x, y));
+	setScale(Vector3f(x, y, z));
 }
 
 ////////////////////////////////////////////////////
 void Transform::setScale(const Message &msg)
 {
-	setScale(boost::any_cast<Vector2f>(msg.data));
+	assert(msg.data.type() == typeid(Vector3f) && "Wrong data type");
+	setScale(boost::any_cast<Vector3f>(msg.data));
+}
+
+////////////////////////////////////////////////////
+glm::mat4 Transform::getMatrix()
+{
+	if(m_updateMatrix)
+	{
+		m_matrix = glm::mat4(1.f);
+
+		m_matrix = glm::translate(m_matrix, glm::vec3(m_position.x, m_position.y, m_position.z));
+
+		m_matrix = glm::rotate(m_matrix, m_rotation.x, glm::vec3(1.f, 0.f, 0.f));
+		m_matrix = glm::rotate(m_matrix, m_rotation.y, glm::vec3(0.f, 1.f, 0.f));
+		m_matrix = glm::rotate(m_matrix, m_rotation.z, glm::vec3(0.f, 0.f, 1.f));
+
+		m_matrix = glm::translate(m_matrix, glm::vec3(m_pivot.x, m_pivot.y, m_pivot.z));
+
+		m_matrix = glm::scale(m_matrix, glm::vec3(m_scale.x, m_scale.y, m_scale.z));
+
+		m_updateMatrix = false;
+	}
+
+	return m_matrix;
 }

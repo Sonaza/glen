@@ -8,9 +8,7 @@ using namespace glen;
 namespace
 {
 
-	EntityList	_entities;
-
-	float		_worldScale		= 30.f;
+	EntityList	m_entities;
 
 }
 
@@ -27,12 +25,6 @@ void World::uninit()
 }
 
 ////////////////////////////////////////////////////
-float World::getWorldScale()
-{
-	return _worldScale;
-}
-
-////////////////////////////////////////////////////
 void World::sendGlobal(const std::string &type, boost::any data)
 {
 	sendGlobal(Message(type, data));
@@ -41,8 +33,8 @@ void World::sendGlobal(const std::string &type, boost::any data)
 ////////////////////////////////////////////////////
 void World::sendGlobal(const Message &msg)
 {
-	for(EntityList::iterator it = _entities.begin();
-		it != _entities.end();)
+	for(EntityList::iterator it = m_entities.begin();
+		it != m_entities.end();)
 	{
 		(*it)->send(msg);
 	}
@@ -53,24 +45,24 @@ void World::addEntity(Entity* entity)
 {
 	assert(entity != NULL && "Entity must not be null");
 
-	_entities.push_back(entity);
+	m_entities.push_back(entity);
 }
 
 ////////////////////////////////////////////////////
 void World::clear()
 {
-	for(EntityList::iterator it = _entities.begin(); it != _entities.end();)
+	for(EntityList::iterator it = m_entities.begin(); it != m_entities.end();)
 	{
 		delete *it;
-		it = _entities.erase(it);
+		it = m_entities.erase(it);
 	}
 }
 
 ////////////////////////////////////////////////////
 void World::update()
 {
-		Entity* entity = NULL;
-	for(EntityList::iterator it = _entities.begin(); it != _entities.end();)
+	Entity* entity = NULL;
+	for(EntityList::iterator it = m_entities.begin(); it != m_entities.end();)
 	{
 		entity = *it;
 
@@ -82,7 +74,7 @@ void World::update()
 		else
 		{
 			delete *it;
-			it = _entities.erase(it);
+			it = m_entities.erase(it);
 		}
 	}
 }
@@ -90,10 +82,10 @@ void World::update()
 ////////////////////////////////////////////////////
 void World::render()
 {
-	for(EntityList::iterator it = _entities.begin();
-		it != _entities.end(); ++it)
+	for(EntityList::iterator it = m_entities.begin();
+		it != m_entities.end(); ++it)
 	{
-		(*it)->send("draw", NULL);
+		(*it)->send("draw");
 	}
 }
 

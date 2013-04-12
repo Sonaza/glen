@@ -2,7 +2,9 @@
 #define GLEN_RENDERER_HPP
 
 #include <glen/Game/Component.hpp>
-#include <glen/System/Vector2.hpp>
+#include <glen/Graphics/Model.hpp>
+
+#include <glm/glm.hpp>
 
 #include <string>
 #include <memory>
@@ -14,6 +16,7 @@ namespace glen
 	{
 	public:
 		Renderer();
+		Renderer(const std::string &modelID);
 		~Renderer();
 
 		void attached();
@@ -25,7 +28,8 @@ namespace glen
 
 	private:
 		
-
+		Model*		m_model;
+		glm::mat4	m_transform;
 
 	};
 	

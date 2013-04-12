@@ -1,7 +1,7 @@
 #include <glen/opengl.hpp>
 
 // Outputs OpenGL error code as string
-const char* glenErrStr(unsigned int error)
+const char* glenErrorString(unsigned int error)
 {
 	switch(error)
 	{

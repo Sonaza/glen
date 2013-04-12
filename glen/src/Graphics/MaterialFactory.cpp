@@ -1,14 +1,10 @@
 #include <glen/Graphics/MaterialFactory.hpp>
 #include <glen/Graphics/Material.hpp>
 
-namespace glen
-{
+#include <glen/System/AssetManager.hpp>
+#include <glen/System/Assets/Texture2DAsset.hpp>
 
-namespace
-{
-	std::vector<Material*>	_materials;
-	MaterialFactory* _materialfactory = NULL;
-}
+using namespace glen;
 
 //////////////////////////////////////////////////////
 MaterialFactory::MaterialFactory(void)
@@ -22,7 +18,7 @@ MaterialFactory::~MaterialFactory(void)
 }
 
 //////////////////////////////////////////////////////
-void MaterialFactory::deinit()
+/*void MaterialFactory::uninit()
 {
 	for(std::vector<Material*>::iterator it = _materials.begin();
 		it != _materials.end(); ++it)
@@ -31,10 +27,10 @@ void MaterialFactory::deinit()
 	}
 
 	_materials.clear();
-}
+}*/
 
 //////////////////////////////////////////////////////
-void MaterialFactory::unload(Material* material)
+/*void MaterialFactory::unload(Material* material)
 {
 	assert(material != NULL && "Must not be null");
 
@@ -46,22 +42,22 @@ void MaterialFactory::unload(Material* material)
 		delete *it;
 		_materials.erase(it);
 	}
-}
+}*/
 
 //////////////////////////////////////////////////////
-Material* MaterialFactory::diffuse(Texture2D& diffuse)
+Material* MaterialFactory::diffuse(const std::string &diffuse)
 {
 	Material* result = new(std::nothrow) Material();
 
 	if(result)
 	{
 		result->_loadshaders("res/diffuse.vert", "res/diffuse.frag");
-		result->setTexture<Texture2D::Diffuse>(diffuse);
 
-		_materials.push_back(result);
+		Texture2DAsset* ta = AssetManager::getTexture2D("diffuse");
+		result->setTexture<Texture2D::Diffuse>(*ta->getAsset());
+
+		//_materials.push_back(result);
 	}
 
 	return result;
-}
-
 }

@@ -16,7 +16,7 @@ namespace glen
 	namespace Window
 	{
 
-		extern void deinit();
+		extern void uninit();
 
 		extern bool create(VideoMode mode, const std::string &title = "GLEN Window", uint16 style = Style::Default);
 

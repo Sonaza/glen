@@ -1,21 +1,6 @@
-#include <glen/opengl.hpp>
-
 #include <glen/System/Core.hpp>
-#include <glen/Window/Window.hpp>
 
-#include <glen/Window/MessageBox.hpp>
-#include <glen/System/SceneManager.hpp>
-
-#include <glen/Graphics/MeshLoader.hpp>
-#include <glen/System/Vector3.hpp>
-
-#include <glen/Graphics/MaterialFactory.hpp>
-
-#include <iostream>
-#include <cassert>
-
-namespace glen
-{
+using namespace glen;
 
 ////////////////////////////////////////////////////////////
 Core::Core(void)
@@ -25,10 +10,7 @@ Core::Core(void)
 ////////////////////////////////////////////////////////////
 Core::~Core(void)
 {
-	Window::deinit();
-	MaterialFactory::deinit();
-
-	if(m_sceneManager) { delete m_sceneManager; m_sceneManager = NULL; }
+	
 }
 
 ////////////////////////////////////////////////////////////
@@ -41,10 +23,14 @@ void Core::run()
 void Core::initialize()
 {
 	Window::create(VideoMode(1280, 720), "Derp", Style::Resize);
-	
-	m_sceneManager = new(std::nothrow) SceneManager(this);
+}
 
-	//m_sceneManager->setScene(new(std::nothrow) TestScene);
+////////////////////////////////////////////////////////////
+void Core::uninitialize()
+{
+	Window::uninit();
+
+	AssetManager::unload();
 }
 
 ////////////////////////////////////////////////////////////
@@ -71,9 +57,9 @@ void Core::loop()
 		if(glfwGetKey(GLFW_KEY_ESC))
 			m_running = false;
 
-		m_sceneManager->update();
+		update();
 
-		m_sceneManager->draw();
+		render();
 
 		Window::display();
 
@@ -81,4 +67,22 @@ void Core::loop()
 	}
 }
 
+////////////////////////////////////////////////////////////
+void Core::update()
+{
+	// Update scene
+	SceneManager::update();
+
+	// Update world
+	World::update();
+}
+
+////////////////////////////////////////////////////////////
+void Core::render()
+{
+	// Render all world entities
+	World::render();
+
+	// Render scene
+	SceneManager::render();
 }

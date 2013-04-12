@@ -73,7 +73,7 @@ namespace Window
 {
 
 	////////////////////////////////////////////////////////////
-	void deinit()
+	void uninit()
 	{
 		glfwTerminate();
 	}

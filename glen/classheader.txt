@@ -1,0 +1,16 @@
+#ifndef GLEN_#_HPP
+#define GLEN_#_HPP
+
+namespace glen
+{
+	
+	class #
+	{
+	public:
+		#()
+		~#();
+	};
+	
+}
+
+#endif

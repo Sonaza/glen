@@ -1,0 +1,16 @@
+#include <glen/#.hpp>
+
+namespace glen
+{
+	
+#::#()
+{
+	
+}
+
+#::~#()
+{
+	
+}
+	
+}

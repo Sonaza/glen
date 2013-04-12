@@ -18,7 +18,7 @@ namespace glen
 		g_core->initialize();
 
 		// Set scene
-		g_core->m_sceneManager->setScene(scene);
+		SceneManager::setScene(scene);
 
 		g_core->run();
 	}

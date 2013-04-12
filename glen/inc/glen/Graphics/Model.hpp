@@ -1,12 +1,8 @@
 #ifndef GLEN_MODEL_HPP
 #define GLEN_MODEL_HPP
 
-#include <glen/Graphics/MeshLoader.hpp>
 #include <glen/opengl.hpp>
-
-#include <glen/Graphics/Material.hpp>
-
-#include <glen/System/Transformable.hpp>
+#include <glm/glm.hpp>
 
 #include <vector>
 #include <string>
@@ -15,7 +11,10 @@
 namespace glen
 {
 
-	class Model : public Transformable
+	class Material;
+	class MeshData;
+
+	class Model
 	{
 	public:
 		Model(void);
@@ -25,9 +24,8 @@ namespace glen
 
 		bool loadFromFile(const std::string& path);
 
-		void render();
+		void render(glm::mat4 &transform);
 		
-
 	protected:
 
 		Material*	m_material;

@@ -1,21 +1,19 @@
 #include <glen/System/SceneManager.hpp>
 #include <glen/System/Scene.hpp>
 
-#include <cassert>
+#include <glen/System/AssetManager.hpp>
 
-namespace glen
-{
+using namespace glen;
 
-///////////////////////////////////////////////////////////
-SceneManager::SceneManager(Core* c) :
-	p_core(c)
+namespace
 {
+	ScenePtr	m_currentScene;
+	ScenePtr	m_nextScene;
 }
 
 ///////////////////////////////////////////////////////////
-SceneManager::~SceneManager(void)
+SceneManager::SceneManager()
 {
-	
 }
 
 ///////////////////////////////////////////////////////////
@@ -23,17 +21,18 @@ void SceneManager::setScene(Scene* scene)
 {
 	assert(scene != NULL && "Scene cannot be null");
 
-	m_currentScene.reset(scene);
-
-	// Initialize scene
-	scene->init(p_core);
-	scene->activate();
-	scene->load();
+	m_nextScene.reset(scene);
 }
 
 ///////////////////////////////////////////////////////////
 void SceneManager::update()
 {
+	// If pending scene exists change to it
+	if(m_nextScene)
+	{
+		_switchScene();
+	}
+
 	if(m_currentScene)
 	{
 		m_currentScene->update();
@@ -41,9 +40,32 @@ void SceneManager::update()
 }
 
 ///////////////////////////////////////////////////////////
-void SceneManager::draw()
+void SceneManager::render()
 {
-	m_currentScene->draw();
+	assert(m_currentScene && "Scene must be set");
+	m_currentScene->render();
 }
 
+///////////////////////////////////////////////////////////
+void SceneManager::_switchScene()
+{
+	// If scene already exists then handle unloading
+	if(m_currentScene)
+	{
+		// Unload previous scene
+		m_currentScene->unload();
+
+		// Unload assets that were bound
+		// to the old scene
+		AssetManager::freeSceneAssets();
+
+		// Release pointer
+		m_currentScene.release();
+	}
+
+	// Move pointers
+	m_currentScene = std::move(m_nextScene);
+
+	// Initialize scene
+	m_currentScene->load();
 }

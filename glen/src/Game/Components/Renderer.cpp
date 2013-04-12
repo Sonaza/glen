@@ -1,6 +1,7 @@
 #include <glen/Game/Components/Renderer.hpp>
 
-/*#include <glen/System/AssetManager.hpp>*/
+#include <glen/System/AssetManager.hpp>
+#include <glen/System/Assets/ModelAsset.hpp>
 
 #include <glen/Graphics/Camera.hpp>
 
@@ -8,9 +9,18 @@ using namespace glen;
 
 ////////////////////////////////////////////////////
 Renderer::Renderer() :
-	Component("renderer")
+	Component("renderer"),
+	m_model(NULL)
 {
 	
+}
+
+////////////////////////////////////////////////////
+Renderer::Renderer(const std::string &modelID) :
+	Component("renderer"),
+	m_model(NULL)
+{
+	setModel(modelID);
 }
 
 ////////////////////////////////////////////////////
@@ -28,33 +38,23 @@ void Renderer::attached()
 ////////////////////////////////////////////////////
 void Renderer::update()
 {
-	Vector2f position = request<Vector2f>("getPosition");
-	//position += Camera::getCameraOffset();
-
-	/*m_sprite->setPosition(position);
-	m_sprite->setRotation(request<float>("getRotation"));
-	m_sprite->setScale(request<Vector2f>("getScale"));*/
+	m_transform = request<glm::mat4>("getMatrix");
 }
 
 ////////////////////////////////////////////////////
 void Renderer::setModel(const std::string &assetID)
 {
-	/*TextureAsset* asset = AssetManager::getTexture(assetID);
+	ModelAsset* asset = AssetManager::getModel(assetID);
 
 	if(asset)
 	{
-		m_sprite.reset(new sf::Sprite(*asset->getAsset()));
-
-		// Set sprite's origin point in the center
-		m_sprite->setOrigin(
-			static_cast<Vector2f>(asset->getAsset()->getSize()) / 2.f
-		);
-	}*/
+		m_model = asset->getAsset();
+	}
 }
 
 ////////////////////////////////////////////////////
 void Renderer::draw(const Message &msg)
 {
-	//assert(!msg.data.empty());
-	//boost::any_cast<sf::RenderWindow*>(msg.data)->draw(*m_sprite, m_renderStates);
+	assert(m_model != NULL && "Model has not been set");
+	m_model->render(m_transform);
 }

@@ -1,14 +1,12 @@
 #ifndef SCENEMANAGER_HPP
 #define SCENEMANAGER_HPP
 
+#include <cassert>
 #include <memory>
-#include <map>
-#include <string>
 
 namespace glen
 {
 
-	class Core;
 	class Scene;
 
 	typedef std::unique_ptr<Scene> ScenePtr;
@@ -16,21 +14,17 @@ namespace glen
 	class SceneManager
 	{
 	public:
-		SceneManager(Core* c);
-		~SceneManager(void);
+		SceneManager();
 
-		void setScene(Scene* scene);
+		static void setScene(Scene* scene);
 
-		void update();
+		static void update();
 
-		// Draw scenes
-		void draw();
+		static void render();
 
 	private:
 
-		Core*			p_core;
-
-		ScenePtr		m_currentScene;
+		static void _switchScene();
 
 	};
 

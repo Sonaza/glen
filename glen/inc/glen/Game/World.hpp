@@ -22,8 +22,6 @@ namespace glen
 		void init();
 		void uninit();
 
-		float getWorldScale();
-
 		void sendGlobal(const std::string &type, boost::any data);
 		void sendGlobal(const Message &msg);
 

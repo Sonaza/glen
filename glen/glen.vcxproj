@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\System\AssetManager.cpp" />
     <ClCompile Include="src\Game\Component.cpp" />
     <ClCompile Include="src\Game\Components\Renderer.cpp" />
     <ClCompile Include="src\Game\Components\Transform.cpp" />
@@ -23,7 +24,10 @@
     <ClCompile Include="src\Graphics\MaterialFactory.cpp" />
     <ClCompile Include="src\Graphics\MeshLoader.cpp" />
     <ClCompile Include="src\Graphics\Model.cpp" />
+    <ClCompile Include="src\Graphics\RenderTexture.cpp" />
     <ClCompile Include="src\opengl.cpp" />
+    <ClCompile Include="src\System\Assets\ModelAsset.cpp" />
+    <ClCompile Include="src\System\Assets\Texture2DAsset.cpp" />
     <ClCompile Include="src\System\Scene.cpp" />
     <ClCompile Include="src\Graphics\Shader.cpp" />
     <ClCompile Include="src\Graphics\ShaderProgram.cpp" />
@@ -79,7 +83,12 @@
     <ClInclude Include="inc\glen\Graphics\MeshData.hpp" />
     <ClInclude Include="inc\glen\Graphics\MeshLoader.hpp" />
     <ClInclude Include="inc\glen\Graphics\Model.hpp" />
+    <ClInclude Include="inc\glen\Graphics\RenderTexture.hpp" />
     <ClInclude Include="inc\glen\Graphics\stb_image\stb_image.h" />
+    <ClInclude Include="inc\glen\System\AssetManager.hpp" />
+    <ClInclude Include="inc\glen\System\Assets\ModelAsset.hpp" />
+    <ClInclude Include="inc\glen\System\Assets\TAsset.hpp" />
+    <ClInclude Include="inc\glen\System\Assets\Texture2DAsset.hpp" />
     <ClInclude Include="inc\glen\System\Scene.hpp" />
     <ClInclude Include="inc\glen\Graphics\Shader.hpp" />
     <ClInclude Include="inc\glen\Graphics\ShaderProgram.hpp" />
@@ -340,7 +349,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>

@@ -1,4 +1,6 @@
 #include <glen/Graphics/Model.hpp>
+#include <glen/Graphics/Material.hpp>
+#include <glen/Graphics/MeshLoader.hpp>
 
 #include <glen/Graphics/Texture2D.hpp>
 
@@ -29,8 +31,6 @@ void Model::setMaterial(Material* material)
 	m_material = material;
 	assert(m_material != NULL && "Material can't be null");
 
-	//m_material->bind();
-
 	glBindVertexArray(m_vao);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
@@ -38,8 +38,6 @@ void Model::setMaterial(Material* material)
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	//m_material->unbind();
 }
 
 //////////////////////////////////////////////////
@@ -76,14 +74,14 @@ bool Model::loadFromFile(const std::string& path)
 }
 
 //////////////////////////////////////////////////
-void Model::render()
+void Model::render(glm::mat4 &transform)
 {
 	glBindVertexArray(m_vao);
 	m_material->bind();
 
 	//m_material->m_program->setUniform("u_time", GetTickCount() / 1000.f);
 
-	m_material->updateMatrix(getMatrix());
+	m_material->updateMatrix(transform);
 
 	// Bind material textures
 	m_material->_bindTextures();

@@ -1,13 +1,20 @@
 #ifndef GLEN_CORE_H
 #define GLEN_CORE_H
 
+#include <glen/opengl.hpp>
+
+#include <glen/Window/Window.hpp>
+
+#include <glen/Game/World.hpp>
+
+#include <glen/System/AssetManager.hpp>
+#include <glen/System/SceneManager.hpp>
+
 #include <glen/Graphics/Camera.hpp>
 #include <glen/System/Sleep.hpp>
 
 namespace glen
 {
-
-	class SceneManager;
 
 	class Core
 	{
@@ -19,10 +26,12 @@ namespace glen
 		void run();
 
 		void initialize();
+		void uninitialize();
+
 		void loop();
 
-		// Managers
-		SceneManager*	m_sceneManager;
+		void update();
+		void render();
 
 	private:
 

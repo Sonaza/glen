@@ -3,7 +3,9 @@
 #include <iostream>
 
 #include <glen/System/ErrorStream.hpp>
+
 #include <glen/Game/Component.hpp>
+#include <glen/Game/Components/Transform.hpp>
 
 using namespace glen;
 
