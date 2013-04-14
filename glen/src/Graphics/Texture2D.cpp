@@ -1,8 +1,10 @@
 #include <glen/Graphics/Texture2D.hpp>
 #include <glen/System/ErrorStream.hpp>
 
-namespace glen
-{
+#include <glen/Graphics/stb_image/stb_image.h>
+
+using namespace glen;
+
 /////////////////////////////////////////////////
 Texture2D::Texture2D(void) :
 	m_texture(0)
@@ -30,9 +32,13 @@ bool Texture2D::loadFromFile(const std::string& path)
 	GLint channels;
 	uint8* data = stbi_load(path.c_str(), &width, &height, &channels, 4);
 
+	m_size.x = width;
+	m_size.y = height;
+
 	if(!data)
 	{
-		err << "Unable to open image: " << path << ErrorStream::error;
+		err << "Unable to open image file: " << path
+			<< "\n\n" << stbi_failure_reason() << "" << ErrorStream::error;
 		return false;
 	}
 
@@ -53,12 +59,10 @@ bool Texture2D::loadFromFile(const std::string& path)
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
+	m_settings.anisotropy = 16;
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 16);
 
 	stbi_image_free(data);
-
-	// Unbind texture
-	glBindTexture(GL_TEXTURE_2D, 0);
 
 	return true;
 }
@@ -81,8 +85,6 @@ void Texture2D::setClamping(const Settings::Clamping value)
 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		break;
 	}
-
-	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 /////////////////////////////////////////////////
@@ -103,8 +105,13 @@ void Texture2D::setFiltering(const Settings::Filtering value)
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		break;
 	}
-
-	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+/////////////////////////////////////////////////
+void Texture2D::setAnisotropy(const uint32 value)
+{
+	bind();
+
+	m_settings.anisotropy = value;
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, static_cast<GLfloat>(value));
 }

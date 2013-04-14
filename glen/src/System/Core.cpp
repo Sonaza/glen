@@ -117,7 +117,7 @@ void Core::update()
 void Core::render()
 {
 	//Window::clear(Color(250, 100, 50));
-	Window::clear(Color(40, 150, 240));
+	Window::clear(Color(90, 180, 250));
 
 	// Render all world entities
 	World::render();

@@ -1,8 +1,6 @@
 #ifndef WINDOWSTYLE_HPP
 #define WINDOWSTYLE_HPP
 
-#include <SFML/Window/WindowStyle.hpp>
-
 namespace glen
 {
 

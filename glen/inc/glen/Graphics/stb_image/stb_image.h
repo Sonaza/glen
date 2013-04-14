@@ -58,6 +58,9 @@
 //
 // Paletted PNG, BMP, GIF, and PIC images are automatically depalettized.
 //
+
+#define STBI_FAILURE_USERMSG
+
 // ===========================================================================
 //
 // iPhone PNG support:

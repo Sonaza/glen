@@ -3,7 +3,8 @@
 
 #include <glen/opengl.hpp>
 #include <glen/Config.hpp>
-#include <glen/Graphics/stb_image/stb_image.h>
+
+#include <glen/System/Vector2.hpp>
 
 #include <string>
 
@@ -44,8 +45,9 @@ namespace glen
 				Nearest
 			};
 
-			Clamping clamping;
-			Filtering filtering;
+			Clamping	clamping;
+			Filtering	filtering;
+			uint32		anisotropy;
 		};
 
 		void bind() const;
@@ -55,13 +57,16 @@ namespace glen
 		void setClamping(const Settings::Clamping value);
 		void setFiltering(const Settings::Filtering value);
 
-		//void setAnisotropy(const float )
+		void setAnisotropy(const uint32 value);
+
+		inline Vector2i getSize() const { return m_size; }
 
 	private:
 
-		GLuint	m_texture;
+		GLuint		m_texture;
+		Settings	m_settings;
 
-		Settings m_settings;
+		Vector2i	m_size;
 
 	};
 

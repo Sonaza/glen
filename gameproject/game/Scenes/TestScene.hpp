@@ -31,12 +31,15 @@ private:
 
 	Entity* test;
 	Entity* test2;
+	Entity* bgplane;
 
 	float yvel;
 	float ypos;
 
 	float yscale;
 	float yscalevel;
+
+	float rot;
 
 	bool bounce;
 
