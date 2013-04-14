@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Graphics\Sprite.cpp" />
     <ClCompile Include="src\System\AssetManager.cpp" />
     <ClCompile Include="src\Game\Component.cpp" />
     <ClCompile Include="src\Game\Components\Renderer.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="inc\glen\Graphics\MeshLoader.hpp" />
     <ClInclude Include="inc\glen\Graphics\Model.hpp" />
     <ClInclude Include="inc\glen\Graphics\RenderTexture.hpp" />
+    <ClInclude Include="inc\glen\Graphics\Sprite.hpp" />
     <ClInclude Include="inc\glen\Graphics\stb_image\stb_image.h" />
     <ClInclude Include="inc\glen\System\AssetManager.hpp" />
     <ClInclude Include="inc\glen\System\Assets\ModelAsset.hpp" />
