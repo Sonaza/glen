@@ -2,6 +2,7 @@
 #define GLEN_INPUTMANAGER_HPP
 
 #include <glen/opengl.hpp>
+#include <glen/System/Vector2.hpp>
 #include <map>
 
 namespace glen
@@ -19,7 +20,7 @@ namespace glen
 		bool isMouseDown(const sf::Mouse::Button button);
 		bool isMouseHit(const sf::Mouse::Button button);
 
-		sf::Vector2i getMousePos();
+		Vector2i getMousePos();
 
 		void updateInputs(sf::Event& event);
 

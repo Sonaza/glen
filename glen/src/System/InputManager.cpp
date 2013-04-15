@@ -105,7 +105,8 @@ void Input::updateInputs(sf::Event& event)
 }
 
 ////////////////////////////////////////////////////
-sf::Vector2i Input::getMousePos()
+Vector2i Input::getMousePos()
 {
-	return sf::Mouse::getPosition(*Window::getWindow());
+	sf::Vector2i temp = sf::Mouse::getPosition(*Window::getWindow());
+	return Vector2i(temp.x, temp.y);
 }

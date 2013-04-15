@@ -14,9 +14,9 @@ TestScene::~TestScene(void)
 //////////////////////////////////////////////////////
 void TestScene::load()
 {
-	Camera* asd = Camera::create(80.f, 0.01f, 100.f);
-	asd->setPosition(0.f, 4.3f, 6.f);
-	asd->lookAt(Vector3f(0.f, 1.8f, 0.f), Vector3f::up);
+	cam = Camera::create(80.f, 0.01f, 100.f);
+	cam->setPosition(0.f, 4.3f, 6.f);
+	cam->lookAt(Vector3f(0.f, 1.8f, 0.f), Vector3f::up);
 
 	{
 		// Load texture
@@ -44,17 +44,17 @@ void TestScene::load()
 
 	{
 		// Load texture
-		AssetManager::loadTexture2D("terrain", "bg.jpg");
+		AssetManager::loadTexture2D("terrain", "grass.png");
 
 		// Create new diffuse material
 		Material* mat = MaterialFactory::diffuse("terrain");
 		AssetManager::createMaterial("terrainmaterial", mat);
 
 		// Apply some scaling to the diffuse texture
-		mat->getTransform<Texture2D::Diffuse>()->setScale(2.f, 2.f, 1.f);
+		mat->getTransform<Texture2D::Diffuse>()->setScale(15.f, 15.f, 1.f);
 
 		// Load bunny model and apply the material
-		AssetManager::loadModel("terrain", "box2.obj")
+		AssetManager::loadModel("terrain", "terr.obj")
 			->setMaterial("terrainmaterial");
 
 		// Create new entity and attach transform and renderer
@@ -63,14 +63,14 @@ void TestScene::load()
 		test2->attachComponent(new Renderer("terrain"));
 		
 		test2->send("setPosition", Vector3f(0.f, -0.7f, 0.f));
-		test2->send("setScale", Vector3f(20.f, 1.f, 20.f));
-		test2->send("setRotation", Vector3f(-6.f, 210.f, 0.f));
+		test2->send("setScale", Vector3f(3.f, 1.f, 3.f));
+		test2->send("setRotation", Vector3f(-15.f, 210.f, 0.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(test2);
 	}
 
-	/*{
+	{
 		// Load texture
 		AssetManager::loadTexture2D("bgplane", "bg.jpg");
 
@@ -90,13 +90,13 @@ void TestScene::load()
 		bgplane->attachComponent(new Transform);
 		bgplane->attachComponent(new Renderer("bgplane"));
 
-		bgplane->send("setPosition", Vector3f(0.f, 10.f, -29.f));
-		bgplane->send("setScale", Vector3f(5.8f, 5.8f, 5.8f));
-		bgplane->send("setRotation", Vector3f(-7.f, 0.f, 0.f));
+		bgplane->send("setPosition", Vector3f(0.f, 7.f, -29.f));
+		bgplane->send("setScale", Vector3f(6.f, 6.f, 6.f));
+		bgplane->send("setRotation", Vector3f(-15.f, 0.f, 0.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(bgplane);
-	}*/
+	}
 
 	ypos = 2.f;
 	yvel = 0.f;
@@ -117,6 +117,17 @@ void TestScene::unload()
 //////////////////////////////////////////////////////
 void TestScene::update()
 {
+	Vector2i mp = Input::getMousePos();
+
+	float xmul = mp.x / static_cast<float>(Window::getDimensions().x);
+	xmul = std::max(0.f, std::min(1.f, xmul)) / 2.f + 1.25f;
+
+	float ymul = 1.f - mp.y / static_cast<float>(Window::getDimensions().y);
+	ymul = std::max(0.f, std::min(1.f, ymul));
+	
+	cam->setPosition(0.f + cos(xmul) * 5.5f, 4.3f + (1.f - ymul) * 2.f, sin(xmul) * 5.5f);
+	cam->lookAt(Vector3f(0.f, 1.f + ymul * 1.8f, 0.f), Vector3f::up);
+
 	if(!bounce)
 	{
 		yvel += -0.05f;

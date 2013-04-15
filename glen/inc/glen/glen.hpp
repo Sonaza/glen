@@ -15,6 +15,8 @@
 #include <glen/System/SceneManager.hpp>
 #include <glen/System/Scene.hpp>
 
+#include <glen/System/InputManager.hpp>
+
 #include <glen/Game/World.hpp>
 #include <glen/Game/Entity.hpp>
 #include <glen/Game/Component.hpp>
