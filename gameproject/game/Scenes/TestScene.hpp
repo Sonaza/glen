@@ -39,7 +39,7 @@ private:
 	float yscale;
 	float yscalevel;
 
-	float rot;
+	float rot, rad;
 
 	bool bounce;
 
