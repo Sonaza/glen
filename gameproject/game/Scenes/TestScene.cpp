@@ -54,7 +54,7 @@ void TestScene::load()
 		mat->getTransform<Texture2D::Diffuse>()->setScale(15.f, 15.f, 1.f);
 
 		// Load bunny model and apply the material
-		AssetManager::loadModel("terrain", "terr.obj")
+		AssetManager::loadModel("terrain", "terrain.obj")
 			->setMaterial("terrainmaterial");
 
 		// Create new entity and attach transform and renderer
@@ -62,14 +62,14 @@ void TestScene::load()
 		test2->attachComponent(new Transform);
 		test2->attachComponent(new Renderer("terrain"));
 		
-		test2->send("setScale", Vector3f(2.f, 1.1f, 2.f));
+		test2->send("setScale", Vector3f(6.f, 1.1f, 6.f));
 		test2->send("setRotation", Vector3f(-6.f, 210.f, 0.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(test2);
 	}
 
-	{
+	/*{
 		// Load texture
 		AssetManager::loadTexture2D("bgplane", "bg.jpg");
 
@@ -95,7 +95,7 @@ void TestScene::load()
 
 		// Send the entity to the world pipeline
 		World::addEntity(bgplane);
-	}
+	}*/
 
 	ypos = 2.f;
 	yvel = 0.f;
