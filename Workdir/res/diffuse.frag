@@ -36,7 +36,7 @@ void main()
 	
 	intensity = clamp(intensity, 0.f, 1.f);
 	
-	vec4 fog = vec4(225.f / 255.f, 239.f / 255.f, 237.f / 255.f, 1.f);
+	vec4 fog = vec4(225.f / 300.f, 239.f / 300.f, 237.f / 290.f, 1.f);
 	
 	finalColor = v_fragcolor * diffuse * (1.f - intensity) + fog * intensity;
 	
