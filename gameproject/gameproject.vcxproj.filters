@@ -21,9 +21,15 @@
     <ClCompile Include="game\Scenes\TestScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game\Entities\Skyplane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\Scenes\TestScene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Entities\Skyplane.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,7 +14,7 @@ TestScene::~TestScene(void)
 //////////////////////////////////////////////////////
 void TestScene::load()
 {
-	cam = Camera::create(75.f, 0.01f, 400.f);
+	cam = Camera::create(75.f, 0.01f, 5000.f);
 	cam->setPosition(0.f, 4.3f, 6.f);
 	cam->lookAt(Vector3f(0.f, 1.8f, 0.f), Vector3f::up);
 
@@ -51,10 +51,10 @@ void TestScene::load()
 		AssetManager::createMaterial("terrainmaterial", mat);
 
 		// Apply some scaling to the diffuse texture
-		mat->getTransform<Texture2D::Diffuse>()->setScale(25.f, 25.f, 1.f);
+		mat->getTransform<Texture2D::Diffuse>()->setScale(90.f, 90.f, 1.f);
 
 		// Load bunny model and apply the material
-		AssetManager::loadModel("terrain", "terrain.obj")
+		AssetManager::loadModel("terrain", "terrainhi.obj")
 			->setMaterial("terrainmaterial");
 
 		// Create new entity and attach transform and renderer
@@ -62,9 +62,9 @@ void TestScene::load()
 		test2->attachComponent(new Transform);
 		test2->attachComponent(new Renderer("terrain"));
 		
-		test2->send("setPosition", Vector3f(0.f, 0.f, 0.f));
-		test2->send("setScale", Vector3f(2.f, 1.f, 2.f));
-		test2->send("setRotation", Vector3f(0.f, 210.f, 0.f));
+		test2->send("setPosition", Vector3f(0.f, -4.f, 0.f));
+		test2->send("setScale", Vector3f(14.f, 10.f, 14.f));
+		test2->send("setRotation", Vector3f(0.f, 0.f, 0.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(test2);
@@ -90,13 +90,22 @@ void TestScene::load()
 		bgplane->attachComponent(new Transform);
 		bgplane->attachComponent(new Renderer("bgplane"));
 
-		bgplane->send("setPosition", Vector3f(0.f, 7.f, -29.f));
+		bgplane->send("setPosition", Vector3f(0.f, 13.f, -29.f));
 		bgplane->send("setScale", Vector3f(6.f, 6.f, 6.f));
-		bgplane->send("setRotation", Vector3f(-15.f, 0.f, 0.f));
+		bgplane->send("setRotation", Vector3f(-7.f, 0.f, 0.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(bgplane);
 	}
+
+	skybox.push_back(new Skyplane("sky/front.png",	Vector3f(0.f, 0.f, 0.f)));
+	skybox.push_back(new Skyplane("sky/back.png",	Vector3f(0.f, -180.f, 0.f)));
+
+	skybox.push_back(new Skyplane("sky/right.png",	Vector3f(0.f, -90.f, 0.f)));
+	skybox.push_back(new Skyplane("sky/left.png",	Vector3f(0.f, 90.f, 0.f)));
+
+	skybox.push_back(new Skyplane("sky/top.png",	Vector3f(-90.f, 0.f, 0.f)));
+	skybox.push_back(new Skyplane("sky/bottom.png",	Vector3f(90.f, 0.f, 0.f)));
 
 	ypos = 2.f;
 	yvel = 0.f;
@@ -107,6 +116,7 @@ void TestScene::load()
 
 	bounce = false;
 
+	camyvel = 0.f;
 	campos.y = 2.f;
 }
 
@@ -132,56 +142,74 @@ void TestScene::update()
 			mp.x - center.x,
 			mp.y - center.y
 		);
+
+		Window::getWindow()->setMouseCursorVisible(false);
+	}
+	else
+	{
+		Window::getWindow()->setMouseCursorVisible(true);
 	}
 
-	camrot.y += diff.x / (2.f * center.x) * 339.f;
-
-	camrot.x += diff.y / (2.f * center.y) * 279.f;
-	camrot.x = clamp(camrot.x, -90.f, 90.f);
+	camrot.y += diff.x / (2.f * center.x) * 330.f;
+	camrot.x += diff.y / (2.f * center.y) * 250.f;
+	camrot.x = clamp(camrot.x, -89.9f, 89.9f);
 
 	float yrad = camrot.y * 3.141592f / 180.f;
 
+	if(Input::isKeyDown(sf::Keyboard::Space))// && campos.y <= 2.1f)
+	{
+		camyvel = 20.f;
+	}
+
+	camyvel += -40.f * Time.delta;
+	campos.y += camyvel * Time.delta;
+
+	if(campos.y <= 2.f)
+	{
+		camyvel = 0.f;
+		campos.y = 2.f;
+	}
+
+	float speed = 5.f;
+
 	if(Input::isKeyDown(sf::Keyboard::W))
 	{
-		campos.x += cos(yrad) * Time.delta * 10.f;
-		campos.z += sin(yrad) * Time.delta * 10.f;
+		campos.x += cos(yrad) * Time.delta * 10.f * speed;
+		campos.z += sin(yrad) * Time.delta * 10.f * speed;
 	}
 	else if(Input::isKeyDown(sf::Keyboard::S))
 	{
-		campos.x -= cos(yrad) * Time.delta * 10.f;
-		campos.z -= sin(yrad) * Time.delta * 10.f;
+		campos.x -= cos(yrad) * Time.delta * 10.f * speed;
+		campos.z -= sin(yrad) * Time.delta * 10.f * speed;
 	}
 
 	if(Input::isKeyDown(sf::Keyboard::D))
 	{
-		campos.x += cos(yrad + 1.5707963f) * Time.delta * 10.f;
-		campos.z += sin(yrad + 1.5707963f) * Time.delta * 10.f;
+		campos.x += cos(yrad + 1.5707963f) * Time.delta * 10.f * speed;
+		campos.z += sin(yrad + 1.5707963f) * Time.delta * 10.f * speed;
 	}
 	else if(Input::isKeyDown(sf::Keyboard::A))
 	{
-		campos.x -= cos(yrad + 1.5707963f) * Time.delta * 10.f;
-		campos.z -= sin(yrad + 1.5707963f) * Time.delta * 10.f;
+		campos.x -= cos(yrad + 1.5707963f) * Time.delta * 10.f * speed;
+		campos.z -= sin(yrad + 1.5707963f) * Time.delta * 10.f * speed;
 	}
 
 	//cam->setRotation(camrot.x, camrot.y, 0.f);
 
 	Vector3f camdir(
-		campos.x + cos(yrad),
+		campos.x + cos(yrad) * (1.f - fabs(camrot.x / 90.f)),
 		campos.y - (camrot.x * 3.141592f / 180.f),
-		campos.z + sin(yrad)
+		campos.z + sin(yrad) * (1.f - fabs(camrot.x / 90.f))
 	);
 
 	cam->setPosition(campos);
 	cam->lookAt(camdir, Vector3f::up);
 
-	/*float xmul = mp.x / static_cast<float>(Window::getDimensions().x);
-	xmul = std::max(0.f, std::min(1.f, xmul)) / 2.f + 1.25f;
+	for(std::vector<Skyplane*>::iterator it = skybox.begin(); it != skybox.end(); ++it)
+	{
+		(*it)->setCamPos(campos);
+	}
 
-	float ymul = 1.f - mp.y / static_cast<float>(Window::getDimensions().y);
-	ymul = std::max(0.f, std::min(1.f, ymul));*/
-	
-	//cam->setPosition(0.f + cos(xmul) * 5.5f, 3.5f + (1.f - ymul) * 2.f, sin(xmul) * 5.5f);
-	//cam->lookAt(Vector3f(0.f, 1.f + ymul * 2.5f, xmul), Vector3f::up);
 
 	if(!bounce)
 	{
@@ -220,11 +248,11 @@ void TestScene::update()
 	rot += 360.f * (ypos / 2.f) * Time.delta;
 	rad = rot * 3.141592f / 180.f;
 
-	test->send("setPosition", Vector3f(cos(-rad) * 2.5f, ypos, sin(-rad) * 2.5f));
+	test->send("setPosition", Vector3f(cos(-rad) * 5.f, ypos, sin(-rad) * 5.f));
 	test->send("setScale", Vector3f(
-		10.f * (1.f / yscale),
-		10.f * yscale,
-		10.f * (1.f / yscale)
+		14.f * (1.f / yscale),
+		14.f * yscale,
+		14.f * (1.f / yscale)
 	));
 
 	test->send("setRotation", Vector3f(0.f, rot - 85.f, 0.f));

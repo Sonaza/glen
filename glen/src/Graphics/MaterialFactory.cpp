@@ -68,8 +68,33 @@ Material* MaterialFactory::diffuse(const std::string &diffuse)
 		}
 
 		result->setTexture<Texture2D::Diffuse>(*asset->getAsset());
+	}
 
-		//_materials.push_back(result);
+	return result;
+}
+
+//////////////////////////////////////////////////////
+Material* MaterialFactory::skyplane(const std::string &skyplane)
+{
+	Material* result = new(std::nothrow) Material();
+
+	if(result)
+	{
+		result->_loadshaders("res/skybox.vert", "res/skybox.frag");
+
+		Texture2DAsset* asset = AssetManager::getTexture2D(skyplane);
+		assert(asset != NULL && "Texture asset not found");
+
+		// Failure in asset loading
+		if(!asset)
+		{
+			err << "Texture2D '" << skyplane << "' is not loaded" << ErrorStream::error;
+
+			delete result;
+			return NULL;
+		}
+
+		result->setTexture<Texture2D::Diffuse>(*asset->getAsset());
 	}
 
 	return result;

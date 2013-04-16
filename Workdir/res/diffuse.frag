@@ -26,8 +26,19 @@ void main()
 	
 	vec4 diffuse = texture(u_diffuse, v_diffusecoord);
 	vec4 decal = texture(u_specular, v_specularcoord);
-		
-	finalColor = v_fragcolor * diffuse;
+	
+	float d = (gl_FragCoord.z / gl_FragCoord.w);
+	//d = clamp(d, 0.0, 1.0);
+	
+	//float intensity = (exp(d / (1.f * 0.5f + 1.f))-1.f) / 5.0;
+	float intensity = exp(d / 1200.f) - 1.f;
+	//if(intensity >= 1) discard;
+	
+	intensity = clamp(intensity, 0.f, 1.f);
+	
+	vec4 fog = vec4(225.f / 255.f, 239.f / 255.f, 237.f / 255.f, 1.f);
+	
+	finalColor = v_fragcolor * diffuse * (1.f - intensity) + fog * intensity;
 	
 	/*finalColor = vec4(
 		diffuse.rgb * (vec3(1.0) - decal.rgb), diffuse.a * decal.a

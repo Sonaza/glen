@@ -20,6 +20,8 @@ namespace glen
 		//static void unload(Material* material);
 
 		static Material* diffuse(const std::string &diffuse);
+
+		static Material* skyplane(const std::string &skyplane);
 	};
 
 }
