@@ -99,6 +99,7 @@ void Camera::lookAt(Vector3f target, Vector3f worldUp)
 //////////////////////////////////////////////
 glm::mat4 Camera::getMatrix()
 {
+
 	return m_matrix;
 }
 

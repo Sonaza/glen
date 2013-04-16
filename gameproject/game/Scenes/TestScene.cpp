@@ -14,7 +14,7 @@ TestScene::~TestScene(void)
 //////////////////////////////////////////////////////
 void TestScene::load()
 {
-	cam = Camera::create(80.f, 0.01f, 100.f);
+	cam = Camera::create(75.f, 0.01f, 400.f);
 	cam->setPosition(0.f, 4.3f, 6.f);
 	cam->lookAt(Vector3f(0.f, 1.8f, 0.f), Vector3f::up);
 
@@ -51,10 +51,10 @@ void TestScene::load()
 		AssetManager::createMaterial("terrainmaterial", mat);
 
 		// Apply some scaling to the diffuse texture
-		mat->getTransform<Texture2D::Diffuse>()->setScale(15.f, 15.f, 1.f);
+		mat->getTransform<Texture2D::Diffuse>()->setScale(25.f, 25.f, 1.f);
 
 		// Load bunny model and apply the material
-		AssetManager::loadModel("terrain", "terr.obj")
+		AssetManager::loadModel("terrain", "terrain.obj")
 			->setMaterial("terrainmaterial");
 
 		// Create new entity and attach transform and renderer
@@ -62,9 +62,9 @@ void TestScene::load()
 		test2->attachComponent(new Transform);
 		test2->attachComponent(new Renderer("terrain"));
 		
-		test2->send("setPosition", Vector3f(0.f, -0.7f, 0.f));
-		test2->send("setScale", Vector3f(3.f, 1.f, 3.f));
-		test2->send("setRotation", Vector3f(-15.f, 210.f, 0.f));
+		test2->send("setPosition", Vector3f(0.f, 0.f, 0.f));
+		test2->send("setScale", Vector3f(2.f, 1.f, 2.f));
+		test2->send("setRotation", Vector3f(0.f, 210.f, 0.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(test2);
@@ -106,6 +106,8 @@ void TestScene::load()
 	rad = rot = 0.f;
 
 	bounce = false;
+
+	campos.y = 2.f;
 }
 
 //////////////////////////////////////////////////////
@@ -114,23 +116,78 @@ void TestScene::unload()
 	
 }
 
+#define clamp(__val, __min, __max) (std::max((__min), std::min((__max), (__val))))
+
 //////////////////////////////////////////////////////
 void TestScene::update()
 {
 	Vector2i mp = Input::getMousePos();
+	Vector2f center = static_cast<Vector2f>(Window::getDimensions()) / 2.f;
 
-	float xmul = mp.x / static_cast<float>(Window::getDimensions().x);
+	Vector2f diff;
+
+	if(!Input::isKeyDown(sf::Keyboard::LControl))
+	{
+		sf::Mouse::setPosition(sf::Vector2i(center.x, center.y), *Window::getWindow());
+
+		diff = Vector2f(
+			mp.x - center.x,
+			mp.y - center.y
+		);
+	}
+
+	camrot.y += diff.x / (2.f * center.x) * 339.f;
+
+	camrot.x += diff.y / (2.f * center.y) * 279.f;
+	camrot.x = clamp(camrot.x, -90.f, 90.f);
+
+	float yrad = camrot.y * 3.141592f / 180.f;
+
+	if(Input::isKeyDown(sf::Keyboard::W))
+	{
+		campos.x += cos(yrad) * Time.delta * 10.f;
+		campos.z += sin(yrad) * Time.delta * 10.f;
+	}
+	else if(Input::isKeyDown(sf::Keyboard::S))
+	{
+		campos.x -= cos(yrad) * Time.delta * 10.f;
+		campos.z -= sin(yrad) * Time.delta * 10.f;
+	}
+
+	if(Input::isKeyDown(sf::Keyboard::D))
+	{
+		campos.x += cos(yrad + 1.5707963f) * Time.delta * 10.f;
+		campos.z += sin(yrad + 1.5707963f) * Time.delta * 10.f;
+	}
+	else if(Input::isKeyDown(sf::Keyboard::A))
+	{
+		campos.x -= cos(yrad + 1.5707963f) * Time.delta * 10.f;
+		campos.z -= sin(yrad + 1.5707963f) * Time.delta * 10.f;
+	}
+
+	//cam->setRotation(camrot.x, camrot.y, 0.f);
+
+	Vector3f camdir(
+		campos.x + cos(yrad),
+		campos.y - (camrot.x * 3.141592f / 180.f),
+		campos.z + sin(yrad)
+	);
+
+	cam->setPosition(campos);
+	cam->lookAt(camdir, Vector3f::up);
+
+	/*float xmul = mp.x / static_cast<float>(Window::getDimensions().x);
 	xmul = std::max(0.f, std::min(1.f, xmul)) / 2.f + 1.25f;
 
 	float ymul = 1.f - mp.y / static_cast<float>(Window::getDimensions().y);
-	ymul = std::max(0.f, std::min(1.f, ymul));
+	ymul = std::max(0.f, std::min(1.f, ymul));*/
 	
-	cam->setPosition(0.f + cos(xmul) * 5.5f, 4.3f + (1.f - ymul) * 2.f, sin(xmul) * 5.5f);
-	cam->lookAt(Vector3f(0.f, 1.f + ymul * 1.8f, 0.f), Vector3f::up);
+	//cam->setPosition(0.f + cos(xmul) * 5.5f, 3.5f + (1.f - ymul) * 2.f, sin(xmul) * 5.5f);
+	//cam->lookAt(Vector3f(0.f, 1.f + ymul * 2.5f, xmul), Vector3f::up);
 
 	if(!bounce)
 	{
-		yvel += -0.05f;
+		yvel += -20.f * Time.delta;
 		ypos += yvel * Time.delta;
 
 		if(ypos <= 0.f)
@@ -145,7 +202,7 @@ void TestScene::update()
 
 	if(bounce)
 	{
-		yscalevel += 0.11f;// * (yscale > 1.f ? -1.f : 1.f);
+		yscalevel += 20.f * Time.delta;// * (yscale > 1.f ? -1.f : 1.f);
 		yscale += yscalevel * Time.delta;
 		
 		if(yscale > 1.f)
@@ -162,7 +219,7 @@ void TestScene::update()
 	//float yscale = std::max(0.1f, sin(time * 2.f) * 0.4f + 0.6f);
 	//float ypos = std::max(0.01f, cos(time * 2.f + 1.f)) * 0.05f;
 	
-	rot += 100.f * (ypos / 2.f) * Time.delta;
+	rot += 360.f * (ypos / 2.f) * Time.delta;
 	rad = rot * 3.141592f / 180.f;
 
 	test->send("setPosition", Vector3f(cos(-rad) * 2.5f, ypos, sin(-rad) * 2.5f));

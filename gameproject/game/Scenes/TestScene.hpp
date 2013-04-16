@@ -4,6 +4,8 @@
 #include <glen/glen.hpp>
 #include <algorithm>
 
+#define clamp(__val, __min, __max) (std::max((__min), std::min((__max), (__val))))
+
 using namespace glen;
 
 class TestScene : public Scene
@@ -32,6 +34,9 @@ private:
 	Entity* test;
 	Entity* test2;
 	Entity* bgplane;
+	
+	Vector3f campos;
+	Vector3f camrot;
 
 	float yvel;
 	float ypos;
