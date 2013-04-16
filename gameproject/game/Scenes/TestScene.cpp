@@ -116,8 +116,6 @@ void TestScene::unload()
 	
 }
 
-#define clamp(__val, __min, __max) (std::max((__min), std::min((__max), (__val))))
-
 //////////////////////////////////////////////////////
 void TestScene::update()
 {
