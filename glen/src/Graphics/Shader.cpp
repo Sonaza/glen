@@ -17,6 +17,17 @@ Shader::Shader(void) :
 }
 
 ///////////////////////////////////////////////////////
+Shader::Shader(ShaderDefines defines) :
+	m_shader(0),
+	m_valid(false)
+{
+	for(ShaderDefines::iterator it = defines.begin(); it != defines.end(); ++it)
+	{
+		m_defines.append("#define " + *it + "\n");
+	}
+}
+
+///////////////////////////////////////////////////////
 Shader::Shader(const std::string &path, Type type) :
 	m_shader(0),
 	m_valid(false)
@@ -63,6 +74,13 @@ bool Shader::loadFromMemory(const char* data, Type type)
 ///////////////////////////////////////////////////////
 bool Shader::compile(const char* code, GLenum type)
 {
+	std::stringstream ss;
+	ss << m_defines << code;
+
+	std::string fcode = ss.str();
+
+	const char* fccode = fcode.c_str();
+
 	// Create new shader and upload the code
 	glCheck(m_shader = glCreateShader(type));
 
@@ -72,7 +90,7 @@ bool Shader::compile(const char* code, GLenum type)
 		return false;
 	}
 
-	glCheck(glShaderSource(m_shader, 1, &code, NULL));
+	glCheck(glShaderSource(m_shader, 1, &fccode, NULL));
 
 	// Attempt to compile the shader
 	glCheck(glCompileShader(m_shader));

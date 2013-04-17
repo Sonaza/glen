@@ -2,13 +2,15 @@
 #define SHADER_HPP
 
 #include <glen/opengl.hpp>
-
 #include <string>
+#include <vector>
 
 namespace glen
 {
 
 	class ShaderProgram;
+
+	typedef std::vector<std::string> ShaderDefines;
 
 	class Shader
 	{
@@ -23,6 +25,7 @@ namespace glen
 		};
 
 		Shader(void);
+		Shader(ShaderDefines defines);
 		Shader(const std::string &path, Type type);
 
 		~Shader(void);
@@ -38,6 +41,8 @@ namespace glen
 
 		GLuint			m_shader;
 		std::string		m_filename;
+
+		std::string		m_defines;
 
 		// Type of the shader
 		Type			m_type;

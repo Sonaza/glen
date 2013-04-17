@@ -8,6 +8,7 @@ namespace glen
 {
 
 	class Material;
+	class Texture2D;
 
 	class MaterialFactory
 	{
@@ -20,8 +21,13 @@ namespace glen
 		//static void unload(Material* material);
 
 		static Material* diffuse(const std::string &diffuse);
+		static Material* bumped_diffuse(const std::string &diffuse, const std::string &normal);
 
 		static Material* skyplane(const std::string &skyplane);
+
+	private:
+
+		static Texture2D* _getTexture(const std::string &id);
 	};
 
 }

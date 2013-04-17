@@ -53,21 +53,21 @@ Material* MaterialFactory::diffuse(const std::string &diffuse)
 
 	if(result)
 	{
-		result->_loadshaders("res/diffuse.vert", "res/diffuse.frag");
+		ShaderDefines def;
+		def.push_back("TEXTURE_DIFFUSE");
 
-		Texture2DAsset* asset = AssetManager::getTexture2D(diffuse);
-		assert(asset != NULL && "Texture asset not found");
+		result->_loadshaders("res/diffuse.vert", "res/diffuse.frag", def);
+
+		Texture2D* texDiffuse = _getTexture(diffuse);
 
 		// Failure in asset loading
-		if(!asset)
+		if(!texDiffuse)
 		{
-			err << "Texture2D '" << diffuse << "' is not loaded" << ErrorStream::error;
-
 			delete result;
 			return NULL;
 		}
 
-		result->setTexture<Texture2D::Diffuse>(*asset->getAsset());
+		result->setTexture<Texture2D::Diffuse>(*texDiffuse);
 	}
 
 	return result;
@@ -82,19 +82,63 @@ Material* MaterialFactory::skyplane(const std::string &skyplane)
 	{
 		result->_loadshaders("res/skybox.vert", "res/skybox.frag");
 
-		Texture2DAsset* asset = AssetManager::getTexture2D(skyplane);
-		assert(asset != NULL && "Texture asset not found");
+		Texture2D* texDiffuse = _getTexture(skyplane);
 
 		// Failure in asset loading
-		if(!asset)
+		if(!texDiffuse)
 		{
-			err << "Texture2D '" << skyplane << "' is not loaded" << ErrorStream::error;
-
 			delete result;
 			return NULL;
 		}
 
-		result->setTexture<Texture2D::Diffuse>(*asset->getAsset());
+		result->setTexture<Texture2D::Diffuse>(*texDiffuse);
+	}
+
+	return result;
+}
+
+//////////////////////////////////////////////////////
+Material* MaterialFactory::bumped_diffuse(const std::string &diffuse, const std::string &normal)
+{
+	Material* result = new(std::nothrow) Material();
+
+	if(result)
+	{
+		result->_loadshaders("res/diffuse.vert", "res/diffuse.frag");
+
+		Texture2D* texDiffuse = _getTexture(diffuse);
+		Texture2D* texNormal = _getTexture(normal);
+
+		// Failure in asset loading
+		if(!texDiffuse || !texNormal)
+		{
+			delete result;
+			return NULL;
+		}
+
+		result->setTexture<Texture2D::Diffuse>(*texDiffuse);
+		result->setTexture<Texture2D::Normal>(*texNormal);
+	}
+
+	return result;
+}
+
+//////////////////////////////////////////////////////
+Texture2D* MaterialFactory::_getTexture(const std::string &id)
+{
+	Texture2D* result = NULL;
+
+	Texture2DAsset* asset = AssetManager::getTexture2D(id);
+	assert(asset != NULL && "Texture asset not found");
+
+	// Failure in asset loading
+	if(!asset)
+	{
+		err << "Unable to retrieve Texture2D '" << id << "'." << ErrorStream::error;
+	}
+	else
+	{
+		result = asset->getAsset();
 	}
 
 	return result;

@@ -63,16 +63,16 @@ void Material::updateMatrix(glm::mat4& model)
 }
 
 ///////////////////////////////////////////////////
-bool Material::_loadshaders(const std::string& vertex, const std::string& fragment)
+bool Material::_loadshaders(const std::string& vertex, const std::string& fragment, ShaderDefines defines)
 {
 	// Create shaders
-	Shader* vertexShader = new(std::nothrow) Shader();
+	Shader* vertexShader = new(std::nothrow) Shader(defines);
 	vertexShader->loadFromFile(vertex, Shader::Vertex);
 
 	//Shader* geometryShader = new(std::nothrow) Shader();
 	//geometryShader->loadFromFile(geometry, Shader::Geometry);
 
-	Shader* fragmentShader = new(std::nothrow) Shader();
+	Shader* fragmentShader = new(std::nothrow) Shader(defines);
 	fragmentShader->loadFromFile(fragment, Shader::Fragment);
 
 	m_shaders.push_back(vertexShader);
@@ -97,9 +97,9 @@ bool Material::_loadshaders(const std::string& vertex, const std::string& fragme
 	m_program->use();
 
 	// Set texturing uniforms
-	m_program->setUniform("u_diffuse", Texture2D::Diffuse);
-	m_program->setUniform("u_normal", Texture2D::Normal);
-	m_program->setUniform("u_specular", Texture2D::Specular);
+	m_program->setUniform("u_texture.diffuse",	Texture2D::Diffuse);
+	m_program->setUniform("u_texture.normal",	Texture2D::Normal);
+	m_program->setUniform("u_texture.specular", Texture2D::Specular);
 
 	m_program->unUse();
 
@@ -125,10 +125,13 @@ void Material::_bindTextures()
 	}
 
 	if(m_transforms.find(Texture2D::Diffuse) != m_transforms.end())
-		m_program->setUniform("u_diffusemat", m_transforms[Texture2D::Diffuse].getMatrix());
+		m_program->setUniform("u_texmatrix.diffuse", m_transforms[Texture2D::Diffuse].getMatrix());
+
+	if(m_transforms.find(Texture2D::Normal) != m_transforms.end())
+		m_program->setUniform("u_texmatrix.normalmap", m_transforms[Texture2D::Normal].getMatrix());
 	
 	if(m_transforms.find(Texture2D::Specular) != m_transforms.end())
-		m_program->setUniform("u_specularmat", m_transforms[Texture2D::Specular].getMatrix());
+		m_program->setUniform("u_texmatrix.specular", m_transforms[Texture2D::Specular].getMatrix());
 }
 
 }

@@ -23,7 +23,7 @@ void Core::run()
 ////////////////////////////////////////////////////////////
 void Core::initialize()
 {
-	Window::create(VideoMode(1280, 720), "Derp", Style::Default);
+	Window::create(VideoMode(1600, 900), "Derp", Style::Default);
 }
 
 ////////////////////////////////////////////////////////////

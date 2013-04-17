@@ -21,6 +21,8 @@ namespace glen
 	typedef std::map<Texture2D::TextureType, Texture2D*> TextureList;
 	typedef std::map<Texture2D::TextureType, TextureTransform> TextureTrans;
 
+	typedef std::vector<std::string> ShaderDefines;
+
 	class Material
 	{
 		friend class Model;
@@ -50,7 +52,7 @@ namespace glen
 
 	protected:
 
-		bool _loadshaders(const std::string& vertex, const std::string& fragment);
+		bool _loadshaders(const std::string& vertex, const std::string& fragment, ShaderDefines defines = ShaderDefines());
 
 		void _linkVertexAttrib();
 		virtual void _bindTextures();

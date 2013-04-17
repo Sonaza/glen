@@ -134,6 +134,8 @@ void TestScene::update()
 
 	Vector2f diff;
 
+	//test2->send("setRotation", Vector3f(0.f, 360.f * Time.total, 0.f));
+
 	if(!Input::isKeyDown(sf::Keyboard::LControl))
 	{
 		sf::Mouse::setPosition(sf::Vector2i(center.x, center.y), *Window::getWindow());
@@ -158,7 +160,7 @@ void TestScene::update()
 
 	if(Input::isKeyDown(sf::Keyboard::Space))// && campos.y <= 2.1f)
 	{
-		camyvel = 20.f;
+		camyvel = 40.f;
 	}
 
 	camyvel += -40.f * Time.delta;
@@ -248,11 +250,11 @@ void TestScene::update()
 	rot += 360.f * (ypos / 2.f) * Time.delta;
 	rad = rot * 3.141592f / 180.f;
 
-	test->send("setPosition", Vector3f(cos(-rad) * 5.f, ypos, sin(-rad) * 5.f));
+	//test->send("setPosition", Vector3f(cos(-rad) * 5.f, ypos, sin(-rad) * 5.f));
 	test->send("setScale", Vector3f(
-		14.f * (1.f / yscale),
-		14.f * yscale,
-		14.f * (1.f / yscale)
+		14.f,// * (1.f / yscale),
+		14.f,// * yscale,
+		14.f// * (1.f / yscale)
 	));
 
 	test->send("setRotation", Vector3f(0.f, rot - 85.f, 0.f));
