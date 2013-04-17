@@ -14,7 +14,7 @@ TestScene::~TestScene(void)
 //////////////////////////////////////////////////////
 void TestScene::load()
 {
-	cam = Camera::create(75.f, 0.01f, 5000.f);
+	cam = Camera::create(80.f, 1.f, 50000.f);
 	cam->setPosition(0.f, 4.3f, 6.f);
 	cam->lookAt(Vector3f(0.f, 1.8f, 0.f), Vector3f::up);
 
@@ -62,8 +62,8 @@ void TestScene::load()
 		test2->attachComponent(new Transform);
 		test2->attachComponent(new Renderer("terrain"));
 		
-		test2->send("setPosition", Vector3f(0.f, -4.f, 0.f));
-		test2->send("setScale", Vector3f(14.f, 10.f, 14.f));
+		test2->send("setPosition", Vector3f(0.f, -2.f, 0.f));
+		test2->send("setScale", Vector3f(14.f, 6.f, 14.f));
 		test2->send("setRotation", Vector3f(0.f, 0.f, 0.f));
 
 		// Send the entity to the world pipeline
@@ -158,13 +158,22 @@ void TestScene::update()
 
 	float yrad = camrot.y * 3.141592f / 180.f;
 
+	float multi = (campos.y + 40.f) / 50.f;
+
 	if(Input::isKeyDown(sf::Keyboard::Space))// && campos.y <= 2.1f)
 	{
-		camyvel = 40.f;
+		//camyvel = 40.f;
+		campos.y += 40.f * Time.delta * multi;
+	}
+	else if(Input::isKeyDown(sf::Keyboard::LShift))
+	{
+		campos.y -= 40.f * Time.delta * multi;
 	}
 
-	camyvel += -40.f * Time.delta;
-	campos.y += camyvel * Time.delta;
+	campos.y = clamp(campos.y, 2.f, 2000.f);
+
+	//camyvel += -40.f * Time.delta;
+	//campos.y += camyvel * Time.delta;
 
 	if(campos.y <= 2.f)
 	{
@@ -172,7 +181,7 @@ void TestScene::update()
 		campos.y = 2.f;
 	}
 
-	float speed = 5.f;
+	float speed = 5.f * multi;
 
 	if(Input::isKeyDown(sf::Keyboard::W))
 	{
@@ -230,7 +239,7 @@ void TestScene::update()
 
 	if(bounce)
 	{
-		yscalevel += 20.f * Time.delta;// * (yscale > 1.f ? -1.f : 1.f);
+		yscalevel += 18.f * Time.delta;// * (yscale > 1.f ? -1.f : 1.f);
 		yscale += yscalevel * Time.delta;
 		
 		if(yscale > 1.f)
@@ -250,11 +259,11 @@ void TestScene::update()
 	rot += 360.f * (ypos / 2.f) * Time.delta;
 	rad = rot * 3.141592f / 180.f;
 
-	//test->send("setPosition", Vector3f(cos(-rad) * 5.f, ypos, sin(-rad) * 5.f));
+	test->send("setPosition", Vector3f(cos(-rad) * 20.f, ypos -1.f, sin(-rad) * 20.f));
 	test->send("setScale", Vector3f(
-		14.f,// * (1.f / yscale),
-		14.f,// * yscale,
-		14.f// * (1.f / yscale)
+		50.f * (1.f / yscale),
+		50.f * yscale,
+		50.f * (1.f / yscale)
 	));
 
 	test->send("setRotation", Vector3f(0.f, rot - 85.f, 0.f));

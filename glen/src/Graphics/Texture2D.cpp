@@ -1,7 +1,7 @@
 #include <glen/Graphics/Texture2D.hpp>
 #include <glen/System/ErrorStream.hpp>
 
-#include <glen/Graphics/stb_image/stb_image.h>
+#include "stb_image/stb_image.h"
 
 using namespace glen;
 

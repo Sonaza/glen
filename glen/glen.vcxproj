@@ -66,7 +66,7 @@
     <ClInclude Include="inc\glen\Graphics\Model.hpp" />
     <ClInclude Include="inc\glen\Graphics\RenderTexture.hpp" />
     <ClInclude Include="inc\glen\Graphics\Sprite.hpp" />
-    <ClInclude Include="inc\glen\Graphics\stb_image\stb_image.h" />
+    <ClInclude Include="src\Graphics\stb_image\stb_image.h" />
     <ClInclude Include="inc\glen\System\AssetManager.hpp" />
     <ClInclude Include="inc\glen\System\Assets\ModelAsset.hpp" />
     <ClInclude Include="inc\glen\System\Assets\TAsset.hpp" />

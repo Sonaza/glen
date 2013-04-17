@@ -42,6 +42,8 @@ vec4 getDiffuseFrag()
 	#endif
 }
 
+vec4 fogColor = vec4(114.f / 255.f, 168.f / 255.f, 198.f / 255.f, 1.f);
+
 void main()
 {
 	vec4 diffuseFrag = getDiffuseFrag();
@@ -50,11 +52,9 @@ void main()
 	//vec4 normalmapFrag = texture(u_texture.normal, normalMap_uv);
 	
 	float zdistance = (gl_FragCoord.z / gl_FragCoord.w);
-	float fogIntensity = exp(zdistance / 1200.f) - 1.f;
+	float fogIntensity = exp(zdistance / 1800.f) - 1.f;
 	
 	fogIntensity = clamp(fogIntensity, 0.f, 1.f);
-	
-	vec4 fogColor = vec4(225.f / 300.f, 239.f / 300.f, 237.f / 290.f, 1.f);
 	
 	//////////////
 	
@@ -75,13 +75,13 @@ void main()
 	vec3 eye = normalize(mvFragPos.xyz);
 	vec3 reflection = reflect(L, N);
 	
-	float shininess = 100.f;
+	float shininess = 50000.f;
 	
 	vec4 specularFactor = max(pow(-dot(reflection, eye), shininess), 0.f) * specularColor;
 	
 	//////////////	
 	
-	finalColor = v_fragcolor * diffuseFrag * lightFactor + specularFactor;// * (1.f - fogIntensity) + fogColor * fogIntensity;
+	finalColor = (v_fragcolor * diffuseFrag * lightFactor + specularFactor) * (1.f - fogIntensity) + fogColor * fogIntensity;
 	
 	/*finalColor = vec4(
 		diffuse.rgb * (vec3(1.0) - decal.rgb), diffuse.a * decal.a

@@ -37,17 +37,6 @@ namespace
 	}
 
 	///////////////////////////////////////////////////////////////
-	/*void GLFWCALL _glfwResizeCallback(int width, int height)
-	{
-		std::cout << "Window resized: " << width << " x " << height << std::endl;
-
-		m_videoMode = VideoMode(width, height);
-		glViewport(0, 0, width, height);
-
-		Camera::refreshProjection();
-	}*/
-
-	///////////////////////////////////////////////////////////////
 	void _setDefaultGLStates()
 	{
 		glFrontFace(GL_CCW);
@@ -78,6 +67,7 @@ void Window::uninit()
 void Window::clear(Color c)
 {
 	glClearColor(c.r / 255.f, c.g / 255.f, c.b / 255.f, 1.f);
+	//glClearDepth()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 

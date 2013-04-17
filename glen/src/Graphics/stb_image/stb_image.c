@@ -61,7 +61,7 @@
 
 */
 
-#include <glen/Graphics/stb_image/stb_image.h>
+#include "stb_image.h"
 
 #ifndef STBI_HEADER_FILE_ONLY
 
