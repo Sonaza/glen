@@ -15,31 +15,37 @@ namespace sf
 	class Window;
 }
 
+#define haxtern //extern
+
 namespace glen
 {
 
 	namespace Window
 	{
 
-		extern void uninit();
+		haxtern void uninit();
 
-		extern bool create(VideoMode mode, const std::string &title = "GLEN Window", uint32 style = Style::Default);
+		haxtern bool create(VideoMode mode, const std::string &title = "GLEN Window", uint32 style = Style::Default);
 
-		extern void clear(Color c = Color::Black);
-		extern void display();
+		haxtern void clear(Color c = Color::Black);
+		haxtern void display();
 
-		extern void setTitle(const std::string &title);
+		haxtern void setTitle(const std::string &title);
 
-		extern void setPosition(Vector2i& pos);
-		extern void setPosition(const int32 x, const int32 y);
+		haxtern void setPosition(Vector2i& pos);
+		haxtern void setPosition(const int32 x, const int32 y);
 
-		extern bool isOpen();
-		extern bool isActive();
+		haxtern bool isOpen();
+		haxtern bool isActive();
 
-		extern Vector2u getDimensions();
-		extern float getAspectRatio();
+		haxtern Vector2u getDimensions();
+		haxtern float getAspectRatio();
 
-		extern sf::Window* getWindow();
+		haxtern sf::Window* getWindow();
+
+		haxtern Vector2i getOptimalResolution(const bool fullscreen = false);
+
+		haxtern bool checkShaderSupport();
 
 	}
 

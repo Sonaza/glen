@@ -13,29 +13,7 @@ namespace
 
 	std::unique_ptr<sf::Window>		m_window;
 	sf::ContextSettings				m_settings;
-
-	///////////////////////////////////////////////////////////////
-	bool _initGLEW()
-	{
-		// Initialize GLEW now that window is open
-		glewExperimental = GL_TRUE;
-
-		GLenum code = glewInit();
-		if(code != GLEW_OK)
-		{
-			err << "glewInit failed: " << glewGetErrorString(code) << ErrorStream::error;
-			return false;
-		}
-
-		if(!GLEW_VERSION_3_2)
-		{
-			err << "OpenGL 3.2 API is not available" << ErrorStream::error;
-			return false;
-		}
-
-		return true;
-	}
-
+	
 	///////////////////////////////////////////////////////////////
 	void _setDefaultGLStates()
 	{
@@ -48,8 +26,11 @@ namespace
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
 
-		//glEnable(GL_ALPHA_TEST);
-		//glAlphaFunc(GL_GREATER, 0);
+		glEnable(GL_ALPHA_TEST);
+		glAlphaFunc(GL_GREATER, 0);
+
+		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_TEXTURE_CUBE_MAP);
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -58,17 +39,68 @@ namespace
 }
 
 ////////////////////////////////////////////////////////////
+bool Window::create(VideoMode mode, const std::string &title, uint32 style)
+{
+	// Set OpenGL context related settings
+	m_settings.majorVersion = 3;
+	m_settings.minorVersion = 2;
+
+	m_settings.depthBits = 24;
+	m_settings.stencilBits = 8;
+
+	m_settings.antialiasingLevel = 4;
+
+	// Create the window
+	m_window.reset(new sf::Window(
+		sf::VideoMode(mode.width, mode.height),
+		title,
+		style,
+		m_settings
+	));
+	
+	// Check if window initialization failed
+	if(!m_window)
+	{
+		return false;
+	}
+
+	// Initialize GLEW now that window is open
+	glewExperimental = GL_TRUE;
+
+	GLenum code = glewInit();
+	if(code != GLEW_OK)
+	{
+		err << "glewInit failed: " << glewGetErrorString(code) << ErrorStream::error;
+		
+		return false;
+	}
+
+	// See if correct context version was successfully loaded
+	if(!GLEW_VERSION_3_2)
+	{
+		err << "OpenGL 3.2 API is not available" << ErrorStream::error;
+
+		return false;
+	}
+
+	err << "ASD: " << GLEW_ARB_separate_shader_objects << ErrorStream::error;
+
+	_setDefaultGLStates();
+
+	return true;
+}
+
+////////////////////////////////////////////////////////////
 void Window::uninit()
 {
-	//glfwTerminate();
+	m_window->close();
 }
 
 ////////////////////////////////////////////////////////////
 void Window::clear(Color c)
 {
 	glClearColor(c.r / 255.f, c.g / 255.f, c.b / 255.f, 1.f);
-	//glClearDepth()
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 
 ////////////////////////////////////////////////////////////
@@ -80,7 +112,6 @@ void Window::display()
 ////////////////////////////////////////////////////////////
 void Window::setTitle(const std::string &title)
 {
-	//glfwSetWindowTitle(title.c_str());
 	m_window->setTitle(title);
 }
 
@@ -122,29 +153,41 @@ float Window::getAspectRatio()
 }
 
 ////////////////////////////////////////////////////////////
-bool Window::create(VideoMode mode, const std::string &title, uint32 style)
-{
-	m_settings.antialiasingLevel = 4;
-	m_settings.depthBits = 24;
-	m_settings.majorVersion = 3;
-	m_settings.minorVersion = 2;
-	
-	m_window.reset(new sf::Window(
-		sf::VideoMode(mode.width, mode.height),
-		title,
-		style,
-		m_settings
-	));
-
-	_initGLEW();
-
-	_setDefaultGLStates();
-
-	return true;
-}
-
-////////////////////////////////////////////////////////////
 sf::Window* Window::getWindow()
 {
 	return m_window.get();
+}
+
+////////////////////////////////////////////////////////////
+Vector2i Window::getOptimalResolution(const bool fullscreen)
+{
+	sf::VideoMode native = sf::VideoMode::getDesktopMode();
+	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
+	
+	Vector2i resolution(native.width, native.height);
+
+	if(fullscreen && native == modes[0]) return resolution;
+
+	float nativeRatio = native.width / static_cast<float>(native.height);
+	float ratio;
+
+	for(std::vector<sf::VideoMode>::iterator it = modes.begin(); it != modes.end(); ++it)
+	{
+		sf::VideoMode mode = *it;
+
+		if(mode.bitsPerPixel != native.bitsPerPixel) continue;
+		if(mode.width >= native.width) continue;
+
+		ratio = mode.width / static_cast<float>(mode.height);
+
+		if(fabs(nativeRatio-ratio) <= 0.05f)
+		{
+			resolution.x = mode.width;
+			resolution.y = mode.height;
+
+			break;
+		}
+	}
+
+	return resolution;
 }

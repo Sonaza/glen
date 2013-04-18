@@ -1,9 +1,8 @@
 #ifndef GLEN_MATERIAL_HPP
 #define GLEN_MATERIAL_HPP
 
-#include <glen/Graphics/Texture2D.hpp>
-#include <glen/Graphics/Color.hpp>
-#include <glen/Graphics/TextureTransform.hpp>
+#include <glen/Graphics/Texture/Texture2D.hpp>
+#include <glen/Graphics/Texture/TextureTransform.hpp>
 
 #include <glm/glm.hpp>
 
@@ -14,10 +13,10 @@
 namespace glen
 {
 
-	class ShaderProgram;
 	class Shader;
+	class ShaderProgram;
+	class ShaderAsset;
 
-	typedef std::vector<Shader*> ShaderList;
 	typedef std::map<Texture2D::TextureType, Texture2D*> TextureList;
 	typedef std::map<Texture2D::TextureType, TextureTransform> TextureTrans;
 
@@ -57,8 +56,7 @@ namespace glen
 		void _linkVertexAttrib();
 		virtual void _bindTextures();
 
-		ShaderProgram*	m_program;
-		ShaderList		m_shaders;
+		ShaderAsset*	m_shaderAsset;
 
 		TextureList		m_textures;
 		TextureTrans	m_transforms;

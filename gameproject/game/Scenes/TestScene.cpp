@@ -63,16 +63,25 @@ void TestScene::load()
 		test2->attachComponent(new Renderer("terrain"));
 		
 		test2->send("setPosition", Vector3f(0.f, -2.f, 0.f));
-		test2->send("setScale", Vector3f(14.f, 6.f, 14.f));
+		test2->send("setScale", Vector3f(14.f, 14.f, 14.f));
 		test2->send("setRotation", Vector3f(0.f, 0.f, 0.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(test2);
 	}
 
+
+	skybox.push_back(new Skyplane("sky/front.png",	Vector3f(0.f, 0.f, 0.f)));
+	skybox.push_back(new Skyplane("sky/back.png",	Vector3f(0.f, -180.f, 0.f)));
+
+	skybox.push_back(new Skyplane("sky/right.png",	Vector3f(0.f, -90.f, 0.f)));
+	skybox.push_back(new Skyplane("sky/left.png",	Vector3f(0.f, 90.f, 0.f)));
+
+	skybox.push_back(new Skyplane("sky/top.png",	Vector3f(-90.f, 0.f, 0.f)));
+	skybox.push_back(new Skyplane("sky/bottom.png",	Vector3f(90.f, 0.f, 0.f)));
 	{
 		// Load texture
-		AssetManager::loadTexture2D("bgplane", "bg.jpg");
+		AssetManager::loadTexture2D("bgplane", "sphere.png");
 
 		// Create new diffuse material
 		Material* mat = MaterialFactory::diffuse("bgplane");
@@ -97,15 +106,6 @@ void TestScene::load()
 		// Send the entity to the world pipeline
 		World::addEntity(bgplane);
 	}
-
-	skybox.push_back(new Skyplane("sky/front.png",	Vector3f(0.f, 0.f, 0.f)));
-	skybox.push_back(new Skyplane("sky/back.png",	Vector3f(0.f, -180.f, 0.f)));
-
-	skybox.push_back(new Skyplane("sky/right.png",	Vector3f(0.f, -90.f, 0.f)));
-	skybox.push_back(new Skyplane("sky/left.png",	Vector3f(0.f, 90.f, 0.f)));
-
-	skybox.push_back(new Skyplane("sky/top.png",	Vector3f(-90.f, 0.f, 0.f)));
-	skybox.push_back(new Skyplane("sky/bottom.png",	Vector3f(90.f, 0.f, 0.f)));
 
 	ypos = 2.f;
 	yvel = 0.f;
@@ -221,10 +221,9 @@ void TestScene::update()
 		(*it)->setCamPos(campos);
 	}
 
-
 	if(!bounce)
 	{
-		yvel += -35.f * Time.delta;
+		yvel += -18.f * Time.delta;
 		ypos += yvel * Time.delta;
 
 		if(ypos <= 0.f)
@@ -239,7 +238,7 @@ void TestScene::update()
 
 	if(bounce)
 	{
-		yscalevel += 18.f * Time.delta;// * (yscale > 1.f ? -1.f : 1.f);
+		yscalevel += 25.f * Time.delta;// * (yscale > 1.f ? -1.f : 1.f);
 		yscale += yscalevel * Time.delta;
 		
 		if(yscale > 1.f)
@@ -249,21 +248,26 @@ void TestScene::update()
 			yscale = 1.f;
 			yscalevel = 0.f;
 
-			yvel = 25.f;
+			yvel = 15.f;
 		}
 	}
 
 	//float yscale = std::max(0.1f, sin(time * 2.f) * 0.4f + 0.6f);
 	//float ypos = std::max(0.01f, cos(time * 2.f + 1.f)) * 0.05f;
 	
-	rot += 11.f * (ypos / 2.f) * Time.delta;
+	rot += 0.3f * 11.f * (ypos / 2.f) * Time.delta;
 	rad = rot * 3.141592f / 180.f;
 
-	test->send("setPosition", Vector3f(cos(-rad) * 20.f, ypos -1.f, sin(-rad) * 20.f));
+	test->send("setPosition", Vector3f(
+		cos(-rad) * 20.f * 30.f,
+		ypos * 30.f - 90.f,
+		sin(-rad) * 20.f * 30.f - 140.f
+	));
+
 	test->send("setScale", Vector3f(
-		50.f * (1.f / yscale),
-		50.f * yscale,
-		50.f * (1.f / yscale)
+		50.f * (1.f / yscale) * 50.f,
+		50.f * yscale * 50.f,
+		50.f * (1.f / yscale) * 50.f
 	));
 
 	test->send("setRotation", Vector3f(0.f, rot - 85.f, 0.f));

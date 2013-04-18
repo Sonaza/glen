@@ -8,11 +8,11 @@
 
 #include <glen/Graphics/Color.hpp>
 #include <glen/Graphics/Model.hpp>
-#include <glen/Graphics/Texture2D.hpp>
+#include <glen/Graphics/Texture/Texture2D.hpp>
 
 #include <glen/Graphics/Material.hpp>
 #include <glen/Graphics/MaterialFactory.hpp>
-#include <glen/Graphics/TextureTransform.hpp>
+#include <glen/Graphics/Texture/TextureTransform.hpp>
 
 namespace glen
 {

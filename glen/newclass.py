@@ -1,13 +1,12 @@
 import os
 
 def main():
-	createclass('Sprite', 'Graphics')
+	createclass('Image', 'Graphics')
 
 def basepath(fullpath):
 	return '/'.join(fullpath.split('/')[:-1]) + '/'
 
 def createclass(classname, directory, baseclass = '', baseclassdir = ''):
-		
 	hpp_path = 'inc/glen/' + directory + '/' + classname + '.hpp'
 	cpp_path = 'src/' + directory + '/' + classname + '.cpp'
 	
@@ -35,9 +34,11 @@ def createclass(classname, directory, baseclass = '', baseclassdir = ''):
 	if len(baseclass) > 0:
 		keywords.append(('[inherit_include]', '#include <glen/' + baseclassdir + '/' + baseclass + '.hpp>\n\n'))
 		keywords.append(('[inherit_class]', ' : public ' + baseclass))
+		keywords.append(('[inherit_virtual]', 'virtual '))
 	else:
 		keywords.append(('[inherit_include]', ''))
 		keywords.append(('[inherit_class]', ''))
+		keywords.append(('[inherit_virtual]', ''))
 	
 	thpp = ("#ifndef GLEN_[^classname]_HPP\n"
 	"#define GLEN_[^classname]_HPP\n"
@@ -49,7 +50,7 @@ def createclass(classname, directory, baseclass = '', baseclassdir = ''):
 	"	{\n"
 	"	public:\n"
 	"		[classname]();\n"
-	"		~[classname]();\n"
+	"		[inherit_virtual]~[classname]();\n"
 	"	};\n"
 	"	\n"
 	"}\n"

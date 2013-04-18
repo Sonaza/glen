@@ -38,7 +38,7 @@ namespace glen
 		return left;
 	}
 
-	// szen error output stream
+	// error output stream
 	extern ErrorStream err;
 
 }

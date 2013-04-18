@@ -11,7 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Graphics\Image.cpp" />
+    <ClCompile Include="src\Graphics\ShaderAsset.cpp" />
     <ClCompile Include="src\Graphics\Sprite.cpp" />
+    <ClCompile Include="src\Graphics\Texture\Texture.cpp" />
+    <ClCompile Include="src\Graphics\Texture\TextureCubemap.cpp" />
     <ClCompile Include="src\System\AssetManager.cpp" />
     <ClCompile Include="src\Game\Component.cpp" />
     <ClCompile Include="src\Game\Components\Renderer.cpp" />
@@ -34,12 +38,12 @@
     <ClCompile Include="src\Graphics\Shader.cpp" />
     <ClCompile Include="src\Graphics\ShaderProgram.cpp" />
     <ClCompile Include="src\Graphics\stb_image\stb_image.c" />
-    <ClCompile Include="src\Graphics\Texture2D.cpp" />
-    <ClCompile Include="src\Graphics\TextureTransform.cpp" />
+    <ClCompile Include="src\Graphics\Texture\Texture2D.cpp" />
+    <ClCompile Include="src\Graphics\Texture\TextureTransform.cpp" />
     <ClCompile Include="src\System\Core.cpp" />
     <ClCompile Include="src\System\ErrorStream.cpp" />
     <ClCompile Include="src\System\SceneManager.cpp" />
-    <ClCompile Include="src\System\Sleep.cpp" />
+    <ClCompile Include="src\Graphics\ShaderManager.cpp" />
     <ClCompile Include="src\System\Startup.cpp" />
     <ClCompile Include="src\System\Time.cpp" />
     <ClCompile Include="src\System\Transformable.cpp" />
@@ -58,6 +62,7 @@
     <ClInclude Include="inc\glen\glen.hpp" />
     <ClInclude Include="inc\glen\Graphics\Camera.hpp" />
     <ClInclude Include="inc\glen\Graphics\Color.hpp" />
+    <ClInclude Include="inc\glen\Graphics\Image.hpp" />
     <ClInclude Include="inc\glen\Graphics\Light.hpp" />
     <ClInclude Include="inc\glen\Graphics\Material.hpp" />
     <ClInclude Include="inc\glen\Graphics\MaterialFactory.hpp" />
@@ -66,6 +71,10 @@
     <ClInclude Include="inc\glen\Graphics\Model.hpp" />
     <ClInclude Include="inc\glen\Graphics\RenderTexture.hpp" />
     <ClInclude Include="inc\glen\Graphics\Sprite.hpp" />
+    <ClInclude Include="inc\glen\Graphics\ShaderManager.hpp" />
+    <ClInclude Include="inc\glen\Graphics\ShaderAsset.hpp" />
+    <ClInclude Include="inc\glen\Graphics\Texture\Texture.hpp" />
+    <ClInclude Include="inc\glen\Graphics\Texture\TextureCubemap.hpp" />
     <ClInclude Include="src\Graphics\stb_image\stb_image.h" />
     <ClInclude Include="inc\glen\System\AssetManager.hpp" />
     <ClInclude Include="inc\glen\System\Assets\ModelAsset.hpp" />
@@ -75,13 +84,12 @@
     <ClInclude Include="inc\glen\System\Scene.hpp" />
     <ClInclude Include="inc\glen\Graphics\Shader.hpp" />
     <ClInclude Include="inc\glen\Graphics\ShaderProgram.hpp" />
-    <ClInclude Include="inc\glen\Graphics\Texture2D.hpp" />
-    <ClInclude Include="inc\glen\Graphics\TextureTransform.hpp" />
+    <ClInclude Include="inc\glen\Graphics\Texture\Texture2D.hpp" />
+    <ClInclude Include="inc\glen\Graphics\Texture\TextureTransform.hpp" />
     <ClInclude Include="inc\glen\opengl.hpp" />
     <ClInclude Include="inc\glen\System\Core.hpp" />
     <ClInclude Include="inc\glen\system\ErrorStream.hpp" />
     <ClInclude Include="inc\glen\System\SceneManager.hpp" />
-    <ClInclude Include="inc\glen\System\Sleep.hpp" />
     <ClInclude Include="inc\glen\System\Startup.hpp" />
     <ClInclude Include="inc\glen\System\Time.hpp" />
     <ClInclude Include="inc\glen\System\Transformable.hpp" />

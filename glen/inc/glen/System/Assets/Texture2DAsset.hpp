@@ -2,7 +2,7 @@
 #define GLEN_TEXTURE2D_ASSET_HPP
 
 #include <glen/System/Assets/TAsset.hpp>
-#include <glen/Graphics/Texture2D.hpp>
+#include <glen/Graphics/Texture/Texture2D.hpp>
 
 namespace glen
 {

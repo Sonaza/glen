@@ -15,7 +15,10 @@ namespace glen
 		assert(g_core != NULL && "Core memory allocation failed");
 
 		// Hello world
-		g_core->initialize();
+		if(!g_core->initialize())
+		{
+			return;
+		}
 
 		// Set scene
 		SceneManager::setScene(scene);

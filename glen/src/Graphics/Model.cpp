@@ -2,7 +2,7 @@
 #include <glen/Graphics/Material.hpp>
 #include <glen/Graphics/MeshLoader.hpp>
 
-#include <glen/Graphics/Texture2D.hpp>
+#include <glen/Graphics/Texture/Texture2D.hpp>
 
 #include <glen/Graphics/ShaderProgram.hpp>
 #include <glen/Graphics/Shader.hpp>

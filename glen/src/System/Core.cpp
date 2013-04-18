@@ -1,5 +1,17 @@
 #include <glen/System/Core.hpp>
+
+
+#include <glen/Window/Window.hpp>
+
+#include <glen/Game/World.hpp>
+
+#include <glen/System/AssetManager.hpp>
 #include <glen/System/InputManager.hpp>
+#include <glen/System/SceneManager.hpp>
+
+#include <glen/Graphics/ShaderManager.hpp>
+
+#include <glen/Graphics/Camera.hpp>
 
 using namespace glen;
 
@@ -21,44 +33,45 @@ void Core::run()
 }
 
 ////////////////////////////////////////////////////////////
-void Core::initialize()
+bool Core::initialize()
 {
-	Window::create(VideoMode(1280, 720), "Derp", Style::Default);
+	Vector2i reso = Window::getOptimalResolution();
+	return Window::create(VideoMode(reso.x, reso.y), "Derp", Style::Default);
 }
 
 ////////////////////////////////////////////////////////////
 void Core::uninitialize()
 {
-	Window::uninit();
-
 	AssetManager::unload();
+	ShaderManager::unload();
+
+	Window::uninit();
 }
 
 ////////////////////////////////////////////////////////////
 void Core::loop()
 {
-	m_fpsTimer = m_lastTime = 0.f;
+	sf::Clock deltaclock, fpsupdateclock;
 
 	m_running = true;
 	while(m_running)
 	{
-		/*m_lastTime = m_fpsTimer;
-		m_fpsTimer = GetTickCount() / 1000.f;
-
-		if(m_outTimer < m_fpsTimer)
+		/*float delta = deltaclock.restart().asSeconds();
+		if(fpsupdateclock.getElapsedTime().asSeconds() >= 1.f)
 		{
-			float fps = 1.f / (m_fpsTimer-m_lastTime);
-			std::cout << fps << " FPS " << std::endl;
-			m_outTimer = m_fpsTimer+1.f;
+			std::cout << std::setiosflags(std::ios::fixed) << std::setprecision(2)
+					  <<  (1.f / delta) << " fps" << std::endl;
+
+			fpsupdateclock.restart();
 		}*/
-		
+
 		events();
 
 		update();
 
 		render();
 
-		sleep(milliseconds(5));
+		sf::sleep(sf::milliseconds(5));
 	}
 }
 

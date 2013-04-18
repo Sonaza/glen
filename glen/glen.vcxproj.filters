@@ -30,9 +30,6 @@
     <ClCompile Include="src\Game\World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\stb_image\stb_image.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Graphics\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,19 +57,10 @@
     <ClCompile Include="src\Graphics\ShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Graphics\Texture2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Graphics\TextureTransform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\System\Core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\System\SceneManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\System\Sleep.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\System\Startup.cpp">
@@ -118,6 +106,30 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Graphics\Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\ShaderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\ShaderAsset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Texture\Texture2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Texture\TextureCubemap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Texture\TextureTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Texture\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\Image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\stb_image\stb_image.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -170,19 +182,10 @@
     <ClInclude Include="inc\glen\Graphics\ShaderProgram.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inc\glen\Graphics\Texture2D.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\glen\Graphics\TextureTransform.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="inc\glen\System\Core.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\glen\System\SceneManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\glen\System\Sleep.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\glen\System\Startup.hpp">
@@ -624,6 +627,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\glen\Graphics\Sprite.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\glen\Graphics\ShaderManager.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\glen\Graphics\ShaderAsset.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\glen\Graphics\Texture\TextureTransform.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\glen\Graphics\Texture\Texture2D.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\glen\Graphics\Texture\TextureCubemap.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\glen\Graphics\Texture\Texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\glen\Graphics\Image.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\stb_image\stb_image.h">

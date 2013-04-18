@@ -1,4 +1,4 @@
-#include <glen/Graphics/TextureTransform.hpp>
+#include <glen/Graphics/Texture/TextureTransform.hpp>
 
 #include <glm/gtc/matrix_transform.hpp>
 

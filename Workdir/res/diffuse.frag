@@ -75,17 +75,12 @@ void main()
 	vec3 eye = normalize(mvFragPos.xyz);
 	vec3 reflection = reflect(L, N);
 	
-	float shininess = 50000.f;
+	float shininess = 50.f;
 	
 	vec4 specularFactor = max(pow(-dot(reflection, eye), shininess), 0.f) * specularColor;
 	
 	//////////////	
 	
 	finalColor = (v_fragcolor * diffuseFrag * lightFactor + specularFactor) * (1.f - fogIntensity) + fogColor * fogIntensity;
-	
-	/*finalColor = vec4(
-		diffuse.rgb * (vec3(1.0) - decal.rgb), diffuse.a * decal.a
-	);*/
-
-	//finalColor = mix(diffuse, decal, decal.a);
+	finalColor = vec4(finalColor.rgb, diffuseFrag.a);
 }

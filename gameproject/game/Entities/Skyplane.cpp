@@ -5,7 +5,7 @@ Skyplane::Skyplane(const std::string &texture, Vector3f rot)
 {
 	AssetManager::loadTexture2D(texture, texture)
 		->getAsset()
-		->setClamping(Texture2D::Settings::Clamp);
+		->setClamping(Texture::Clamp);
 
 	// Create new diffuse material
 	Material* mat = MaterialFactory::skyplane(texture);
