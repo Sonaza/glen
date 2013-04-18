@@ -1,5 +1,4 @@
 *.suo
-*.vcxproj.user
 Debug*
 Release*
 glen/Debug*
@@ -12,7 +11,7 @@ Workdir/test.jpg
 
 # User-specific files
 *.suo
-*.user
+#*.user
 *.sln.docstates
 
 # Build results

@@ -58,7 +58,7 @@ void TestScene::load()
 			->setMaterial("terrainmaterial");
 
 		// Create new entity and attach transform and renderer
-		test2 = new Entity;
+		test2 = new Entity;	
 		test2->attachComponent(new Transform);
 		test2->attachComponent(new Renderer("terrain"));
 		
@@ -136,7 +136,7 @@ void TestScene::update()
 
 	//test2->send("setRotation", Vector3f(0.f, 360.f * Time.total, 0.f));
 
-	if(!Input::isKeyDown(sf::Keyboard::LControl))
+	if(!Input::isKeyDown(sf::Keyboard::LControl) && Window::isActive())
 	{
 		sf::Mouse::setPosition(sf::Vector2i(center.x, center.y), *Window::getWindow());
 
@@ -224,7 +224,7 @@ void TestScene::update()
 
 	if(!bounce)
 	{
-		yvel += -20.f * Time.delta;
+		yvel += -35.f * Time.delta;
 		ypos += yvel * Time.delta;
 
 		if(ypos <= 0.f)
@@ -249,14 +249,14 @@ void TestScene::update()
 			yscale = 1.f;
 			yscalevel = 0.f;
 
-			yvel = 6.f;
+			yvel = 25.f;
 		}
 	}
 
 	//float yscale = std::max(0.1f, sin(time * 2.f) * 0.4f + 0.6f);
 	//float ypos = std::max(0.01f, cos(time * 2.f + 1.f)) * 0.05f;
 	
-	rot += 360.f * (ypos / 2.f) * Time.delta;
+	rot += 11.f * (ypos / 2.f) * Time.delta;
 	rad = rot * 3.141592f / 180.f;
 
 	test->send("setPosition", Vector3f(cos(-rad) * 20.f, ypos -1.f, sin(-rad) * 20.f));
