@@ -83,7 +83,7 @@ bool Window::create(VideoMode mode, const std::string &title, uint32 style)
 		return false;
 	}
 
-	err << "ASD: " << GLEW_ARB_separate_shader_objects << ErrorStream::error;
+	err << "GLEW_ARB_separate_shader_objects: " << (GLEW_ARB_separate_shader_objects ? "yes" : "no") << ErrorStream::console;
 
 	_setDefaultGLStates();
 

@@ -6,6 +6,8 @@
 
 #include <algorithm>
 
+#include <glen/Graphics/Texture/TextureCubemap.hpp>
+
 #define clamp(__val, __min, __max) (std::max((__min), std::min((__max), (__val))))
 
 using namespace glen;
@@ -38,7 +40,8 @@ private:
 	Entity* test;
 	Entity* test2;
 	Entity* bgplane;
-	
+	Entity* uvmapped;
+
 	float camyvel;
 	Vector3f campos;
 	Vector3f camrot;

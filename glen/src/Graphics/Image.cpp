@@ -28,7 +28,7 @@ bool Image::loadFromFile(const std::string &path)
 	int width, height, channels;
 	uint8* data = stbi_load(path.c_str(), &width, &height, &channels, STBI_rgb_alpha);
 
-	if(data && m_size.x && m_size.y)
+	if(data)// && m_size.x && m_size.y)
 	{
 		m_size.x = width;
 		m_size.y = height;

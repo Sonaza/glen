@@ -23,16 +23,11 @@ namespace glen
 						  const std::string& back);
 
 	private:
+		
+		bool _loadImages();
+		void _freeImages();
 
-		enum Surface
-		{
-			Left	= GL_TEXTURE_CUBE_MAP_POSITIVE_X,
-			Right	= GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
-			Top		= GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
-			Bottom	= GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
-			Front	= GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
-			Back	= GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
-		};
+		std::vector<std::string> m_filenames;
 
 		std::vector<Image*>	m_images;
 

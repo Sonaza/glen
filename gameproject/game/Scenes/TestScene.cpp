@@ -18,6 +18,9 @@ void TestScene::load()
 	cam->setPosition(0.f, 4.3f, 6.f);
 	cam->lookAt(Vector3f(0.f, 1.8f, 0.f), Vector3f::up);
 
+	//TextureCubemap tcm;
+	//tcm.loadFromFile("sky/left.png", "sky/right.png", "sky/top.png", "sky/bottom.png", "sky/front.png", "sky/back.png");
+
 	{
 		// Load texture
 		AssetManager::loadTexture2D("brick", "test2.png");
@@ -40,6 +43,31 @@ void TestScene::load()
 
 		// Send the entity to the world pipeline
 		World::addEntity(test);
+	}
+
+	{
+		// Load texture
+		AssetManager::loadTexture2D("uvmap", "uvtest.png");
+
+		// Create new diffuse material
+		Material* mat = MaterialFactory::diffuse("uvmap");
+		AssetManager::createMaterial("uvmap", mat);
+
+		// Load bunny model and apply the material
+		AssetManager::loadModel("uvmap", "uvmapped.obj")
+			->setMaterial("uvmap");
+
+		// Create new entity and attach transform and renderer
+		uvmapped = new Entity;
+		uvmapped->attachComponent(new Transform);
+		uvmapped->attachComponent(new Renderer("uvmap"));
+
+		uvmapped->send("setPosition", Vector3f(0.f, 250.f, 0.f));
+		uvmapped->send("setScale", Vector3f(30.f,30.f, 30.f));
+		uvmapped->send("setRotation", Vector3f(32.f, 0.f, 19.f));
+
+		// Send the entity to the world pipeline
+		World::addEntity(uvmapped);
 	}
 
 	{
@@ -79,6 +107,7 @@ void TestScene::load()
 
 	skybox.push_back(new Skyplane("sky/top.png",	Vector3f(-90.f, 0.f, 0.f)));
 	skybox.push_back(new Skyplane("sky/bottom.png",	Vector3f(90.f, 0.f, 0.f)));
+
 	{
 		// Load texture
 		AssetManager::loadTexture2D("bgplane", "sphere.png");
@@ -99,9 +128,9 @@ void TestScene::load()
 		bgplane->attachComponent(new Transform);
 		bgplane->attachComponent(new Renderer("bgplane"));
 
-		bgplane->send("setPosition", Vector3f(0.f, 13.f, -29.f));
-		bgplane->send("setScale", Vector3f(6.f, 6.f, 6.f));
-		bgplane->send("setRotation", Vector3f(-7.f, 0.f, 0.f));
+		bgplane->send("setPosition", Vector3f(0.f, -5.f, -120.f));
+		bgplane->send("setScale", Vector3f(6.f, 10.f, 6.f));
+		bgplane->send("setRotation", Vector3f(-90.f, 0.f, 0.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(bgplane);

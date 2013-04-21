@@ -44,10 +44,19 @@ namespace glen
 				: NULL;
 		}
 
-		void updateMatrix(glm::mat4& modelMatrix);
+		struct Matrices
+		{
+			glm::mat4 projection;
+			glm::mat4 view;
+			glm::mat4 model;
+		};
 
-		void bind() const;
+		void setMatrices(Matrices& matrices);
+
+		void bind();
 		void unbind() const;
+
+		sf::Clock timer;
 
 	protected:
 

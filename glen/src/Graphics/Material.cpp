@@ -30,27 +30,29 @@ Material::~Material(void)
 }
 
 ///////////////////////////////////////////////////
-void Material::bind() const
+void Material::bind()
 {
-	assert(m_program != NULL && "Program must be initialized");
+	assert(m_shaderAsset->program != NULL && "Program must be initialized");
 	m_shaderAsset->program->use();
+
+	_bindTextures();
 }
 
 ///////////////////////////////////////////////////
 void Material::unbind() const
 {
-	assert(m_program != NULL && "Program must be initialized");
+	assert(m_shaderAsset->program != NULL && "Program must be initialized");
 	m_shaderAsset->program->unUse();
 }
 
 ///////////////////////////////////////////////////
-void Material::updateMatrix(glm::mat4& model)
+void Material::setMatrices(Matrices& matrices)
 {
-	Camera* camera = Camera::activeCamera();
-	
-	m_shaderAsset->program->setUniform("u_model", model);
-	m_shaderAsset->program->setUniform("u_view", camera->getMatrix());
-	m_shaderAsset->program->setUniform("u_proj", camera->getProjectionMatrix());
+	m_shaderAsset->program->setUniform("u_model", matrices.model);
+	m_shaderAsset->program->setUniform("u_view", matrices.view);
+	m_shaderAsset->program->setUniform("u_proj", matrices.projection);
+
+	m_shaderAsset->program->setUniform("u_time", timer.getElapsedTime().asSeconds());
 }
 
 ///////////////////////////////////////////////////
@@ -88,7 +90,7 @@ void Material::_bindTextures()
 		glActiveTexture(GL_TEXTURE0 + it->first);
 		it->second->bind();
 	}
-
+	
 	if(m_transforms.find(Texture2D::Diffuse) != m_transforms.end())
 		m_shaderAsset->program->setUniform("u_texmatrix.diffuse", m_transforms[Texture2D::Diffuse].getMatrix());
 

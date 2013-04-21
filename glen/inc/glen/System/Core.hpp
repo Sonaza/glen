@@ -16,7 +16,7 @@ namespace glen
 
 		void run();
 
-		void initialize();
+		bool initialize();
 		void uninitialize();
 
 		void loop();

@@ -36,6 +36,7 @@ void Core::run()
 bool Core::initialize()
 {
 	Vector2i reso = Window::getOptimalResolution();
+	std::cout << reso.x << " x " << reso.y << std::endl;
 	return Window::create(VideoMode(reso.x, reso.y), "Derp", Style::Default);
 }
 

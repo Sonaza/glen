@@ -132,6 +132,9 @@
     <ClCompile Include="src\Graphics\stb_image\stb_image.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Graphics\MeshRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\glen\Game\Components\Renderer.hpp">
@@ -201,9 +204,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\glen\System\Vector4.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\glen\Window\MessageBox.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\glen\Window\VideoMode.hpp">
@@ -651,6 +651,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Graphics\stb_image\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\glen\Graphics\MeshRenderer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

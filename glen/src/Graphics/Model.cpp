@@ -7,6 +7,8 @@
 #include <glen/Graphics/ShaderProgram.hpp>
 #include <glen/Graphics/Shader.hpp>
 
+#include <glen/Graphics/Camera.hpp>
+
 namespace glen
 {
 //////////////////////////////////////////////////
@@ -81,10 +83,12 @@ void Model::render(glm::mat4 &transform)
 
 	//m_material->m_program->setUniform("u_time", GetTickCount() / 1000.f);
 
-	m_material->updateMatrix(transform);
+	Material::Matrices mat;
+	mat.projection	= Camera::activeCamera()->getProjectionMatrix();
+	mat.view		= Camera::activeCamera()->getMatrix();
+	mat.model		= transform;
 
-	// Bind material textures
-	m_material->_bindTextures();
+	m_material->setMatrices(mat);
 
 	// Render model on screen
 	glCheck(glDrawArrays(GL_TRIANGLES, 0, m_meshdata->drawCount));

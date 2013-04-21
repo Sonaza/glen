@@ -1,7 +1,7 @@
 import os
 
 def main():
-	createclass('Image', 'Graphics')
+	createclass('MeshRenderer', 'Graphics')
 
 def basepath(fullpath):
 	return '/'.join(fullpath.split('/')[:-1]) + '/'

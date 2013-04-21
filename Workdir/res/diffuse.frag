@@ -28,7 +28,7 @@ uniform mat4 u_view;
 
 float warp_diffuse(float d)
 {
-	return d * 0.5 + 0.5;
+	return d;// * 0.5 + 0.5;
 	//return smoothstep(0.35, 0.37, d) * 0.4 + smoothstep(0.70, 0.72, d) * 0.6;
 }
 
@@ -44,9 +44,12 @@ vec4 getDiffuseFrag()
 
 vec4 fogColor = vec4(114.f / 255.f, 168.f / 255.f, 198.f / 255.f, 1.f);
 
+uniform float u_time;
+
 void main()
 {
 	vec4 diffuseFrag = getDiffuseFrag();
+	finalColor = v_fragcolor * diffuseFrag;
 	
 	//vec2 normalmap_uv = (u_texmatrix.normal * vec4(v_texcoord, 0.f, 1.f)).xy;
 	//vec4 normalmapFrag = texture(u_texture.normal, normalMap_uv);
@@ -55,19 +58,29 @@ void main()
 	float fogIntensity = exp(zdistance / 1800.f) - 1.f;
 	
 	fogIntensity = clamp(fogIntensity, 0.f, 1.f);
-	
+		
 	//////////////
 	
-	vec3 lightPos = vec3(-10.f, 20.f, -50.f);
+	vec3 lightPos = vec3(cos(u_time / 4.f) * 700.f, cos(u_time / 4.f) * 2500.f, sin(-u_time / 4.f) * 2500.f);
+	vec3 lightDir = lightPos - v_fragposition.xyz;
 	
-	vec3 L = normalize(lightPos - v_fragposition.xyz);
+	float D = length(lightDir);
+	
+	vec3 L = normalize(lightDir);
 	vec3 N = normalize(v_normal.xyz);
 	
-	vec4 diffuseColor = vec4(0.7, 0.55, 0.3, 0.0);
+	vec4 diffuseColor = vec4(0.8, 0.7, 0.4, 0.0);
 	vec4 ambientColor = vec4(0.3, 0.35, 0.4, 1.0);
 	vec4 specularColor = vec4(0.6, 0.6, 0.45, 1.0);
 	
-	vec4 diffuseFactor = max(warp_diffuse(dot(N, L)), 0.f) * diffuseColor;
+	//vec3 falloff = vec3(1.f, 2.f, 1.f);
+	//float attenuation = 1.f / (falloff.x + (falloff.y * D) + (falloff.z * D * D));
+	
+	float diffuseIntensity = 1.f;
+	
+	float ndotl = max(warp_diffuse(dot(N, L)), 0.f);
+	
+	vec4 diffuseFactor = ndotl * diffuseColor * diffuseIntensity;
 	vec4 lightFactor = diffuseFactor + ambientColor;
 	
 	vec4 mvFragPos = u_view * v_fragposition;
@@ -77,10 +90,10 @@ void main()
 	
 	float shininess = 50.f;
 	
-	vec4 specularFactor = max(pow(-dot(reflection, eye), shininess), 0.f) * specularColor;
+	//vec4 specularFactor = max(pow(-dot(reflection, eye), shininess), 0.f) * specularColor;
 	
-	//////////////	
+	finalColor = finalColor * lightFactor;
 	
-	finalColor = (v_fragcolor * diffuseFrag * lightFactor + specularFactor) * (1.f - fogIntensity) + fogColor * fogIntensity;
+	finalColor = finalColor * (1.f - fogIntensity) + fogColor * fogIntensity;
 	finalColor = vec4(finalColor.rgb, diffuseFrag.a);
 }
