@@ -63,8 +63,33 @@ void TestScene::load()
 		uvmapped->attachComponent(new Renderer("uvmap"));
 
 		uvmapped->send("setPosition", Vector3f(0.f, 250.f, 0.f));
-		uvmapped->send("setScale", Vector3f(30.f,30.f, 30.f));
+		uvmapped->send("setScale", Vector3f(30.f, 30.f, 30.f));
 		uvmapped->send("setRotation", Vector3f(32.f, 0.f, 19.f));
+
+		// Send the entity to the world pipeline
+		World::addEntity(uvmapped);
+	}
+	
+	{
+		// Load texture
+		AssetManager::loadTexture2D("uvmap", "uvtest.png");
+
+		// Create new diffuse material
+		Material* mat = MaterialFactory::diffuse("uvmap");
+		AssetManager::createMaterial("uvmap", mat);
+
+		// Load bunny model and apply the material
+		AssetManager::loadModel("uvmap", "uvmapped.obj")
+			->setMaterial("uvmap");
+
+		// Create new entity and attach transform and renderer
+		uvmapped = new Entity;
+		uvmapped->attachComponent(new Transform);
+		uvmapped->attachComponent(new Renderer("uvmap"));
+
+		uvmapped->send("setPosition", Vector3f(700.f, 110.f, 800.f));
+		uvmapped->send("setScale", Vector3f(100.f, 100.f, 100.f));
+		uvmapped->send("setRotation", Vector3f(60.f, 49.f, 40.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(uvmapped);
@@ -79,7 +104,7 @@ void TestScene::load()
 		AssetManager::createMaterial("terrainmaterial", mat);
 
 		// Apply some scaling to the diffuse texture
-		mat->getTransform<Texture2D::Diffuse>()->setScale(90.f, 90.f, 1.f);
+		mat->getTransform<Texture2D::Diffuse>()->setScale(220.f, 220.f, 1.f);
 
 		// Load bunny model and apply the material
 		AssetManager::loadModel("terrain", "terrainhi.obj")
@@ -90,8 +115,8 @@ void TestScene::load()
 		test2->attachComponent(new Transform);
 		test2->attachComponent(new Renderer("terrain"));
 		
-		test2->send("setPosition", Vector3f(0.f, -2.f, 0.f));
-		test2->send("setScale", Vector3f(14.f, 14.f, 14.f));
+		test2->send("setPosition", Vector3f(0.f, -5.f, -10.f));
+		test2->send("setScale", Vector3f(50.f, 35.f, 50.f));
 		test2->send("setRotation", Vector3f(0.f, 0.f, 0.f));
 
 		// Send the entity to the world pipeline
@@ -192,11 +217,11 @@ void TestScene::update()
 	if(Input::isKeyDown(sf::Keyboard::Space))// && campos.y <= 2.1f)
 	{
 		//camyvel = 40.f;
-		campos.y += 40.f * Time.delta * multi;
+		campos.y += 50.f * Time.delta * multi;
 	}
 	else if(Input::isKeyDown(sf::Keyboard::LShift))
 	{
-		campos.y -= 40.f * Time.delta * multi;
+		campos.y -= 50.f * Time.delta * multi;
 	}
 
 	campos.y = clamp(campos.y, 2.f, 2000.f);
@@ -210,7 +235,7 @@ void TestScene::update()
 		campos.y = 2.f;
 	}
 
-	float speed = 5.f * multi;
+	float speed = 8.f * multi;
 
 	if(Input::isKeyDown(sf::Keyboard::W))
 	{

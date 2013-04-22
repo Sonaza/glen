@@ -55,13 +55,13 @@ void main()
 	//vec4 normalmapFrag = texture(u_texture.normal, normalMap_uv);
 	
 	float zdistance = (gl_FragCoord.z / gl_FragCoord.w);
-	float fogIntensity = exp(zdistance / 1800.f) - 1.f;
+	float fogIntensity = exp((zdistance - 2.f) / 3000.f) - 1.f;
 	
 	fogIntensity = clamp(fogIntensity, 0.f, 1.f);
 		
 	//////////////
 	
-	vec3 lightPos = vec3(cos(u_time / 4.f) * 700.f, cos(u_time / 4.f) * 2500.f, sin(-u_time / 4.f) * 2500.f);
+	vec3 lightPos = vec3(cos(u_time / 2.f) * 1800.f, cos(u_time / 2.f) * 1500.f, sin(-u_time / 2.f) * 2500.f);
 	vec3 lightDir = lightPos - v_fragposition.xyz;
 	
 	float D = length(lightDir);
