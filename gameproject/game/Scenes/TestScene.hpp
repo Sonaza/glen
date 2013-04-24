@@ -31,10 +31,6 @@ private:
 
 	Camera* cam;
 
-	/*Model object;
-	Texture2D tex, decal;
-	Material* basic;*/
-
 	sf::Clock m_timer;
 
 	Entity* test;

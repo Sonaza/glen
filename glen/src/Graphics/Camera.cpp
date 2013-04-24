@@ -40,7 +40,7 @@ Camera::~Camera(void)
 }
 
 ///////////////////////////////////////////////
-Camera* Camera::create(float fov, float znear, float zfar)
+Camera* Camera::create(float fov, float znear, float zfar, const bool activate)
 {
 	Camera* temp = new(std::nothrow) Camera(fov, znear, zfar);
 	assert(temp != NULL && "Memory allocation for camera failed");
@@ -48,7 +48,8 @@ Camera* Camera::create(float fov, float znear, float zfar)
 	if(temp)
 	{
 		m_cameras.push_back(CameraPtr(temp));
-		temp->activate();
+
+		if(activate) temp->activate();
 	}
 
 	return temp;

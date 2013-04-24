@@ -26,7 +26,7 @@ namespace glen
 
 		inline bool isActive() const { return m_active; }
 
-		static Camera* create(float fov, float znear, float zfar);
+		static Camera* create(float fov, float znear, float zfar, const bool activate = true);
 		static Camera* activeCamera();
 
 		static void refreshProjection();

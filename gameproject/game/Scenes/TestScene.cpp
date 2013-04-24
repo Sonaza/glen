@@ -116,7 +116,7 @@ void TestScene::load()
 		test2->attachComponent(new Renderer("terrain"));
 		
 		test2->send("setPosition", Vector3f(0.f, -5.f, -10.f));
-		test2->send("setScale", Vector3f(50.f, 35.f, 50.f));
+		test2->send("setScale", Vector3f(40.f, 30.f, 40.f));
 		test2->send("setRotation", Vector3f(0.f, 0.f, 0.f));
 
 		// Send the entity to the world pipeline

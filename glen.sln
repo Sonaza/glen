@@ -8,6 +8,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gameproject", "gameproject\
 		{AF6AE1F6-6AD9-4C45-9088-B2FFF51AB8CA} = {AF6AE1F6-6AD9-4C45-9088-B2FFF51AB8CA}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{751B06DD-1686-417A-BD3F-C8620D3BAB8C}"
+	ProjectSection(SolutionItems) = preProject
+		glen.vsd = glen.vsd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
