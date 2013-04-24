@@ -42,7 +42,7 @@ vec4 getDiffuseFrag()
 	#endif
 }
 
-vec4 fogColor = vec4(114.f / 255.f, 168.f / 255.f, 198.f / 255.f, 1.f);
+//vec4 fogColor = vec4(114.f / 255.f, 168.f / 255.f, 198.f / 255.f, 1.f);
 
 uniform float u_time;
 
@@ -55,10 +55,16 @@ void main()
 	//vec4 normalmapFrag = texture(u_texture.normal, normalMap_uv);
 	
 	float zdistance = (gl_FragCoord.z / gl_FragCoord.w);
-	float fogIntensity = exp((zdistance - 2.f) / 3000.f) - 1.f;
+	float fogIntensity = exp((zdistance - 20.f) / 7000.f) - 1.f;
 	
 	fogIntensity = clamp(fogIntensity, 0.f, 1.f);
-		
+	
+	float daycycle = cos(u_time / 2.f) * 0.5f + 0.5f;
+	float daycm = daycycle * 0.8f + 0.2f;
+	
+	vec4 fogColor = vec4(114.f / 255.f, 168.f / 255.f, 198.f / 255.f, 1.f);
+	fogColor = vec4(fogColor.rgb * daycm, 1.f);
+	
 	//////////////
 	
 	vec3 lightPos = vec3(cos(u_time / 2.f) * 1800.f, cos(u_time / 2.f) * 1500.f, sin(-u_time / 2.f) * 2500.f);
@@ -95,5 +101,13 @@ void main()
 	finalColor = finalColor * lightFactor;
 	
 	finalColor = finalColor * (1.f - fogIntensity) + fogColor * fogIntensity;
-	finalColor = vec4(finalColor.rgb, diffuseFrag.a);
+	
+	float dca = daycycle * 0.3f + 0.7f;
+	float dcb = clamp(daycycle + 0.8f, 0.f, 1.f);
+	
+	vec3 sykle = vec3(dca, dca, dcb);
+	
+	finalColor = vec4(finalColor.rgb * sykle, diffuseFrag.a);
+	
+	//finalColor = vec4(vec3(zdistance / 3000.f), diffuseFrag.a);
 }

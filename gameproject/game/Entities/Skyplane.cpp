@@ -22,7 +22,7 @@ Skyplane::Skyplane(const std::string &texture, Vector3f rot)
 	attachComponent(new Transform);
 	attachComponent(new Renderer(texture));
 
-	send("setScale", Vector3f(1000.f, 1000.f, 1000.f));
+	send("setScale", Vector3f(1500.f, 1500.f, 1500.f));
 	send("setPosition", Vector3f(0.f, 5.f, 0.f));
 	send("setRotation", rot);
 

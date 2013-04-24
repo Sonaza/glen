@@ -66,17 +66,21 @@ void AssetManager::freeSceneAssets()
 //////////////////////////////////////////////////
 Texture2DAsset* AssetManager::loadTexture2D(const std::string &id, const std::string &path, const bool scenebound)
 {
-	Texture2DAsset* result = NULL;
-	result = new(std::nothrow) Texture2DAsset(path);
-	assert(result && "Allocation failed");
+	Texture2DAsset* result = getTexture2D("id");
 
-	if(result)
+	if(result == NULL)
 	{
-		result->setSceneBound(scenebound);
+		result = new(std::nothrow) Texture2DAsset(path);
+		assert(result && "Allocation failed");
 
-		result->loadAsset();
+		if(result)
+		{
+			result->setSceneBound(scenebound);
 
-		m_textures.insert(std::make_pair(id, result));
+			result->loadAsset();
+
+			m_textures.insert(std::make_pair(id, result));
+		}
 	}
 
 	return result;

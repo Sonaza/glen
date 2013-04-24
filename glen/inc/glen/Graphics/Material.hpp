@@ -56,8 +56,6 @@ namespace glen
 		void bind();
 		void unbind() const;
 
-		sf::Clock timer;
-
 	protected:
 
 		bool _loadshaders(const std::string& vertex, const std::string& fragment, ShaderDefines defines = ShaderDefines());

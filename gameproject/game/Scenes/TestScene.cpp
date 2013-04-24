@@ -212,7 +212,7 @@ void TestScene::update()
 
 	float yrad = camrot.y * 3.141592f / 180.f;
 
-	float multi = (campos.y + 40.f) / 50.f;
+	float multi = (campos.y + 80.f) / 50.f;
 
 	if(Input::isKeyDown(sf::Keyboard::Space))// && campos.y <= 2.1f)
 	{
@@ -224,7 +224,7 @@ void TestScene::update()
 		campos.y -= 50.f * Time.delta * multi;
 	}
 
-	campos.y = clamp(campos.y, 2.f, 2000.f);
+	campos.y = clamp(campos.y, -200.f, 10000.f);
 
 	//camyvel += -40.f * Time.delta;
 	//campos.y += camyvel * Time.delta;

@@ -8,12 +8,19 @@
 
 #include <glen/Graphics/Camera.hpp>
 
-#define ATTRIB_POINTER(NAME, SIZE, STRIDE, OFFSET) \
+#define setAttribPointer(NAME, SIZE, STRIDE, OFFSET) \
 	do { glEnableVertexAttribArray(m_shaderAsset->program->attrib(NAME)); \
 	glCheck(glVertexAttribPointer( \
 		m_shaderAsset->program->attrib(NAME), SIZE, GL_FLOAT, GL_FALSE, \
 		sizeof(GLfloat) * STRIDE, (void*)(sizeof(GLfloat) * OFFSET) \
 	)); } while(0) \
+
+namespace
+{
+
+	sf::Clock timer;
+
+}
 
 namespace glen
 {
@@ -76,9 +83,9 @@ bool Material::_loadshaders(const std::string& vertex, const std::string& fragme
 ///////////////////////////////////////////////////
 void Material::_linkVertexAttrib()
 {
-	ATTRIB_POINTER("a_position", 3, 9, 0);
-	ATTRIB_POINTER("a_texcoord", 3, 9, 3);
-	ATTRIB_POINTER("a_normal", 3, 9, 6);
+	setAttribPointer("a_position", 3, 9, 0);
+	setAttribPointer("a_texcoord", 3, 9, 3);
+	setAttribPointer("a_normal", 3, 9, 6);
 }
 
 ///////////////////////////////////////////////////
