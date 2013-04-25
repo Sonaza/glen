@@ -2,8 +2,6 @@
 #include <glen/Graphics/Shader.hpp>
 #include <glen/System/ErrorStream.hpp>
 
-#include <glm/gtc/type_ptr.hpp>
-
 #include <iostream>
 #include <cassert>
 #include <algorithm>
@@ -123,7 +121,7 @@ void ShaderProgram::setUniformMatrix4v(const GLchar* name, const GLfloat* v, GLs
 }
 
 //////////////////////////////////////////////////////////
-void ShaderProgram::setUniform(const GLchar* name, glm::mat2& m, GLboolean transpose)
+/*void ShaderProgram::setUniform(const GLchar* name, glm::mat2& m, GLboolean transpose)
 {
 	assert(isInUse());
 	glUniformMatrix2fv(uniform(name), 1, transpose, glm::value_ptr(m));
@@ -134,13 +132,13 @@ void ShaderProgram::setUniform(const GLchar* name, glm::mat3& m, GLboolean trans
 {
 	assert(isInUse());
 	glUniformMatrix3fv(uniform(name), 1, transpose, glm::value_ptr(m));
-}
+}*/
 
 //////////////////////////////////////////////////////////
-void ShaderProgram::setUniform(const GLchar* name, glm::mat4& m, GLboolean transpose)
+void ShaderProgram::setUniform(const GLchar* name, mat4& m, GLboolean transpose)
 {
 	assert(isInUse());
-	glUniformMatrix4fv(uniform(name), 1, transpose, glm::value_ptr(m));
+	glUniformMatrix4fv(uniform(name), 1, transpose, m.getMatrix());
 }
 
 //////////////////////////////////////////////////////////

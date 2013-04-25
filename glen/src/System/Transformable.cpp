@@ -1,9 +1,11 @@
 #include <glen/System/Transformable.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 namespace glen
 {
 
+
+	// Initialize identity matrix
+	const mat4 mat4::identity;
 //////////////////////////////////////////////////
 Transformable::Transformable(void) :
 	m_updateMatrix(true),
@@ -12,7 +14,7 @@ Transformable::Transformable(void) :
 }
 
 //////////////////////////////////////////////////
-void Transformable::setPosition(const Vector3f& v)
+void Transformable::setPosition(const vec3f& v)
 {
 	m_position = v;
 	m_updateMatrix = true;
@@ -21,17 +23,17 @@ void Transformable::setPosition(const Vector3f& v)
 //////////////////////////////////////////////////
 void Transformable::setPosition(float x, float y, float z)
 {
-	setPosition(Vector3f(x, y, z));
+	setPosition(vec3f(x, y, z));
 }
 
 //////////////////////////////////////////////////
-Vector3f Transformable::getPosition() const
+vec3f Transformable::getPosition() const
 {
 	return m_position;
 }
 
 //////////////////////////////////////////////////
-void Transformable::move(const Vector3f& delta)
+void Transformable::move(const vec3f& delta)
 {
 	m_position += delta;
 	m_updateMatrix = true;
@@ -40,11 +42,11 @@ void Transformable::move(const Vector3f& delta)
 //////////////////////////////////////////////////
 void Transformable::move(float x, float y, float z)
 {
-	move(Vector3f(x, y, z));
+	move(vec3f(x, y, z));
 }
 
 //////////////////////////////////////////////////
-void Transformable::setPivot(const Vector3f& v)
+void Transformable::setPivot(const vec3f& v)
 {
 	m_pivot = v;
 	m_updateMatrix = true;
@@ -53,17 +55,17 @@ void Transformable::setPivot(const Vector3f& v)
 //////////////////////////////////////////////////
 void Transformable::setPivot(float x, float y, float z)
 {
-	setPivot(Vector3f(x, y, z));
+	setPivot(vec3f(x, y, z));
 }
 
 //////////////////////////////////////////////////
-Vector3f Transformable::getPivot() const
+vec3f Transformable::getPivot() const
 {
 	return m_pivot;
 }
 
 //////////////////////////////////////////////////
-void Transformable::setRotation(const Vector3f& v)
+void Transformable::setRotation(const vec3f& v)
 {
 	m_rotation = v;
 	m_updateMatrix = true;
@@ -72,17 +74,17 @@ void Transformable::setRotation(const Vector3f& v)
 //////////////////////////////////////////////////
 void Transformable::setRotation(float x, float y, float z)
 {
-	setRotation(Vector3f(x, y, z));
+	setRotation(vec3f(x, y, z));
 }
 
 //////////////////////////////////////////////////
-Vector3f Transformable::getRotation() const
+vec3f Transformable::getRotation() const
 {
 	return m_rotation;
 }
 
 //////////////////////////////////////////////////
-void Transformable::setScale(const Vector3f& v)
+void Transformable::setScale(const vec3f& v)
 {
 	m_scale = v;
 	m_updateMatrix = true;
@@ -91,21 +93,29 @@ void Transformable::setScale(const Vector3f& v)
 //////////////////////////////////////////////////
 void Transformable::setScale(float x, float y, float z)
 {
-	setScale(Vector3f(x, y, z));
+	setScale(vec3f(x, y, z));
 }
 
 //////////////////////////////////////////////////
-Vector3f Transformable::getScale() const
+vec3f Transformable::getScale() const
 {
 	return m_scale;
 }
 
 //////////////////////////////////////////////////
-glm::mat4 Transformable::getMatrix()
+mat4 Transformable::getMatrix()
 {
 	if(m_updateMatrix)
 	{
-		m_matrix = glm::mat4(1.f);
+		m_matrix = mat4::identity;
+		m_matrix.translate(m_position)
+			.rotate(m_rotation.x, vec3f(1.f, 0.f, 0.f))
+			.rotate(m_rotation.y, vec3f(0.f, 1.f, 0.f))
+			.rotate(m_rotation.z, vec3f(0.f, 0.f, 1.f))
+			.translate(m_pivot)
+			.scale(m_scale);
+		/*
+		m_matrix = mat4(1.f);
 
 		m_matrix = glm::translate(m_matrix, glm::vec3(m_position.x, m_position.y, m_position.z));
 
@@ -116,7 +126,7 @@ glm::mat4 Transformable::getMatrix()
 		m_matrix = glm::translate(m_matrix, glm::vec3(m_pivot.x, m_pivot.y, m_pivot.z));
 
 		m_matrix = glm::scale(m_matrix, glm::vec3(m_scale.x, m_scale.y, m_scale.z));
-
+		*/
 		m_updateMatrix = false;
 	}
 

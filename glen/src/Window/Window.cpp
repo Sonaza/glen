@@ -129,7 +129,7 @@ bool Window::isActive()
 }
 
 ////////////////////////////////////////////////////////////
-void Window::setPosition(Vector2i& pos)
+void Window::setPosition(vec2i& pos)
 {
 	m_window->setPosition(sf::Vector2i(pos.x, pos.y));
 }
@@ -137,13 +137,13 @@ void Window::setPosition(Vector2i& pos)
 ////////////////////////////////////////////////////////////
 void Window::setPosition(const int32 x, const int32 y)
 {
-	setPosition(Vector2i(x, y));
+	setPosition(vec2i(x, y));
 }
 	
 ////////////////////////////////////////////////////////////
-Vector2u Window::getDimensions()
+vec2u Window::getDimensions()
 {
-	return Vector2u(m_window->getSize().x, m_window->getSize().y);
+	return vec2u(m_window->getSize().x, m_window->getSize().y);
 }
 	
 ////////////////////////////////////////////////////////////
@@ -159,12 +159,12 @@ sf::Window* Window::getWindow()
 }
 
 ////////////////////////////////////////////////////////////
-Vector2i Window::getOptimalResolution(const bool fullscreen)
+vec2i Window::getOptimalResolution(const bool fullscreen)
 {
 	sf::VideoMode native = sf::VideoMode::getDesktopMode();
 	std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
 	
-	Vector2i resolution(native.width, native.height);
+	vec2i resolution(native.width, native.height);
 
 	if(fullscreen && native == modes[0]) return resolution;
 

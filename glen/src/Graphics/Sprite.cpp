@@ -39,7 +39,7 @@ void Sprite::setTexture2D(Texture2D* texture)
 	
 	m_texture = texture;
 
-	Vector2f size = static_cast<Vector2f>(m_texture->getSize());
+	vec2f size = static_cast<vec2f>(m_texture->getSize());
 
 	m_data.clear();
 
@@ -64,7 +64,7 @@ void Sprite::setTexture2D(Texture2D* texture)
 }
 
 ////////////////////////////////////////////////////
-void Sprite::render(glm::mat4 &transform)
+void Sprite::render(mat4 &transform)
 {
 
 }

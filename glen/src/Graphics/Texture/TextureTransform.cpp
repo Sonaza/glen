@@ -1,7 +1,5 @@
 #include <glen/Graphics/Texture/TextureTransform.hpp>
 
-#include <glm/gtc/matrix_transform.hpp>
-
 namespace glen
 {
 
@@ -16,12 +14,20 @@ TextureTransform::~TextureTransform(void)
 }
 
 //////////////////////////////////////////////////
-glm::mat4 TextureTransform::getMatrix()
+mat4 TextureTransform::getMatrix()
 {
 	if(m_updateMatrix)
 	{
-		m_matrix = glm::mat4(1.f);
-
+		m_matrix = mat4::identity;
+		m_matrix.translate(vec3f(0.5f, 0.5f, 0.f))
+				.translate(m_position)
+				.rotate(m_rotation.x, vec3f(1.f, 0.f, 0.f))
+				.rotate(m_rotation.y, vec3f(0.f, 1.f, 0.f))
+				.rotate(m_rotation.z, vec3f(0.f, 0.f, 1.f))
+				.scale(m_scale)
+				.translate(-vec3f(0.5f, 0.5f, 0.f))
+				.translate(m_pivot);
+		/*
 		m_matrix = glm::translate(m_matrix, glm::vec3(0.5f, 0.5f, 0.f));
 
 		m_matrix = glm::translate(m_matrix, glm::vec3(m_position.x, m_position.y, m_position.z));
@@ -35,7 +41,7 @@ glm::mat4 TextureTransform::getMatrix()
 		m_matrix = glm::translate(m_matrix, glm::vec3(-0.5f, -0.5f, 0.f));
 
 		m_matrix = glm::translate(m_matrix, glm::vec3(m_pivot.x, m_pivot.y, m_pivot.z));
-
+		*/
 		m_updateMatrix = false;
 	}
 
