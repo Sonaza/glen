@@ -1,8 +1,6 @@
 #include <glen/Graphics/Camera.hpp>
 #include <glen/Window/Window.hpp>
 
-#include <glm/gtc/matrix_transform.hpp>
-
 #include <cassert>
 #include <memory>
 
@@ -88,29 +86,28 @@ Camera* Camera::activeCamera()
 }
 
 ///////////////////////////////////////////////
-void Camera::lookAt(Vector3f target, Vector3f worldUp)
+void Camera::lookAt(vec3f target, vec3f worldUp)
 {
-	m_matrix = glm::lookAt(
-		getPosition().vec3(),
-		target.vec3(),
-		worldUp.vec3()
+	m_matrix.lookAt(
+		m_position,
+		target,
+		worldUp
 	);
 }
 
 //////////////////////////////////////////////
-glm::mat4 Camera::getMatrix()
+mat4 Camera::getMatrix()
 {
-
 	return m_matrix;
 }
 
 ///////////////////////////////////////////////
-glm::mat4 Camera::getProjectionMatrix()
+mat4 Camera::getProjectionMatrix()
 {
 	if(m_updateProjMatrix)
 	{
 		float ratio = Window::getAspectRatio();
-		m_projMatrix = glm::perspective(m_fov, ratio, m_znear, m_zfar);
+		m_projMatrix.perspective(m_fov, ratio, m_znear, m_zfar);
 
 		m_updateProjMatrix = false;
 	}

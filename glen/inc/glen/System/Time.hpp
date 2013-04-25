@@ -1,7 +1,7 @@
 #ifndef GLEN_TIME_HPP
 #define GLEN_TIME_HPP
 
-#include <glen/Config.hpp>
+#include <glen/System/Types.hpp>
 
 namespace glen
 {

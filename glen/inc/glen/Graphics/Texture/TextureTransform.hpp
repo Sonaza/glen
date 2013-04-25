@@ -2,7 +2,7 @@
 #define GLEN_TEXTURETRANSFORM_HPP
 
 #include <glen/System/Transformable.hpp>
-#include <glm/glm.hpp>
+#include <glen/System/Types.hpp>
 
 namespace glen
 {
@@ -13,7 +13,7 @@ namespace glen
 		TextureTransform(void);
 		~TextureTransform(void);
 
-		virtual glm::mat4 getMatrix();
+		virtual mat4 getMatrix();
 	};
 
 }

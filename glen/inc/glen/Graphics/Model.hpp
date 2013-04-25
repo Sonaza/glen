@@ -2,7 +2,7 @@
 #define GLEN_MODEL_HPP
 
 #include <glen/opengl.hpp>
-#include <glm/glm.hpp>
+#include <glen/System/Types.hpp>
 
 #include <vector>
 #include <string>
@@ -24,7 +24,7 @@ namespace glen
 
 		bool loadFromFile(const std::string& path);
 
-		void render(glm::mat4 &transform);
+		void render(mat4 &transform);
 		
 	protected:
 

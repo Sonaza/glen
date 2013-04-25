@@ -1,7 +1,7 @@
 #ifndef GLEN_COLOR_HPP
 #define GLEN_COLOR_HPP
 
-#include <glen/Config.hpp>
+#include <glen/System/Types.hpp>
 
 namespace glen
 {

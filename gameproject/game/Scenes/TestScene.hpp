@@ -39,8 +39,8 @@ private:
 	Entity* uvmapped;
 
 	float camyvel;
-	Vector3f campos;
-	Vector3f camrot;
+	vec3f campos;
+	vec3f camrot;
 
 	float yvel;
 	float ypos;

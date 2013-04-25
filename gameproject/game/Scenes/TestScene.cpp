@@ -16,7 +16,7 @@ void TestScene::load()
 {
 	cam = Camera::create(80.f, 1.f, 50000.f);
 	cam->setPosition(0.f, 4.3f, 6.f);
-	cam->lookAt(Vector3f(0.f, 1.8f, 0.f), Vector3f::up);
+	cam->lookAt(vec3f(0.f, 1.8f, 0.f), vec3f::up);
 
 	//TextureCubemap tcm;
 	//tcm.loadFromFile("sky/left.png", "sky/right.png", "sky/top.png", "sky/bottom.png", "sky/front.png", "sky/back.png");
@@ -62,9 +62,9 @@ void TestScene::load()
 		uvmapped->attachComponent(new Transform);
 		uvmapped->attachComponent(new Renderer("uvmap"));
 
-		uvmapped->send("setPosition", Vector3f(0.f, 250.f, 0.f));
-		uvmapped->send("setScale", Vector3f(30.f, 30.f, 30.f));
-		uvmapped->send("setRotation", Vector3f(32.f, 0.f, 19.f));
+		uvmapped->send("setPosition", vec3f(0.f, 250.f, 0.f));
+		uvmapped->send("setScale", vec3f(30.f, 30.f, 30.f));
+		uvmapped->send("setRotation", vec3f(32.f, 0.f, 19.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(uvmapped);
@@ -87,9 +87,9 @@ void TestScene::load()
 		uvmapped->attachComponent(new Transform);
 		uvmapped->attachComponent(new Renderer("uvmap"));
 
-		uvmapped->send("setPosition", Vector3f(700.f, 110.f, 800.f));
-		uvmapped->send("setScale", Vector3f(100.f, 100.f, 100.f));
-		uvmapped->send("setRotation", Vector3f(60.f, 49.f, 40.f));
+		uvmapped->send("setPosition", vec3f(700.f, 110.f, 800.f));
+		uvmapped->send("setScale", vec3f(100.f, 100.f, 100.f));
+		uvmapped->send("setRotation", vec3f(60.f, 49.f, 40.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(uvmapped);
@@ -115,23 +115,23 @@ void TestScene::load()
 		test2->attachComponent(new Transform);
 		test2->attachComponent(new Renderer("terrain"));
 		
-		test2->send("setPosition", Vector3f(0.f, -5.f, -10.f));
-		test2->send("setScale", Vector3f(40.f, 30.f, 40.f));
-		test2->send("setRotation", Vector3f(0.f, 0.f, 0.f));
+		test2->send("setPosition", vec3f(0.f, -5.f, -10.f));
+		test2->send("setScale", vec3f(40.f, 30.f, 40.f));
+		test2->send("setRotation", vec3f(0.f, 0.f, 0.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(test2);
 	}
 
 
-	skybox.push_back(new Skyplane("sky/front.png",	Vector3f(0.f, 0.f, 0.f)));
-	skybox.push_back(new Skyplane("sky/back.png",	Vector3f(0.f, -180.f, 0.f)));
+	skybox.push_back(new Skyplane("sky/front.png",	vec3f(0.f, 0.f, 0.f)));
+	skybox.push_back(new Skyplane("sky/back.png",	vec3f(0.f, -180.f, 0.f)));
 
-	skybox.push_back(new Skyplane("sky/right.png",	Vector3f(0.f, -90.f, 0.f)));
-	skybox.push_back(new Skyplane("sky/left.png",	Vector3f(0.f, 90.f, 0.f)));
+	skybox.push_back(new Skyplane("sky/right.png",	vec3f(0.f, -90.f, 0.f)));
+	skybox.push_back(new Skyplane("sky/left.png",	vec3f(0.f, 90.f, 0.f)));
 
-	skybox.push_back(new Skyplane("sky/top.png",	Vector3f(-90.f, 0.f, 0.f)));
-	skybox.push_back(new Skyplane("sky/bottom.png",	Vector3f(90.f, 0.f, 0.f)));
+	skybox.push_back(new Skyplane("sky/top.png",	vec3f(-90.f, 0.f, 0.f)));
+	skybox.push_back(new Skyplane("sky/bottom.png",	vec3f(90.f, 0.f, 0.f)));
 
 	{
 		// Load texture
@@ -153,9 +153,9 @@ void TestScene::load()
 		bgplane->attachComponent(new Transform);
 		bgplane->attachComponent(new Renderer("bgplane"));
 
-		bgplane->send("setPosition", Vector3f(0.f, -5.f, -120.f));
-		bgplane->send("setScale", Vector3f(6.f, 10.f, 6.f));
-		bgplane->send("setRotation", Vector3f(-90.f, 0.f, 0.f));
+		bgplane->send("setPosition", vec3f(0.f, -5.f, -120.f));
+		bgplane->send("setScale", vec3f(6.f, 10.f, 6.f));
+		bgplane->send("setRotation", vec3f(-90.f, 0.f, 0.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(bgplane);
@@ -183,18 +183,18 @@ void TestScene::unload()
 //////////////////////////////////////////////////////
 void TestScene::update()
 {
-	Vector2i mp = Input::getMousePos();
-	Vector2f center = static_cast<Vector2f>(Window::getDimensions()) / 2.f;
+	vec2i mp = Input::getMousePos();
+	vec2f center = static_cast<vec2f>(Window::getDimensions()) / 2.f;
 
-	Vector2f diff;
+	vec2f diff;
 
-	//test2->send("setRotation", Vector3f(0.f, 360.f * Time.total, 0.f));
+	//test2->send("setRotation", vec3f(0.f, 360.f * Time.total, 0.f));
 
 	if(!Input::isKeyDown(sf::Keyboard::LControl) && Window::isActive())
 	{
 		sf::Mouse::setPosition(sf::Vector2i(center.x, center.y), *Window::getWindow());
 
-		diff = Vector2f(
+		diff = vec2f(
 			mp.x - center.x,
 			mp.y - center.y
 		);
@@ -261,14 +261,14 @@ void TestScene::update()
 
 	//cam->setRotation(camrot.x, camrot.y, 0.f);
 
-	Vector3f camdir(
+	vec3f camdir(
 		campos.x + cos(yrad) * (1.f - fabs(camrot.x / 90.f)),
 		campos.y - (camrot.x * 3.141592f / 180.f),
 		campos.z + sin(yrad) * (1.f - fabs(camrot.x / 90.f))
 	);
 
 	cam->setPosition(campos);
-	cam->lookAt(camdir, Vector3f::up);
+	cam->lookAt(camdir, vec3f::up);
 
 	for(std::vector<Skyplane*>::iterator it = skybox.begin(); it != skybox.end(); ++it)
 	{
@@ -312,19 +312,19 @@ void TestScene::update()
 	rot += 0.3f * 11.f * (ypos / 2.f) * Time.delta;
 	rad = rot * 3.141592f / 180.f;
 
-	test->send("setPosition", Vector3f(
+	test->send("setPosition", vec3f(
 		cos(-rad) * 20.f * 30.f,
 		ypos * 30.f - 90.f,
 		sin(-rad) * 20.f * 30.f - 140.f
 	));
 
-	test->send("setScale", Vector3f(
+	test->send("setScale", vec3f(
 		50.f * (1.f / yscale) * 50.f,
 		50.f * yscale * 50.f,
 		50.f * (1.f / yscale) * 50.f
 	));
 
-	test->send("setRotation", Vector3f(0.f, rot - 85.f, 0.f));
+	test->send("setRotation", vec3f(0.f, rot - 85.f, 0.f));
 }
 
 //////////////////////////////////////////////////////

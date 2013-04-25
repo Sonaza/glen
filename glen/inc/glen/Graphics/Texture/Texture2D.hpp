@@ -16,7 +16,7 @@ namespace glen
 
 		bool loadFromFile(const std::string& path);
 
-		Vector2i getSize() const { return m_image->getSize(); }
+		vec2i getSize() const { return m_image->getSize(); }
 
 	private:
 

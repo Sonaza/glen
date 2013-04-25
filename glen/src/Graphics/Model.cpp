@@ -76,7 +76,7 @@ bool Model::loadFromFile(const std::string& path)
 }
 
 //////////////////////////////////////////////////
-void Model::render(glm::mat4 &transform)
+void Model::render(mat4 &transform)
 {
 	glBindVertexArray(m_vao);
 	m_material->bind();

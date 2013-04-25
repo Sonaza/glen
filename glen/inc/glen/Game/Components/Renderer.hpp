@@ -4,7 +4,7 @@
 #include <glen/Game/Component.hpp>
 #include <glen/Graphics/Model.hpp>
 
-#include <glm/glm.hpp>
+#include <glen/System/Types.hpp>
 
 #include <string>
 #include <memory>
@@ -29,7 +29,7 @@ namespace glen
 	private:
 		
 		Model*		m_model;
-		glm::mat4	m_transform;
+		mat4	m_transform;
 
 	};
 	

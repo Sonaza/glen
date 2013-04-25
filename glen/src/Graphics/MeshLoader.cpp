@@ -3,9 +3,9 @@
 #include <sstream>
 #include <vector>
 
-#include <glen/Config.hpp>
+#include <glen/System/Types.hpp>
 #include <glen/Graphics/MeshLoader.hpp>
-#include <glen/System/Vector3.hpp>
+
 
 #include <glen/System/ErrorStream.hpp>
 
@@ -40,9 +40,9 @@ namespace glen
 				return false;
 			}
 
-			std::vector<Vector3f> vertices;
-			std::vector<Vector3f> normals;
-			std::vector<Vector3f> texCoords;
+			std::vector<vec3f> vertices;
+			std::vector<vec3f> normals;
+			std::vector<vec3f> texCoords;
 
 			// Make sure data target is empty
 			out->data.clear();
@@ -65,7 +65,7 @@ namespace glen
 				{
 					data >> d1 >> d2 >> d3;
 
-					vertices.push_back(Vector3f(
+					vertices.push_back(vec3f(
 						static_cast<float>(d1),
 						static_cast<float>(d2),
 						static_cast<float>(d3)
@@ -75,7 +75,7 @@ namespace glen
 				{
 					data >> d1 >> d2 >> d3;
 
-					texCoords.push_back(Vector3f(
+					texCoords.push_back(vec3f(
 						static_cast<float>(d1),
 						static_cast<float>(d2),
 						static_cast<float>(d3)
@@ -85,7 +85,7 @@ namespace glen
 				{
 					data >> d1 >> d2 >> d3;
 
-					normals.push_back(Vector3f(
+					normals.push_back(vec3f(
 						static_cast<float>(d1),
 						static_cast<float>(d2),
 						static_cast<float>(d3)

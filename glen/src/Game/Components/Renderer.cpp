@@ -38,7 +38,7 @@ void Renderer::attached()
 ////////////////////////////////////////////////////
 void Renderer::update()
 {
-	m_transform = request<glm::mat4>("getMatrix");
+	m_transform = request<mat4>("getMatrix");
 }
 
 ////////////////////////////////////////////////////

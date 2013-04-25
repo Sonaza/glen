@@ -1,7 +1,7 @@
 #ifndef GLEN_VIDEOMODE_HPP
 #define GLEN_VIDEOMODE_HPP
 
-#include <glen/Config.hpp>
+#include <glen/System/Types.hpp>
 
 namespace glen
 {

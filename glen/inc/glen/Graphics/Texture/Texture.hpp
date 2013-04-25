@@ -2,13 +2,12 @@
 #define GLEN_TEXTUREBASE_HPP
 
 #include <glen/opengl.hpp>
-#include <glen/Config.hpp>
-#include <glen/System/Vector2.hpp>
+#include <glen/System/Types.hpp>
 #include <glen/System/ErrorStream.hpp>
 
-#include <string>
-
 #include <glen/Graphics/Image.hpp>
+
+#include <string>
 
 namespace glen
 {
@@ -59,7 +58,7 @@ namespace glen
 
 		virtual void setAnisotropy(const uint32 value);
 
-		virtual Vector2i getSize() const { return Vector2i(); }
+		virtual vec2i getSize() const { return vec2i(); }
 
 	protected:
 

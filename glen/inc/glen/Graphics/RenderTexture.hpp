@@ -2,8 +2,8 @@
 #define GLEN_RENDERTEXTURE_HPP
 
 #include <glen/opengl.hpp>
-#include <glen/Config.hpp>
-#include <glen/System/Vector2.hpp>
+#include <glen/System/Types.hpp>
+#include <glen/System/Types.hpp>
 
 namespace glen
 {
@@ -21,7 +21,7 @@ namespace glen
 
 	private:
 
-		Vector2u	m_size;
+		vec2u	m_size;
 
 		// GL handle to framebuffer object
 		GLuint	m_fbo;

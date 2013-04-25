@@ -1,5 +1,4 @@
 #include <glen/Game/Components/Transform.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 using namespace glen;
 
@@ -36,7 +35,7 @@ void Transform::attached()
 }
 
 ////////////////////////////////////////////////////
-void Transform::setPosition(const Vector3f &v)
+void Transform::setPosition(const vec3f &v)
 {
 	m_position = v;
 	m_updateMatrix = true;
@@ -45,18 +44,18 @@ void Transform::setPosition(const Vector3f &v)
 ////////////////////////////////////////////////////
 void Transform::setPosition(float x, float y, float z)
 {
-	setPosition(Vector3f(x, y, z));
+	setPosition(vec3f(x, y, z));
 }
 
 ////////////////////////////////////////////////////
 void Transform::setPosition(const Message &msg)
 {
-	assert(msg.data.type() == typeid(Vector3f) && "Wrong data type");
-	setPosition(boost::any_cast<Vector3f>(msg.data));
+	assert(msg.data.type() == typeid(vec3f) && "Wrong data type");
+	setPosition(boost::any_cast<vec3f>(msg.data));
 }
 
 ////////////////////////////////////////////////////
-void Transform::setPivot(const Vector3f &v)
+void Transform::setPivot(const vec3f &v)
 {
 	m_pivot = v;
 	m_updateMatrix = true;
@@ -65,18 +64,18 @@ void Transform::setPivot(const Vector3f &v)
 ////////////////////////////////////////////////////
 void Transform::setPivot(float x, float y, float z)
 {
-	setPivot(Vector3f(x, y, z));
+	setPivot(vec3f(x, y, z));
 }
 
 ////////////////////////////////////////////////////
 void Transform::setPivot(const Message &msg)
 {
-	assert(msg.data.type() == typeid(Vector3f) && "Wrong data type");
-	setPivot(boost::any_cast<Vector3f>(msg.data));
+	assert(msg.data.type() == typeid(vec3f) && "Wrong data type");
+	setPivot(boost::any_cast<vec3f>(msg.data));
 }
 
 ////////////////////////////////////////////////////
-void Transform::setRotation(const Vector3f &v)
+void Transform::setRotation(const vec3f &v)
 {
 	m_rotation = v;
 	m_updateMatrix = true;
@@ -85,18 +84,18 @@ void Transform::setRotation(const Vector3f &v)
 ////////////////////////////////////////////////////
 void Transform::setRotation(float x, float y, float z)
 {
-	setRotation(Vector3f(x, y, z));
+	setRotation(vec3f(x, y, z));
 }
 
 ////////////////////////////////////////////////////
 void Transform::setRotation(const Message &msg)
 {
-	assert(msg.data.type() == typeid(Vector3f) && "Wrong data type");
-	setRotation(boost::any_cast<Vector3f>(msg.data));
+	assert(msg.data.type() == typeid(vec3f) && "Wrong data type");
+	setRotation(boost::any_cast<vec3f>(msg.data));
 }
 
 ////////////////////////////////////////////////////
-void Transform::setScale(const Vector3f &v)
+void Transform::setScale(const vec3f &v)
 {
 	m_scale = v;
 	m_updateMatrix = true;
@@ -105,32 +104,28 @@ void Transform::setScale(const Vector3f &v)
 ////////////////////////////////////////////////////
 void Transform::setScale(float x, float y, float z)
 {
-	setScale(Vector3f(x, y, z));
+	setScale(vec3f(x, y, z));
 }
 
 ////////////////////////////////////////////////////
 void Transform::setScale(const Message &msg)
 {
-	assert(msg.data.type() == typeid(Vector3f) && "Wrong data type");
-	setScale(boost::any_cast<Vector3f>(msg.data));
+	assert(msg.data.type() == typeid(vec3f) && "Wrong data type");
+	setScale(boost::any_cast<vec3f>(msg.data));
 }
 
 ////////////////////////////////////////////////////
-glm::mat4 Transform::getMatrix()
+mat4 Transform::getMatrix()
 {
 	if(m_updateMatrix)
 	{
-		m_matrix = glm::mat4(1.f);
-
-		m_matrix = glm::translate(m_matrix, glm::vec3(m_position.x, m_position.y, m_position.z));
-
-		m_matrix = glm::rotate(m_matrix, m_rotation.x, glm::vec3(1.f, 0.f, 0.f));
-		m_matrix = glm::rotate(m_matrix, m_rotation.y, glm::vec3(0.f, 1.f, 0.f));
-		m_matrix = glm::rotate(m_matrix, m_rotation.z, glm::vec3(0.f, 0.f, 1.f));
-
-		m_matrix = glm::translate(m_matrix, glm::vec3(m_pivot.x, m_pivot.y, m_pivot.z));
-
-		m_matrix = glm::scale(m_matrix, glm::vec3(m_scale.x, m_scale.y, m_scale.z));
+		m_matrix = mat4::identity;
+		m_matrix.translate(m_position)
+				.rotate(m_rotation.x, vec3f(1.f, 0.f, 0.f))
+				.rotate(m_rotation.y, vec3f(0.f, 1.f, 0.f))
+				.rotate(m_rotation.z, vec3f(0.f, 0.f, 1.f))
+				.translate(m_pivot)
+				.scale(m_scale);
 
 		m_updateMatrix = false;
 	}

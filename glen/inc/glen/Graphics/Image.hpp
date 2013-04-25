@@ -4,8 +4,8 @@
 #include <vector>
 #include <string>
 
-#include <glen/System/Vector2.hpp>
-#include <glen/Config.hpp>
+#include <glen/System/Types.hpp>
+#include <glen/System/Types.hpp>
 
 namespace glen
 {
@@ -20,7 +20,7 @@ namespace glen
 
 		inline void* getPixels() { return m_loaded ? static_cast<void*>(&m_pixels[0]) : NULL; }
 
-		inline Vector2i getSize() const { return m_size; }
+		inline vec2i getSize() const { return m_size; }
 		inline int32 getWidth() const { return m_size.x; }
 		inline int32 getHeight() const { return m_size.y; }
 
@@ -30,7 +30,7 @@ namespace glen
 
 		std::vector<uint8> m_pixels;
 
-		Vector2i	m_size;
+		vec2i	m_size;
 		int32		m_channels;
 
 		bool		m_loaded;

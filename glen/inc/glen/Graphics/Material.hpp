@@ -4,7 +4,7 @@
 #include <glen/Graphics/Texture/Texture2D.hpp>
 #include <glen/Graphics/Texture/TextureTransform.hpp>
 
-#include <glm/glm.hpp>
+#include <glen/System/Types.hpp>
 
 #include <map>
 #include <vector>
@@ -46,9 +46,9 @@ namespace glen
 
 		struct Matrices
 		{
-			glm::mat4 projection;
-			glm::mat4 view;
-			glm::mat4 model;
+			mat4 projection;
+			mat4 view;
+			mat4 model;
 		};
 
 		void setMatrices(Matrices& matrices);

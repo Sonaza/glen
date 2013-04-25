@@ -2,7 +2,7 @@
 #define GLEN_SPRITE_HPP
 
 #include <glen/opengl.hpp>
-#include <glm/glm.hpp>
+#include <glen/System/Types.hpp>
 
 #include <string>
 #include <vector>
@@ -27,7 +27,7 @@ namespace glen
 
 		void setTexture2D(Texture2D* texture);
 
-		void render(glm::mat4 &transform);
+		void render(mat4 &transform);
 
 	private:
 

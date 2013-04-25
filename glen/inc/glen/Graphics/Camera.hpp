@@ -1,9 +1,7 @@
 #ifndef GLEN_CAMERA_HPP
 #define GLEN_CAMERA_HPP
 
-#include <glm/glm.hpp>
-#include <glen/Config.hpp>
-#include <glen/System/Vector3.hpp>
+#include <glen/System/Types.hpp>
 #include <glen/System/Transformable.hpp>
 
 #include <vector>
@@ -17,12 +15,12 @@ namespace glen
 		Camera(void);
 		~Camera(void);
 	
-		void lookAt(Vector3f target, Vector3f worldUp);
+		void lookAt(vec3f target, vec3f worldUp);
 
 		void activate();
 
-		glm::mat4 getMatrix();
-		glm::mat4 getProjectionMatrix();
+		mat4 getMatrix();
+		mat4 getProjectionMatrix();
 
 		inline bool isActive() const { return m_active; }
 
@@ -41,9 +39,9 @@ namespace glen
 		bool		m_active;
 
 		bool		m_updateProjMatrix;
-		glm::mat4	m_projMatrix;
+		mat4	m_projMatrix;
 
-		glm::mat4	m_matrix;
+		mat4	m_matrix;
 
 	};
 

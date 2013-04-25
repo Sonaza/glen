@@ -2,7 +2,7 @@
 #define GLEN_SHADERPROGRAM_HPP
 
 #include <glen/opengl.hpp>
-#include <glm/glm.hpp>
+#include <glen/System/Types.hpp>
 
 #include <vector>
 
@@ -56,9 +56,9 @@ namespace glen
 		void setUniformMatrix2v(const GLchar* uniformName, const GLfloat* v, GLsizei count = 1, GLboolean transpose = GL_FALSE);
 		void setUniformMatrix3v(const GLchar* uniformName, const GLfloat* v, GLsizei count = 1, GLboolean transpose = GL_FALSE);
 		void setUniformMatrix4v(const GLchar* uniformName, const GLfloat* v, GLsizei count = 1, GLboolean transpose = GL_FALSE);
-		void setUniform(const GLchar* uniformName, glm::mat2& m, GLboolean transpose = GL_FALSE);
-		void setUniform(const GLchar* uniformName, glm::mat3& m, GLboolean transpose = GL_FALSE);
-		void setUniform(const GLchar* uniformName, glm::mat4& m, GLboolean transpose = GL_FALSE);
+		//void setUniform(const GLchar* uniformName, mat2& m, GLboolean transpose = GL_FALSE);
+		//void setUniform(const GLchar* uniformName, mat3& m, GLboolean transpose = GL_FALSE);
+		void setUniform(const GLchar* uniformName, mat4& m, GLboolean transpose = GL_FALSE);
 
 	private:
 

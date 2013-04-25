@@ -1,7 +1,7 @@
 #include <game/Entities/Skyplane.hpp>
 
 //////////////////////////////////////////////////////
-Skyplane::Skyplane(const std::string &texture, Vector3f rot)
+Skyplane::Skyplane(const std::string &texture, vec3f rot)
 {
 	AssetManager::loadTexture2D(texture, texture)
 		->getAsset()
@@ -22,8 +22,8 @@ Skyplane::Skyplane(const std::string &texture, Vector3f rot)
 	attachComponent(new Transform);
 	attachComponent(new Renderer(texture));
 
-	send("setScale", Vector3f(1500.f, 1500.f, 1500.f));
-	send("setPosition", Vector3f(0.f, 5.f, 0.f));
+	send("setScale", vec3f(1500.f, 1500.f, 1500.f));
+	send("setPosition", vec3f(0.f, 5.f, 0.f));
 	send("setRotation", rot);
 
 	// Send the entity to the world pipeline
