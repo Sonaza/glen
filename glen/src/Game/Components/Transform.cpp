@@ -119,7 +119,7 @@ mat4 Transform::getMatrix()
 {
 	if(m_updateMatrix)
 	{
-		m_matrix = mat4::identity;
+		m_matrix = mat4();
 		m_matrix.translate(m_position)
 				.rotate(m_rotation.x, vec3f(1.f, 0.f, 0.f))
 				.rotate(m_rotation.y, vec3f(0.f, 1.f, 0.f))

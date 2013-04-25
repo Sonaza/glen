@@ -2,7 +2,7 @@
 #define GLEN_MAT4_HPP
 
 #include <glen/System/vec3.hpp>
-#include <glen/System/vec3.hpp>
+#include <glen/System/vec4.hpp>
 
 #include <cassert>
 #include <cmath>
@@ -13,9 +13,6 @@ namespace glen
 	class mat4
 	{
 	public:
-		// Define a static identity matrix
-		static const mat4 identity;
-
 		mat4();
 		mat4(float m00, float m01, float m02, float m03,
 			 float m10, float m11, float m12, float m13,
@@ -80,14 +77,11 @@ namespace glen
 	};
 
 	////////////////////////////////////////////////////
-	mat4& operator*(const mat4& lhs, const mat4& rhs);
-
-	////////////////////////////////////////////////////
-	mat4& operator*=(mat4& lhs, const mat4& rhs);
-
+	mat4 operator*(const mat4& lhs, const mat4& rhs);
+	
 	////////////////////////////////////////////////////
 	// Transform vector by matrix
-	vec4f operator*(const vec4f& lhs, const mat4& rhs);
+	vec4f operator*(const mat4& mat, const vec4f& v);
 
 	#include "mat4.inl"
 

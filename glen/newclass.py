@@ -1,7 +1,7 @@
 import os
 
 def main():
-	createclass('MeshRenderer', 'Graphics')
+	createclass('CameraComponent', 'Game/Components')
 
 def basepath(fullpath):
 	return '/'.join(fullpath.split('/')[:-1]) + '/'

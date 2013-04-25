@@ -1,3 +1,8 @@
+/* 
+ * Written by Teemu 'Sonaza' Hörkkö
+ * http://bluefoxgames.org
+ */
+
 ////////////////////////////////////////////////////
 inline mat4::mat4()
 {
@@ -74,7 +79,7 @@ inline mat4 mat4::getInverse() const
 	}
 	else
 	{
-		return identity;
+		return mat4();
 	}
 }
 
@@ -119,10 +124,10 @@ inline mat4& mat4::perspective(float fov, float aspect, float znear, float zfar)
 inline mat4& mat4::ortho(float left, float right, float bottom, float top, float znear, float zfar)
 {
 	mat4 proj(
-		2.f / (right - left),	0.f,					0.f,					-(right + left) / (right - left),
-		0.f,					2.f / (top - bottom),	0.f,					-(top + bottom) / (top - bottom),
-		0.f,					0.f,					-2.f / (zfar - znear),	-(zfar + znear) / (zfar - znear),
-		0.f,					0.f,					0.f,					1.f
+		2.f / (right - left), 0.f, 0.f,	-(right + left) / (right - left),
+		0.f, 2.f / (top - bottom), 0.f,	-(top + bottom) / (top - bottom),
+		0.f, 0.f, -2.f / (zfar - znear), -(zfar + znear) / (zfar - znear),
+		0.f, 0.f, 0.f, 1.f
 	);
 
 	return combine(proj);
@@ -221,26 +226,20 @@ inline mat4& mat4::transpose()
 }
 
 ////////////////////////////////////////////////////
-inline mat4& operator*(const mat4& lhs, const mat4& rhs)
+inline mat4 operator*(const mat4& lhs, const mat4& rhs)
 {
 	return mat4(lhs).combine(rhs);
 }
 
 ////////////////////////////////////////////////////
-inline mat4& operator*=(mat4& lhs, const mat4& rhs)
+inline vec4f operator*(const mat4& mat, const vec4f& v)
 {
-	return lhs.combine(rhs);
-}
-
-////////////////////////////////////////////////////
-inline vec4f operator*(const vec4f& v, const mat4& rhs)
-{
-	const float* a = rhs.getMatrix();
+	const float* a = mat.getMatrix();
 
 	return vec4f(
-		v.x * a[0]  + v.y * a[1]  + v.z * a[2]  + v.w * a[3],
-		v.x * a[4]  + v.y * a[5]  + v.z * a[6]  + v.w * a[7],
-		v.x * a[8]  + v.y * a[9]  + v.z * a[10] + v.w * a[11],
-		v.x * a[12] + v.y * a[13] + v.z * a[14] + v.w * a[15]
+		v.x * a[0] + v.y * a[4] + v.z * a[8]  + v.w * a[12],
+		v.x * a[1] + v.y * a[5] + v.z * a[9]  + v.w * a[13],
+		v.x * a[2] + v.y * a[6] + v.z * a[10] + v.w * a[14],
+		v.x * a[3] + v.y * a[7] + v.z * a[11] + v.w * a[15]
 	);
 }

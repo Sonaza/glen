@@ -59,11 +59,11 @@ void main()
 	
 	fogIntensity = clamp(fogIntensity, 0.f, 1.f);
 	
-	float daycycle = cos(u_time / 2.f) * 0.5f + 0.5f;
-	float daycm = daycycle * 0.8f + 0.2f;
+	//float daycycle = cos(u_time / 2.f) * 0.5f + 0.5f;
+	//float daycm = daycycle * 0.8f + 0.2f;
 	
 	vec4 fogColor = vec4(114.f / 255.f, 168.f / 255.f, 198.f / 255.f, 1.f);
-	fogColor = vec4(fogColor.rgb * daycm, 1.f);
+	//fogColor = vec4(fogColor.rgb * daycm, 1.f);
 	
 	//////////////
 	
@@ -102,12 +102,12 @@ void main()
 	
 	finalColor = finalColor * (1.f - fogIntensity) + fogColor * fogIntensity;
 	
-	float dca = daycycle * 0.3f + 0.7f;
-	float dcb = clamp(daycycle + 0.8f, 0.f, 1.f);
+	//float dca = daycycle * 0.3f + 0.7f;
+	//float dcb = clamp(daycycle + 0.8f, 0.f, 1.f);
 	
-	vec3 sykle = vec3(dca, dca, dcb);
+	//vec3 sykle = vec3(dca, dca, dcb);
 	
-	finalColor = vec4(finalColor.rgb * sykle, diffuseFrag.a);
+	finalColor = vec4(finalColor.rgb, diffuseFrag.a);
 	
 	//finalColor = vec4(vec3(zdistance / 3000.f), diffuseFrag.a);
 }

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Game\Components\CameraComponent.cpp" />
     <ClCompile Include="src\Graphics\Image.cpp" />
     <ClCompile Include="src\Graphics\MeshRenderer.cpp" />
     <ClCompile Include="src\Graphics\ShaderAsset.cpp" />
@@ -54,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\glen\Game\Component.hpp" />
+    <ClInclude Include="inc\glen\Game\Components\CameraComponent.hpp" />
     <ClInclude Include="inc\glen\Game\Components\Renderer.hpp" />
     <ClInclude Include="inc\glen\Game\Components\Transform.hpp" />
     <ClInclude Include="inc\glen\Game\Entity.hpp" />

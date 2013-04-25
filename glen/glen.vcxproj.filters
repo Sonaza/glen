@@ -135,6 +135,9 @@
     <ClCompile Include="src\Graphics\MeshRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Components\CameraComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\glen\Game\Components\Renderer.hpp">
@@ -291,6 +294,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\glen\System\mat4.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\glen\Game\Components\CameraComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
