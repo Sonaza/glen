@@ -12,7 +12,7 @@ public:
 	Skyplane(const std::string &texture, vec3f rot);
 	~Skyplane(void);
 
-	void setCamPos(vec3f p) { send("setPosition", vec3f(p.x, p.y + 5.f, p.z)); }
+	void setCamPos(vec3f p) { call("setPosition", vec3f(p.x, p.y + 5.f, p.z)); }
 
 };
 

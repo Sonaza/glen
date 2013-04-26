@@ -36,7 +36,7 @@ void World::sendGlobal(const Message &msg)
 	for(EntityList::iterator it = m_entities.begin();
 		it != m_entities.end();)
 	{
-		(*it)->send(msg);
+		(*it)->call(msg);
 	}
 }
 
@@ -85,7 +85,7 @@ void World::render()
 	for(EntityList::iterator it = m_entities.begin();
 		it != m_entities.end(); ++it)
 	{
-		(*it)->send("draw");
+		(*it)->call("draw");
 	}
 }
 

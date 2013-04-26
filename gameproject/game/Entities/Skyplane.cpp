@@ -22,9 +22,9 @@ Skyplane::Skyplane(const std::string &texture, vec3f rot)
 	attachComponent(new Transform);
 	attachComponent(new Renderer(texture));
 
-	send("setScale", vec3f(1500.f, 1500.f, 1500.f));
-	send("setPosition", vec3f(0.f, 5.f, 0.f));
-	send("setRotation", rot);
+	call("setScale", vec3f(1500.f, 1500.f, 1500.f));
+	call("setPosition", vec3f(0.f, 5.f, 0.f));
+	call("setRotation", rot);
 
 	// Send the entity to the world pipeline
 	World::addEntity(this);

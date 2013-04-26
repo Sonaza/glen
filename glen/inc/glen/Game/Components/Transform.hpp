@@ -4,8 +4,6 @@
 #include <glen/System/Types.hpp>
 #include <glen/Game/Component.hpp>
 
-#include <boost/any.hpp>
-
 namespace glen
 {
 

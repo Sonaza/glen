@@ -100,7 +100,7 @@ void Entity::updateComponent(const std::string &label)
 }
 
 ////////////////////////////////////////////////////
-void Entity::send(const Message &msg)
+void Entity::call(const Message &msg)
 {
 	std::string temp = msg.type;
 
@@ -132,15 +132,15 @@ void Entity::send(const Message &msg)
 }
 
 ////////////////////////////////////////////////////
-void Entity::send(const std::string &type)
+void Entity::call(const std::string &type)
 {
-	send(Message(type));
+	call(Message(type));
 }
 
 ////////////////////////////////////////////////////
-void Entity::send(const std::string &type, boost::any data)
+void Entity::call(const std::string &type, boost::any data)
 {
-	send(Message(type, data));
+	call(Message(type, data));
 }
 
 ////////////////////////////////////////////////////

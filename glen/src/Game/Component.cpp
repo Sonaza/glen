@@ -19,15 +19,15 @@ Component::~Component()
 }
 
 ////////////////////////////////////////////////////
-void Component::send(const Message &msg)
+void Component::call(const Message &msg)
 {
-	send(msg.type, msg.data);
+	call(msg.type, msg.data);
 }
 
-////////////////////////////////////////////////////
-void Component::send(const std::string &type, boost::any data)
+///////////////////////////////////////////1/////////
+void Component::call(const std::string &type, boost::any data)
 {
-	m_entity->send(Message(type, data, this));
+	m_entity->call(Message(type, data, this));
 }
 
 ////////////////////////////////////////////////////

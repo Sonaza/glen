@@ -36,9 +36,9 @@ namespace glen
 		float m_fov;
 		float m_znear, m_zfar;
 
-		bool		m_active;
+		bool	m_active;
 
-		bool		m_updateProjMatrix;
+		bool	m_updateProjMatrix;
 		mat4	m_projMatrix;
 
 		mat4	m_matrix;

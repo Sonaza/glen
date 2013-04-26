@@ -23,8 +23,8 @@ namespace glen
 		virtual void attached() =0;
 		virtual void update() {}
 		
-		void send(const Message &msg);
-		void send(const std::string &type, boost::any data);
+		void call(const Message &msg);
+		void call(const std::string &type, boost::any data);
 
 		template <class T>
 		T request(const std::string &type);

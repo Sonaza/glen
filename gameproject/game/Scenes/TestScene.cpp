@@ -62,9 +62,9 @@ void TestScene::load()
 		uvmapped->attachComponent(new Transform);
 		uvmapped->attachComponent(new Renderer("uvmap"));
 
-		uvmapped->send("setPosition", vec3f(0.f, 250.f, 0.f));
-		uvmapped->send("setScale", vec3f(30.f, 30.f, 30.f));
-		uvmapped->send("setRotation", vec3f(32.f, 0.f, 19.f));
+		uvmapped->call("setPosition", vec3f(0.f, 250.f, 0.f));
+		uvmapped->call("setScale", vec3f(30.f, 30.f, 30.f));
+		uvmapped->call("setRotation", vec3f(32.f, 0.f, 19.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(uvmapped);
@@ -87,9 +87,9 @@ void TestScene::load()
 		uvmapped->attachComponent(new Transform);
 		uvmapped->attachComponent(new Renderer("uvmap"));
 
-		uvmapped->send("setPosition", vec3f(700.f, 110.f, 800.f));
-		uvmapped->send("setScale", vec3f(100.f, 100.f, 100.f));
-		uvmapped->send("setRotation", vec3f(60.f, 49.f, 40.f));
+		uvmapped->call("setPosition", vec3f(700.f, 110.f, 800.f));
+		uvmapped->call("setScale", vec3f(100.f, 100.f, 100.f));
+		uvmapped->call("setRotation", vec3f(60.f, 49.f, 40.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(uvmapped);
@@ -115,9 +115,9 @@ void TestScene::load()
 		test2->attachComponent(new Transform);
 		test2->attachComponent(new Renderer("terrain"));
 		
-		test2->send("setPosition", vec3f(0.f, -5.f, -10.f));
-		test2->send("setScale", vec3f(40.f, 30.f, 40.f));
-		test2->send("setRotation", vec3f(0.f, 0.f, 0.f));
+		test2->call("setPosition", vec3f(0.f, -5.f, -10.f));
+		test2->call("setScale", vec3f(40.f, 30.f, 40.f));
+		test2->call("setRotation", vec3f(0.f, 0.f, 0.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(test2);
@@ -153,9 +153,9 @@ void TestScene::load()
 		bgplane->attachComponent(new Transform);
 		bgplane->attachComponent(new Renderer("bgplane"));
 
-		bgplane->send("setPosition", vec3f(0.f, -5.f, -120.f));
-		bgplane->send("setScale", vec3f(6.f, 10.f, 6.f));
-		bgplane->send("setRotation", vec3f(-90.f, 0.f, 0.f));
+		bgplane->call("setPosition", vec3f(0.f, -5.f, -120.f));
+		bgplane->call("setScale", vec3f(6.f, 10.f, 6.f));
+		bgplane->call("setRotation", vec3f(-90.f, 0.f, 0.f));
 
 		// Send the entity to the world pipeline
 		World::addEntity(bgplane);
@@ -312,19 +312,19 @@ void TestScene::update()
 	rot += 0.3f * 11.f * (ypos / 2.f) * Time.delta;
 	rad = rot * 3.141592f / 180.f;
 
-	test->send("setPosition", vec3f(
+	test->call("setPosition", vec3f(
 		cos(-rad) * 20.f * 30.f,
 		ypos * 30.f - 90.f,
 		sin(-rad) * 20.f * 30.f - 140.f
 	));
 
-	test->send("setScale", vec3f(
+	test->call("setScale", vec3f(
 		50.f * (1.f / yscale) * 50.f,
 		50.f * yscale * 50.f,
 		50.f * (1.f / yscale) * 50.f
 	));
 
-	test->send("setRotation", vec3f(0.f, rot - 85.f, 0.f));
+	test->call("setRotation", vec3f(0.f, rot - 85.f, 0.f));
 }
 
 //////////////////////////////////////////////////////

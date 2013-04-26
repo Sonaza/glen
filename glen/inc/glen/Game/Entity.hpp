@@ -41,9 +41,9 @@ namespace glen
 		void updateComponents();
 		void updateComponent(const std::string &label);
 		
-		void send(const Message &msg);
-		void send(const std::string &type);
-		void send(const std::string &type, boost::any data);
+		void call(const Message &msg);
+		void call(const std::string &type);
+		void call(const std::string &type, boost::any data);
 
 		template <class T>
 		T request(const std::string &type);
