@@ -25,13 +25,13 @@ void World::uninit()
 }
 
 ////////////////////////////////////////////////////
-void World::sendGlobal(const std::string &type, boost::any data)
+void World::callGlobal(const std::string &type, boost::any data)
 {
-	sendGlobal(Message(type, data));
+	callGlobal(Message(type, data));
 }
 
 ////////////////////////////////////////////////////
-void World::sendGlobal(const Message &msg)
+void World::callGlobal(const Message &msg)
 {
 	for(EntityList::iterator it = m_entities.begin();
 		it != m_entities.end();)

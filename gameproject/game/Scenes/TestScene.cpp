@@ -83,16 +83,16 @@ void TestScene::load()
 			->setMaterial("uvmap");
 
 		// Create new entity and attach transform and renderer
-		uvmapped = new Entity;
-		uvmapped->attachComponent(new Transform);
-		uvmapped->attachComponent(new Renderer("uvmap"));
+		uvmapped2 = new Entity;
+		uvmapped2->attachComponent(new Transform);
+		uvmapped2->attachComponent(new Renderer("uvmap"));
 
-		uvmapped->call("setPosition", vec3f(700.f, 110.f, 800.f));
-		uvmapped->call("setScale", vec3f(100.f, 100.f, 100.f));
-		uvmapped->call("setRotation", vec3f(60.f, 49.f, 40.f));
+		uvmapped2->call("setPosition", vec3f(700.f, 110.f, 800.f));
+		uvmapped2->call("setScale", vec3f(100.f, 100.f, 100.f));
+		uvmapped2->call("setRotation", vec3f(60.f, 49.f, 40.f));
 
 		// Send the entity to the world pipeline
-		World::addEntity(uvmapped);
+		World::addEntity(uvmapped2);
 	}
 
 	{

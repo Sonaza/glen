@@ -37,6 +37,7 @@ private:
 	Entity* test2;
 	Entity* bgplane;
 	Entity* uvmapped;
+	Entity* uvmapped2;
 
 	float camyvel;
 	vec3f campos;

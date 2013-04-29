@@ -3,15 +3,11 @@
 
 #include <vector>
 #include <cassert>
-
-//#include <Box2D/Box2D.h>
-
 #include <glen/Game/Message.hpp>
 
 namespace glen
 {
 	
-	class Core;
 	class Entity;
 
 	typedef std::vector<Entity*> EntityList;
@@ -22,10 +18,18 @@ namespace glen
 		void init();
 		void uninit();
 
-		void sendGlobal(const std::string &type, boost::any data);
-		void sendGlobal(const Message &msg);
+		void callGlobal(const std::string &type, boost::any data);
+		void callGlobal(const Message &msg);
 
 		void addEntity(Entity*);
+
+		/*template <class T>
+		T* addEntity(T* e)
+		{
+			addEntity(e);
+			return e;
+		}*/
+
 		void clear();
 
 		void update();
