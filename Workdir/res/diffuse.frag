@@ -23,8 +23,11 @@ uniform struct Textures
 	sampler2D specular;
 } u_texture;
 
-uniform mat4 u_model;
-uniform mat4 u_view;
+uniform struct Matrices {
+	mat4 model;
+	mat4 view;
+	mat4 proj;
+} u_matrix;
 
 float warp_diffuse(float d)
 {
@@ -89,7 +92,7 @@ void main()
 	vec4 diffuseFactor = ndotl * diffuseColor * diffuseIntensity;
 	vec4 lightFactor = diffuseFactor + ambientColor;
 	
-	vec4 mvFragPos = u_view * v_fragposition;
+	vec4 mvFragPos = u_matrix.view * v_fragposition;
 	
 	vec3 eye = normalize(mvFragPos.xyz);
 	vec3 reflection = reflect(L, N);

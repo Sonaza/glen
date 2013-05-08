@@ -17,9 +17,7 @@
 
 namespace
 {
-
 	sf::Clock timer;
-
 }
 
 namespace glen
@@ -55,9 +53,9 @@ void Material::unbind() const
 ///////////////////////////////////////////////////
 void Material::setMatrices(Matrices& matrices)
 {
-	m_shaderAsset->program->setUniform("u_model", matrices.model);
-	m_shaderAsset->program->setUniform("u_view", matrices.view);
-	m_shaderAsset->program->setUniform("u_proj", matrices.projection);
+	m_shaderAsset->program->setUniform("u_matrix.model", matrices.model);
+	m_shaderAsset->program->setUniform("u_matrix.view", matrices.view);
+	m_shaderAsset->program->setUniform("u_matrix.proj", matrices.projection);
 
 	m_shaderAsset->program->setUniform("u_time", timer.getElapsedTime().asSeconds());
 }

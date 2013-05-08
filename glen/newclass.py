@@ -1,7 +1,7 @@
 import os
 
 def main():
-	createclass('CameraComponent', 'Game/Components')
+	createclass('Skybox', 'Game')
 
 def basepath(fullpath):
 	return '/'.join(fullpath.split('/')[:-1]) + '/'

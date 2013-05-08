@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Game\Components\CameraComponent.cpp" />
+    <ClCompile Include="src\Game\Skybox.cpp" />
     <ClCompile Include="src\Graphics\Image.cpp" />
     <ClCompile Include="src\Graphics\MeshRenderer.cpp" />
     <ClCompile Include="src\Graphics\ShaderAsset.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="inc\glen\Game\Components\Transform.hpp" />
     <ClInclude Include="inc\glen\Game\Entity.hpp" />
     <ClInclude Include="inc\glen\Game\Message.hpp" />
+    <ClInclude Include="inc\glen\Game\Skybox.hpp" />
     <ClInclude Include="inc\glen\Game\World.hpp" />
     <ClInclude Include="inc\glen\glen.hpp" />
     <ClInclude Include="inc\glen\Graphics\Camera.hpp" />
