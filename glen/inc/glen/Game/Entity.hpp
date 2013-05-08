@@ -38,6 +38,9 @@ namespace glen
 		template <class T>
 		T* getComponent(const std::string &label);
 
+		// Entity update
+		virtual void update() {}
+
 		void updateComponents();
 		void updateComponent(const std::string &label);
 		

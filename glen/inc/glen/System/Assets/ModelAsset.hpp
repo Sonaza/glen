@@ -7,6 +7,8 @@
 namespace glen
 {
 	
+	class Material;
+
 	class ModelAsset : public TAsset<Model>
 	{
 	public:
@@ -15,7 +17,7 @@ namespace glen
 
 		bool loadAsset();
 
-		void setMaterial(const std::string &assetID);
+		void setMaterial(Material* material);
 
 	};
 	

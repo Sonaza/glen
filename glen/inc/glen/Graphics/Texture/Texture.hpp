@@ -18,7 +18,7 @@ namespace glen
 		Texture();
 		virtual ~Texture();
 
-		enum TextureType
+		enum Type
 		{
 			Diffuse		= 0,	// Base image
 			Normal		= 1,	// Normal Map

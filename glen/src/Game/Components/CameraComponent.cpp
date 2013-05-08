@@ -25,6 +25,9 @@ void CameraComponent::attached()
 
 }
 
+#define PI 3.14159265f
+#define torad(__deg) (__deg * PI / 180.f)
+
 ////////////////////////////////////////////////////
 void CameraComponent::update()
 {
@@ -36,7 +39,8 @@ void CameraComponent::update()
 		m_updateProjection = false;
 	}
 
-
+	vec3f pos = request<vec3f>("getPosition");
+	vec3f rot = request<vec3f>("getRotation");
 }
 
 ////////////////////////////////////////////////////

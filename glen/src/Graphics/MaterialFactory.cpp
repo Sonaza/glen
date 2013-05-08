@@ -22,79 +22,70 @@ MaterialFactory::~MaterialFactory(void)
 //////////////////////////////////////////////////////
 Material* MaterialFactory::diffuse(const std::string &diffuse)
 {
-	Material* result = new(std::nothrow) Material();
+	Material* result = new Material();
 
-	if(result)
+	ShaderDefines def;
+	def.push_back("TEXTURE_DIFFUSE");
+
+	result->_loadshaders("res/diffuse.vert", "res/diffuse.frag", def);
+
+	Texture2D* texDiffuse = _getTexture(diffuse);
+
+	// Failure in asset loading
+	if(!texDiffuse)
 	{
-		ShaderDefines def;
-		def.push_back("TEXTURE_DIFFUSE");
-
-		result->_loadshaders("res/diffuse.vert", "res/diffuse.frag", def);
-
-		Texture2D* texDiffuse = _getTexture(diffuse);
-
-		// Failure in asset loading
-		if(!texDiffuse)
-		{
-			delete result;
-			return NULL;
-		}
-
-		result->setTexture<Texture2D::Diffuse>(*texDiffuse);
+		delete result;
+		return NULL;
 	}
+
+	result->setTexture<Texture2D::Diffuse>(*texDiffuse);
 
 	return result;
 }
 
 //////////////////////////////////////////////////////
-Material* MaterialFactory::skyplane(const std::string &skyplane)
+Material* MaterialFactory::skyplane(const std::string &diffuse)
 {
-	Material* result = new(std::nothrow) Material();
+	Material* result = new Material();
 
-	if(result)
+	result->_loadshaders("res/skybox.vert", "res/skybox.frag");
+
+	Texture2D* texDiffuse = _getTexture(diffuse);
+
+	// Failure in asset loading
+	if(!texDiffuse)
 	{
-		result->_loadshaders("res/skybox.vert", "res/skybox.frag");
-
-		Texture2D* texDiffuse = _getTexture(skyplane);
-
-		// Failure in asset loading
-		if(!texDiffuse)
-		{
-			delete result;
-			return NULL;
-		}
-
-		result->setTexture<Texture2D::Diffuse>(*texDiffuse);
+		delete result;
+		return NULL;
 	}
+
+	result->setTexture<Texture2D::Diffuse>(*texDiffuse);
 
 	return result;
 }
-
+/*
 //////////////////////////////////////////////////////
 Material* MaterialFactory::bumped_diffuse(const std::string &diffuse, const std::string &normal)
 {
-	Material* result = new(std::nothrow) Material();
+	Material* result = new Material();
 
-	if(result)
+	result->_loadshaders("res/diffuse.vert", "res/diffuse.frag");
+
+	Texture2D* texDiffuse = _getTexture(diffuse);
+	Texture2D* texNormal = _getTexture(normal);
+
+	// Failure in asset loading
+	if(!texDiffuse || !texNormal)
 	{
-		result->_loadshaders("res/diffuse.vert", "res/diffuse.frag");
-
-		Texture2D* texDiffuse = _getTexture(diffuse);
-		Texture2D* texNormal = _getTexture(normal);
-
-		// Failure in asset loading
-		if(!texDiffuse || !texNormal)
-		{
-			delete result;
-			return NULL;
-		}
-
-		result->setTexture<Texture2D::Diffuse>(*texDiffuse);
-		result->setTexture<Texture2D::Normal>(*texNormal);
+		delete result;
+		return NULL;
 	}
 
+	result->setTexture<Texture2D::Diffuse>(*texDiffuse);
+	result->setTexture<Texture2D::Normal>(*texNormal);
+
 	return result;
-}
+}*/
 
 //////////////////////////////////////////////////////
 Texture2D* MaterialFactory::_getTexture(const std::string &id)

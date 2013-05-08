@@ -4,11 +4,17 @@
 #include <glen/System/Assets/ModelAsset.hpp>
 #include <glen/System/Assets/MaterialAsset.hpp>
 
+#include <glen/Graphics/Material.hpp>
+#include <glen/Graphics/MaterialFactory.hpp>
+
+#include <glen/Graphics/MeshLoader.hpp>
+
 using namespace glen;
 
 namespace
 {
 	Texture2DAssetList	m_textures;
+	MeshDataList		m_meshdata;
 	ModelAssetList		m_models;
 	MaterialList		m_materials;
 }
@@ -16,8 +22,7 @@ namespace
 ////////////////////////////////////////////////////
 void AssetManager::unload()
 {
-	for(Texture2DAssetList::iterator it = m_textures.begin();
-		it != m_textures.end(); ++it)
+	for(Texture2DAssetList::iterator it = m_textures.begin(); it != m_textures.end(); ++it)
 	{
 		delete it->second;
 	}
@@ -26,8 +31,16 @@ void AssetManager::unload()
 
 	///////////////////////////
 
-	for(ModelAssetList::iterator it = m_models.begin();
-		it != m_models.end(); ++it)
+	for(MeshDataList::iterator it = m_meshdata.begin(); it != m_meshdata.end(); ++it)
+	{
+		delete it->second;
+	}
+
+	m_meshdata.clear();
+
+	///////////////////////////
+
+	for(ModelAssetList::iterator it = m_models.begin(); it != m_models.end(); ++it)
 	{
 		delete it->second;
 	}
@@ -36,10 +49,9 @@ void AssetManager::unload()
 
 	///////////////////////////
 
-	for(MaterialList::iterator it = m_materials.begin();
-		it != m_materials.end(); ++it)
+	for(MaterialList::iterator it = m_materials.begin(); it != m_materials.end(); ++it)
 	{
-		delete it->second;
+		delete *it;
 	}
 
 	m_materials.clear();
@@ -101,20 +113,49 @@ Texture2DAsset* AssetManager::getTexture2D(const std::string &id)
 }
 
 //////////////////////////////////////////////////
+MeshData* AssetManager::loadMesh(const std::string &id, const std::string &path)
+{
+	MeshData* result = NULL;
+	result = new MeshData();
+	assert(result && "Allocation failed");
+
+	if(!MeshLoader::loadMesh(path, result))
+	{
+		delete result;
+		result = NULL;
+	}
+	else
+	{
+		m_meshdata.insert(std::make_pair(id, result));
+	}
+	
+	return result;
+}
+
+//////////////////////////////////////////////////
+MeshData* AssetManager::getMesh(const std::string &id)
+{
+	MeshData* result = NULL;
+
+	MeshDataList::iterator it = m_meshdata.find(id);
+	if(it != m_meshdata.end())
+	{
+		result = it->second;
+	}
+
+	return result;
+}
+
+//////////////////////////////////////////////////
 ModelAsset* AssetManager::loadModel(const std::string &id, const std::string &path, const bool scenebound)
 {
 	ModelAsset* result = NULL;
-	result = new(std::nothrow) ModelAsset(path);
-	assert(result && "Allocation failed");
+	result = new ModelAsset(path);
 
-	if(result)
-	{
-		result->setSceneBound(scenebound);
+	result->setSceneBound(scenebound);
+	result->loadAsset();
 
-		result->loadAsset();
-
-		m_models.insert(std::make_pair(id, result));
-	}
+	m_models.insert(std::make_pair(id, result));
 
 	return result;
 }
@@ -134,25 +175,34 @@ ModelAsset* AssetManager::getModel(const std::string &id)
 }
 
 //////////////////////////////////////////////////
-Material* AssetManager::createMaterial(const std::string &id, Material* material)
+Material* AssetManager::createMaterial(const Material::Type type, MaterialAssets assets)
 {
-	assert(material != NULL && "Material can't be null");
+	Material* material = NULL;
 
-	m_materials.insert(std::make_pair(id, material));
+	switch(type)
+	{
+	case Material::Diffuse:
+		material = MaterialFactory::diffuse(assets[Texture::Diffuse]);
+		break;
+	case Material::Skyplane:
+		material = MaterialFactory::skyplane(assets[Texture::Diffuse]);
+		break;/*
+	case Material::Skybox:
+		material = MaterialFactory::skybox(assets[Texture::Diffuse]);
+		break;*/
+	default:	return NULL; break;
+	}
+
+	m_materials.push_back(material);
 
 	return material;
 }
 
 //////////////////////////////////////////////////
-Material* AssetManager::getMaterial(const std::string &id)
+Material* AssetManager::createMaterial(const Material::Type type, const std::string& diffuse)
 {
-	Material* result = NULL;
+	MaterialAssets assets;
+	assets.insert(std::make_pair(Texture::Diffuse, diffuse));
 
-	MaterialList::iterator it = m_materials.find(id);
-	if(it != m_materials.end())
-	{
-		result = it->second;
-	}
-
-	return result;
+	return createMaterial(type, assets);
 }

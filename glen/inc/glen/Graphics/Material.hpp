@@ -1,6 +1,7 @@
 #ifndef GLEN_MATERIAL_HPP
 #define GLEN_MATERIAL_HPP
 
+#include <glen/Graphics/Color.hpp>
 #include <glen/Graphics/Texture/Texture2D.hpp>
 #include <glen/Graphics/Texture/TextureTransform.hpp>
 
@@ -17,8 +18,8 @@ namespace glen
 	class ShaderProgram;
 	class ShaderAsset;
 
-	typedef std::map<Texture2D::TextureType, Texture2D*> TextureList;
-	typedef std::map<Texture2D::TextureType, TextureTransform> TextureTrans;
+	typedef std::map<Texture2D::Type, Texture2D*> TextureList;
+	typedef std::map<Texture2D::Type, TextureTransform> TextureTrans;
 
 	typedef std::vector<std::string> ShaderDefines;
 
@@ -33,10 +34,10 @@ namespace glen
 
 		void setTexture(Texture2D& texture) { m_textures[Texture2D::Diffuse] = &texture; m_transforms[Texture2D::Diffuse] = TextureTransform(); }
 
-		template<Texture2D::TextureType type>
+		template<Texture2D::Type type>
 		void setTexture(Texture2D& texture) { m_textures[type] = &texture; m_transforms[type] = TextureTransform(); }
 		
-		template<Texture2D::TextureType type>
+		template<Texture2D::Type type>
 		TextureTransform* getTransform()
 		{
 			return m_transforms.find(type) != m_transforms.end()
@@ -51,10 +52,22 @@ namespace glen
 			mat4 model;
 		};
 
+		enum Type
+		{
+			Diffuse,
+			Skyplane,
+			Skybox
+		};
+
 		void setMatrices(Matrices& matrices);
 
 		void bind();
 		void unbind() const;
+
+		void setColor(Color c);
+		void setColor(uint8 r, uint8 g, uint8 b, uint8 a = 255);
+
+		void setOpacity(uint8 a);
 
 	protected:
 
@@ -67,6 +80,8 @@ namespace glen
 
 		TextureList		m_textures;
 		TextureTrans	m_transforms;
+
+		Color			m_color;
 
 	};
 

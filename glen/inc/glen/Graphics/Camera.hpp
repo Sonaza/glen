@@ -15,6 +15,7 @@ namespace glen
 		Camera(void);
 		~Camera(void);
 	
+		void updateLookAt();
 		void lookAt(vec3f target, vec3f worldUp);
 
 		void activate();

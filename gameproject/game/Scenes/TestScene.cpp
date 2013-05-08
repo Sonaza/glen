@@ -26,15 +26,14 @@ void TestScene::load()
 		AssetManager::loadTexture2D("brick", "test2.png");
 
 		// Create new diffuse material
-		Material* mat = MaterialFactory::diffuse("brick");
-		AssetManager::createMaterial("brickmaterial", mat);
+		Material* mat = AssetManager::createMaterial(Material::Diffuse, "brick");
 
 		// Apply some scaling to the diffuse texture
-		mat->getTransform<Texture2D::Diffuse>()->setScale(5.f, 5.f, 1.f);
+		mat->getTransform<Texture::Diffuse>()->setScale(5.f, 5.f, 1.f);
 
 		// Load bunny model and apply the material
 		AssetManager::loadModel("bunny", "bunny_uvs_normals.obj")
-			->setMaterial("brickmaterial");
+			->setMaterial(mat);
 
 		// Create new entity and attach transform and renderer
 		test = new Entity;
@@ -50,12 +49,11 @@ void TestScene::load()
 		AssetManager::loadTexture2D("uvmap", "uvtest.png");
 
 		// Create new diffuse material
-		Material* mat = MaterialFactory::diffuse("uvmap");
-		AssetManager::createMaterial("uvmap", mat);
+		Material* mat = AssetManager::createMaterial(Material::Diffuse, "uvmap");
 
 		// Load bunny model and apply the material
 		AssetManager::loadModel("uvmap", "uvmapped.obj")
-			->setMaterial("uvmap");
+			->setMaterial(mat);
 
 		// Create new entity and attach transform and renderer
 		uvmapped = new Entity;
@@ -71,16 +69,14 @@ void TestScene::load()
 	}
 	
 	{
-		// Load texture
-		AssetManager::loadTexture2D("uvmap", "uvtest.png");
-
 		// Create new diffuse material
-		Material* mat = MaterialFactory::diffuse("uvmap");
-		AssetManager::createMaterial("uvmap", mat);
+		Material* mat = AssetManager::createMaterial(Material::Diffuse, "uvmap");
+		
+		mat->setOpacity(50);
 
 		// Load bunny model and apply the material
 		AssetManager::loadModel("uvmap", "uvmapped.obj")
-			->setMaterial("uvmap");
+			->setMaterial(mat);
 
 		// Create new entity and attach transform and renderer
 		uvmapped2 = new Entity;
@@ -100,15 +96,14 @@ void TestScene::load()
 		AssetManager::loadTexture2D("terrain", "grass.png");
 
 		// Create new diffuse material
-		Material* mat = MaterialFactory::diffuse("terrain");
-		AssetManager::createMaterial("terrainmaterial", mat);
+		Material* mat = AssetManager::createMaterial(Material::Diffuse, "terrain");
 
 		// Apply some scaling to the diffuse texture
 		mat->getTransform<Texture2D::Diffuse>()->setScale(220.f, 220.f, 1.f);
 
 		// Load bunny model and apply the material
 		AssetManager::loadModel("terrain", "terrainhi.obj")
-			->setMaterial("terrainmaterial");
+			->setMaterial(mat);
 
 		// Create new entity and attach transform and renderer
 		test2 = new Entity;	
@@ -138,15 +133,14 @@ void TestScene::load()
 		AssetManager::loadTexture2D("bgplane", "sphere.png");
 
 		// Create new diffuse material
-		Material* mat = MaterialFactory::diffuse("bgplane");
-		AssetManager::createMaterial("bgplane", mat);
+		Material* mat = AssetManager::createMaterial(Material::Diffuse, "bgplane");
 
 		// Apply some scaling to the diffuse texture
 		//mat->getTransform<Texture2D::Diffuse>()->setScale(15.f, 15.f, 1.f);
 
 		// Load bunny model and apply the material
 		AssetManager::loadModel("bgplane", "bgplane.obj")
-			->setMaterial("bgplane");
+			->setMaterial(mat);
 		
 		// Create new entity and attach transform and renderer
 		bgplane = new Entity;
@@ -206,9 +200,26 @@ void TestScene::update()
 		Window::getWindow()->setMouseCursorVisible(true);
 	}
 
+	vec3f crot = cam->getRotation();
+
+	crot.y += diff.x / (2.f * center.x) * 330.f;
+	crot.x += diff.y / (2.f * center.y) * 250.f;
+	crot.x = clamp(crot.x, -89.9f, 89.9f);
+
+	if(Input::isKeyDown(sf::Keyboard::Q))
+	{
+		crot.z -= 100.f * Time.delta;
+	}
+	else if(Input::isKeyDown(sf::Keyboard::E))
+	{
+		crot.z += 100.f * Time.delta;
+	}
+
 	camrot.y += diff.x / (2.f * center.x) * 330.f;
 	camrot.x += diff.y / (2.f * center.y) * 250.f;
 	camrot.x = clamp(camrot.x, -89.9f, 89.9f);
+
+	cam->setRotation(crot);
 
 	float yrad = camrot.y * 3.141592f / 180.f;
 
@@ -261,14 +272,17 @@ void TestScene::update()
 
 	//cam->setRotation(camrot.x, camrot.y, 0.f);
 
-	vec3f camdir(
+	/*vec3f camdir(
 		campos.x + cos(yrad) * (1.f - fabs(camrot.x / 90.f)),
 		campos.y - (camrot.x * 3.141592f / 180.f),
 		campos.z + sin(yrad) * (1.f - fabs(camrot.x / 90.f))
 	);
 
 	cam->setPosition(campos);
-	cam->lookAt(camdir, vec3f::up);
+	cam->lookAt(camdir, vec3f::up);*/
+
+	cam->setPosition(campos);
+	cam->updateLookAt();
 
 	for(std::vector<Skyplane*>::iterator it = skybox.begin(); it != skybox.end(); ++it)
 	{

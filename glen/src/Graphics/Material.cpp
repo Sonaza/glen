@@ -20,11 +20,11 @@ namespace
 	sf::Clock timer;
 }
 
-namespace glen
-{
+using namespace glen;
 
 ///////////////////////////////////////////////////
-Material::Material(void)
+Material::Material(void) :
+	m_color(255, 255, 255)
 {
 }
 
@@ -57,6 +57,7 @@ void Material::setMatrices(Matrices& matrices)
 	m_shaderAsset->program->setUniform("u_matrix.view", matrices.view);
 	m_shaderAsset->program->setUniform("u_matrix.proj", matrices.projection);
 
+	m_shaderAsset->program->setUniform("u_color", m_color.r / 255.f, m_color.g / 255.f, m_color.b / 255.f, m_color.a / 255.f);
 	m_shaderAsset->program->setUniform("u_time", timer.getElapsedTime().asSeconds());
 }
 
@@ -106,4 +107,20 @@ void Material::_bindTextures()
 		m_shaderAsset->program->setUniform("u_texmatrix.specular", m_transforms[Texture2D::Specular].getMatrix());
 }
 
+///////////////////////////////////////////////////
+void Material::setColor(Color c)
+{
+	m_color = c;
+}
+
+///////////////////////////////////////////////////
+void Material::setColor(uint8 r, uint8 g, uint8 b, uint8 a)
+{
+	m_color = Color(r, g, b, a);
+}
+
+///////////////////////////////////////////////////
+void Material::setOpacity(uint8 a)
+{
+	m_color.a = a;
 }

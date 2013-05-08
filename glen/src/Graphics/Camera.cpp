@@ -85,6 +85,21 @@ Camera* Camera::activeCamera()
 	return result;
 }
 
+#define PI 3.14159265f
+#define torad(__deg) (__deg * PI / 180.f)
+
+//////////////////////////////////////////////
+void Camera::updateLookAt()
+{
+	vec3f dir(
+		cos(torad(m_rotation.y)) * cos(torad(m_rotation.x)),
+		-sin(torad(m_rotation.x)),
+		sin(torad(m_rotation.y)) * cos(torad(m_rotation.x))
+	);
+	
+	m_matrix.lookAt(m_position, m_position + dir, vec3f::up);
+}
+
 ///////////////////////////////////////////////
 void Camera::lookAt(vec3f target, vec3f worldUp)
 {

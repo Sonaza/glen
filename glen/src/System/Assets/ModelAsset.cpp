@@ -38,12 +38,8 @@ bool ModelAsset::loadAsset()
 }
 
 ////////////////////////////////////////////////////
-void ModelAsset::setMaterial(const std::string &assetID)
+void ModelAsset::setMaterial(Material* material)
 {
-	Material* material = AssetManager::getMaterial(assetID);
-
-	if(material)
-	{
-		m_asset->setMaterial(material);
-	}
+	assert(material);
+	m_asset->setMaterial(material);
 }
