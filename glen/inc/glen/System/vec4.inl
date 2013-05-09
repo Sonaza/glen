@@ -21,6 +21,13 @@ inline vec4<T>::vec4(T x, T y, T z, T w) :
 
 ////////////////////////////////////////////////////
 template <class T>
+inline vec4<T>::vec4(vec3<T> v, T w) :
+x(v.x), y(v.y), z(v.z), w(w)
+{
+}
+
+////////////////////////////////////////////////////
+template <class T>
 template <class U>
 inline vec4<T>::vec4(const vec4<U> &vector) :
 	x(static_cast<T>(vector.x)),

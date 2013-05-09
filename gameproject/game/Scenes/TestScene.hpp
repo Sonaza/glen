@@ -43,6 +43,8 @@ private:
 	vec3f campos;
 	vec3f camrot;
 
+	float crotzvel;
+
 	float yvel;
 	float ypos;
 

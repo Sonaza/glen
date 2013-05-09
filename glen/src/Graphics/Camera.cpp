@@ -97,12 +97,18 @@ void Camera::updateLookAt()
 		sin(torad(m_rotation.y)) * cos(torad(m_rotation.x))
 	);
 	
-	m_matrix.lookAt(m_position, m_position + dir, vec3f::up);
+	mat4 mat; mat.rotate(m_rotation.z, dir).rotate(m_rotation.y, vec3f::up);
+
+	vec4f up = mat * vec4f(vec3f::up, 1.f);
+	vec3f roll(up.x, up.y, up.z);
+
+	m_matrix.lookAt(m_position, m_position + dir, roll);
 }
 
 ///////////////////////////////////////////////
 void Camera::lookAt(vec3f target, vec3f worldUp)
 {
+
 	m_matrix.lookAt(
 		m_position,
 		target,

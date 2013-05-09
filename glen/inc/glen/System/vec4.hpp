@@ -13,6 +13,7 @@ namespace glen
 		vec4();
 		vec4(T v);
 		vec4(T x, T y, T z, T w = 1);
+		vec4(vec3<T> v, T w = 1);
 
 		// Explicit cast from a vector type to another
 		template <class U>

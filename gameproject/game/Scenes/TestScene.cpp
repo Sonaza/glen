@@ -166,6 +166,7 @@ void TestScene::load()
 
 	camyvel = 0.f;
 	campos.y = 2.f;
+	crotzvel = 0.f;
 }
 
 //////////////////////////////////////////////////////
@@ -208,11 +209,19 @@ void TestScene::update()
 
 	if(Input::isKeyDown(sf::Keyboard::Q))
 	{
-		crot.z -= 100.f * Time.delta;
+		crot.z -= 200.f * Time.delta;
 	}
 	else if(Input::isKeyDown(sf::Keyboard::E))
 	{
-		crot.z += 100.f * Time.delta;
+		crot.z += 200.f * Time.delta;
+	}
+	else
+	{
+		crot.z += crotzvel * Time.delta;
+		if(fabs(crot.z) > 0.0005f)
+			crotzvel += -(crot.z / fabs(crot.z)) * 250.f * Time.delta;
+
+		crotzvel *= 1.f - 0.9f * Time.delta;
 	}
 
 	camrot.y += diff.x / (2.f * center.x) * 330.f;
