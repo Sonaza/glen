@@ -9,7 +9,7 @@
 namespace glen
 {
 
-	class Camera : public Transformable
+	class errorCamera : public Transformable
 	{
 	public:
 		Camera(void);

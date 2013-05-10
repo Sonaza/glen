@@ -14,9 +14,8 @@ TestScene::~TestScene(void)
 //////////////////////////////////////////////////////
 void TestScene::load()
 {
-	cam = Camera::create(80.f, 1.f, 50000.f);
-	cam->setPosition(0.f, 4.3f, 6.f);
-	cam->lookAt(vec3f(0.f, 1.8f, 0.f), vec3f::up);
+	cam = new Camera(80.f, 1.f, 30000.f);
+	World::addEntity(cam);
 
 	{
 		AssetManager::loadTextureCubemap("skybox", "sky/left.png", "sky/right.png", "sky/top.png", "sky/bottom.png", "sky/front.png", "sky/back.png");
@@ -78,7 +77,8 @@ void TestScene::load()
 		// Create new diffuse material
 		Material* mat = AssetManager::createMaterial(Material::Diffuse, "uvmap");
 		
-		mat->setOpacity(50);
+		//mat->setOpacity(50);
+		mat->setColor(255, 120, 120);
 
 		// Load bunny model and apply the material
 		AssetManager::loadModel("uvmap", "uvmapped.obj")
@@ -151,6 +151,18 @@ void TestScene::load()
 		World::addEntity(bgplane);
 	}
 
+	vec3f v1(0.f, 0.f, 0.f);
+	vec3f v2(5.f, 3.f, 2.f);
+
+	vec3f dir = normalize(v2 - v1);
+
+	float x = asin(-dir.y);
+	float y = acos(dir.x / cos(x));
+
+#define todeg(_r) (_r * (180.f / 3.141592))
+
+	printf("Vec: %f, %f, %f\nx = %f\ny = %f", dir.x, dir.y, dir.z, todeg(x), todeg(y));
+
 	ypos = 2.f;
 	yvel = 0.f;
 	yscale = 1.f;
@@ -197,44 +209,41 @@ void TestScene::update()
 		Window::getWindow()->setMouseCursorVisible(true);
 	}
 
-	vec3f crot = cam->getRotation();
-
-	crot.y += diff.x / (2.f * center.x) * 330.f;
-	crot.x += diff.y / (2.f * center.y) * 250.f;
-	crot.x = clamp(crot.x, -89.9f, 89.9f);
-
-#define PI 180.f
-#define TWOPI 360.f
-#define wrapangle(_a) do { while(_a > PI){_a -= TWOPI;} while(_a < -PI){_a += TWOPI;} } while(0)
+	camrot.y += diff.x / (2.f * center.x) * 330.f;
+	camrot.x += diff.y / (2.f * center.y) * 250.f;
+	camrot.x = Util::clamp(camrot.x, -89.9f, 89.9f);
 
 	if(Input::isKeyDown(sf::Keyboard::Q))
 	{
-		crot.z += 200.f * Time.delta;
-		wrapangle(crot.z);
+		//camrot.z += 200.f * Time.delta;
+		crotzvel -= 600.f * Time.delta;
 	}
 	else if(Input::isKeyDown(sf::Keyboard::E))
 	{
-		crot.z -= 200.f * Time.delta;
-		wrapangle(crot.z);
+		//camrot.z -= 200.f * Time.delta;
+		crotzvel += 600.f * Time.delta;
 	}
-	else
+	//else
 	{
-		crot.z += crotzvel * Time.delta;
-		if(fabs(crot.z) > 0.0005f)
-			crotzvel += -(crot.z / fabs(crot.z)) * 250.f * Time.delta;
+		camrot.z += crotzvel * Time.delta;
+		camrot.y += camrot.z * Time.delta * 2.f;
+		Util::wrapangle(camrot.z);
+
+		if(fabs(camrot.z) > 0.0005f)
+			crotzvel += -(camrot.z / fabs(camrot.z)) * 250.f * Time.delta;
 
 		crotzvel *= 1.f - 0.9f * Time.delta;
 	}
 
-	camrot.y += diff.x / (2.f * center.x) * 330.f;
+	/*camrot.y += diff.x / (2.f * center.x) * 330.f;
 	camrot.x += diff.y / (2.f * center.y) * 250.f;
-	camrot.x = clamp(camrot.x, -89.9f, 89.9f);
+	camrot.x = Util::clamp(camrot.x, -89.9f, 89.9f);*/
 
-	cam->setRotation(crot);
+	cam->setRotation(camrot);
 
 	float yrad = camrot.y * 3.141592f / 180.f;
 
-	float multi = (campos.y + 80.f) / 50.f;
+	float multi = (campos.y + 80.f) / 20.f;
 
 	if(Input::isKeyDown(sf::Keyboard::Space))// && campos.y <= 2.1f)
 	{
@@ -246,7 +255,7 @@ void TestScene::update()
 		campos.y -= 50.f * Time.delta * multi;
 	}
 
-	campos.y = clamp(campos.y, -200.f, 10000.f);
+	campos.y = Util::clamp(campos.y, -200.f, 10000.f);
 
 	//camyvel += -40.f * Time.delta;
 	//campos.y += camyvel * Time.delta;
@@ -259,15 +268,19 @@ void TestScene::update()
 
 	float speed = 8.f * multi;
 
+	vec3f forward = cam->getForward();
+
 	if(Input::isKeyDown(sf::Keyboard::W))
 	{
-		campos.x += cos(yrad) * Time.delta * 10.f * speed;
-		campos.z += sin(yrad) * Time.delta * 10.f * speed;
+		campos += forward * Time.delta * 10.f * speed;
+		//campos.x += cos(yrad) * Time.delta * 10.f * speed;
+		//campos.z += sin(yrad) * Time.delta * 10.f * speed;
 	}
 	else if(Input::isKeyDown(sf::Keyboard::S))
 	{
-		campos.x -= cos(yrad) * Time.delta * 10.f * speed;
-		campos.z -= sin(yrad) * Time.delta * 10.f * speed;
+		campos -= forward * Time.delta * 10.f * speed;
+		//campos.x -= cos(yrad) * Time.delta * 10.f * speed;
+		//campos.z -= sin(yrad) * Time.delta * 10.f * speed;
 	}
 
 	if(Input::isKeyDown(sf::Keyboard::D))
@@ -293,7 +306,7 @@ void TestScene::update()
 	cam->lookAt(camdir, vec3f::up);*/
 
 	cam->setPosition(campos);
-	cam->updateLookAt();
+	//cam->updateLookAt();
 
 	/*for(std::vector<Skyplane*>::iterator it = skybox.begin(); it != skybox.end(); ++it)
 	{

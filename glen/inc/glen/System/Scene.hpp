@@ -4,15 +4,7 @@
 #include <glen/System/Core.hpp>
 #include <glen/Window/Window.hpp>
 
-#include <glen/Graphics/Camera.hpp>
-
-#include <glen/Graphics/Color.hpp>
-#include <glen/Graphics/Model.hpp>
-#include <glen/Graphics/Texture/Texture2D.hpp>
-
-#include <glen/Graphics/Material.hpp>
-#include <glen/Graphics/MaterialFactory.hpp>
-#include <glen/Graphics/Texture/TextureTransform.hpp>
+#include <glen/opengl.hpp>
 
 namespace glen
 {

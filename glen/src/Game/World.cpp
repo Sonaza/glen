@@ -5,6 +5,8 @@
 
 #include <glen/opengl.hpp>
 
+#include <iterator>
+
 using namespace glen;
 
 namespace
@@ -92,7 +94,16 @@ namespace
 ////////////////////////////////////////////////////
 void World::render()
 {
-	std::vector<Entity*> ent = m_entities;
+	std::vector<Entity*> ent;
+
+	// Copy only drawable entities
+	std::copy_if(
+		m_entities.begin(), m_entities.end(),
+		std::back_inserter(ent),
+		[](Entity* e){ return e->m_drawable; }
+	);
+
+	// Sort entities according to draw order
 	std::sort(ent.begin(), ent.end(), drawsort_compare);
 
 	for(EntityList::iterator it = ent.begin(); it != ent.end(); ++it)

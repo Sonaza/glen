@@ -6,8 +6,6 @@
 #include <glen/Graphics/ShaderProgram.hpp>
 #include <glen/Graphics/ShaderAsset.hpp>
 
-#include <glen/Graphics/Camera.hpp>
-
 #define setAttribPointer(NAME, SIZE, STRIDE, OFFSET) \
 	do { glEnableVertexAttribArray(m_shaderAsset->program->attrib(NAME)); \
 	glCheck(glVertexAttribPointer( \

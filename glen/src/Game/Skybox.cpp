@@ -8,7 +8,7 @@
 #include <glen/Game/Components/Transform.hpp>
 #include <glen/Game/Components/Renderer.hpp>
 
-#include <glen/Graphics/Camera.hpp>
+#include <glen/Game/Camera.hpp>
 
 using namespace glen;
 
@@ -42,5 +42,5 @@ void Skybox::loadSkybox(const std::string &cubemap)
 ////////////////////////////////////////////////////
 void Skybox::update()
 {
-	call("setPosition", Camera::activeCamera()->getPosition());
+	call("setPosition", Camera::getCamera()->getPosition());
 }

@@ -54,7 +54,7 @@ uniform vec4 u_color;
 void main()
 {
 	vec4 diffuseFrag = getDiffuseFrag();
-	finalColor = u_color * diffuseFrag;
+	finalColor = diffuseFrag;
 	
 	//vec2 normalmap_uv = (u_texmatrix.normal * vec4(v_texcoord, 0.f, 1.f)).xy;
 	//vec4 normalmapFrag = texture(u_texture.normal, normalMap_uv);
@@ -112,7 +112,7 @@ void main()
 	
 	//vec3 sykle = vec3(dca, dca, dcb);
 	
-	finalColor = vec4(finalColor.rgb, diffuseFrag.a * u_color.a);
+	finalColor = u_color * vec4(finalColor.rgb, diffuseFrag.a);
 	
 	//finalColor = vec4(vec3(zdistance / 3000.f), diffuseFrag.a);
 }

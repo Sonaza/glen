@@ -1,7 +1,6 @@
 #include <glen/opengl.hpp>
 
 #include <glen/Window/Window.hpp>
-#include <glen/Graphics/Camera.hpp>
 #include <glen/System/ErrorStream.hpp>
 
 #include <memory>

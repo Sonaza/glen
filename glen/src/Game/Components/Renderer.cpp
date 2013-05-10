@@ -3,8 +3,6 @@
 #include <glen/System/AssetManager.hpp>
 #include <glen/System/Assets/ModelAsset.hpp>
 
-#include <glen/Graphics/Camera.hpp>
-
 using namespace glen;
 
 ////////////////////////////////////////////////////
@@ -32,6 +30,8 @@ Renderer::~Renderer()
 ////////////////////////////////////////////////////
 void Renderer::attached()
 {
+	m_entity->m_drawable = true;
+
 	listen("draw", &Renderer::draw);
 }
 

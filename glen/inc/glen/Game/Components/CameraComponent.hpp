@@ -1,16 +1,20 @@
 #ifndef GLEN_CAMERACOMPONENT_HPP
 #define GLEN_CAMERACOMPONENT_HPP
 
-#include <glen/System/Types.hpp>
 #include <glen/Game/Component.hpp>
+#include <glen/System/Types.hpp>
 
 #include <cmath>
 
 namespace glen
 {
+
+	class Transform;
 	
 	class CameraComponent : public Component
 	{
+		friend class Camera;
+
 	public:
 		CameraComponent(float fov, float znear, float zfar);
 		~CameraComponent();
@@ -23,13 +27,22 @@ namespace glen
 		mat4& getProjectionMatrix();
 		mat4& getViewMatrix();
 
-	private:
+		void calculateProjection();
 
-		mat4 m_projection;
-		bool m_updateProjection;
+	protected:
 
+		Transform*	m_transform;
+
+		mat4		m_view;
+		mat4		m_projection;
+		bool		m_updateProjection;
+
+		// Camera field of view
 		float m_fov;
-		float m_znear, m_zfar;
+
+		// Near and far planes
+		float m_znear;
+		float m_zfar;
 
 	};
 	

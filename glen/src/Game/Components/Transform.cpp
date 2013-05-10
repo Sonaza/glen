@@ -1,4 +1,5 @@
 #include <glen/Game/Components/Transform.hpp>
+#include <glen/System/Utility.hpp>
 
 using namespace glen;
 
@@ -113,6 +114,34 @@ void Transform::setScale(const Message &msg)
 	assert(msg.data.type() == typeid(vec3f) && "Wrong data type");
 	setScale(boost::any_cast<vec3f>(msg.data));
 }
+
+////////////////////////////////////////////////////
+vec3f Transform::getForward()
+{
+	float x = Util::toradians(m_rotation.x);
+	float y = Util::toradians(m_rotation.y);
+
+	return vec3f(
+		cos(y) * cos(x),
+		-sin(x),
+		sin(y) * cos(x)
+	);
+}
+/*
+////////////////////////////////////////////////////
+vec3f Transform::getRight()
+{
+
+}
+
+////////////////////////////////////////////////////
+vec3f Transform::getUp()
+{
+	mat4 mat; mat.rotate(m_rotation.z, getForward()).rotate(m_rotation.y, vec3f::up);
+
+	vec4f up = mat * vec4f(vec3f::up, 1.f);
+	return vec3f(up.x, up.y, up.z);
+}*/
 
 ////////////////////////////////////////////////////
 mat4 Transform::getMatrix()

@@ -2,11 +2,6 @@
 #define TESTSCENE_HPP
 
 #include <glen/glen.hpp>
-#include <glen/Game/Skybox.hpp>
-
-#include <algorithm>
-
-#define clamp(__val, __min, __max) (std::max((__min), std::min((__max), (__val))))
 
 using namespace glen;
 

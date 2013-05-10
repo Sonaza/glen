@@ -2,12 +2,14 @@
 #include <glen/Graphics/Material.hpp>
 #include <glen/Graphics/MeshLoader.hpp>
 
+#include <glen/System/AssetManager.hpp>
+
 #include <glen/Graphics/Texture/Texture2D.hpp>
 
 #include <glen/Graphics/ShaderProgram.hpp>
 #include <glen/Graphics/Shader.hpp>
 
-#include <glen/Graphics/Camera.hpp>
+#include <glen/Game/Camera.hpp>
 
 namespace glen
 {
@@ -45,20 +47,10 @@ void Model::setMaterial(Material* material)
 //////////////////////////////////////////////////
 bool Model::loadFromFile(const std::string& path)
 {
-	m_meshdata = new(std::nothrow) MeshData();
-	assert(m_meshdata != NULL && "Memory allocation for mesh data failed");
+	m_meshdata = AssetManager::loadMesh(path, path);
 
-	// Check if memory allocation was successful
+	// Check if mesh was loaded successfully
 	if(!m_meshdata) return false;
-
-	// Attempt to load the mesh file
-	if(!MeshLoader::loadMesh(path, m_meshdata))
-	{
-		delete m_meshdata;
-		m_meshdata = NULL;
-
-		return false;
-	}
 	
 	// Generate VAO and VBO
 	glGenVertexArrays(1, &m_vao);
@@ -84,8 +76,8 @@ void Model::render(mat4 &transform)
 	//m_material->m_program->setUniform("u_time", GetTickCount() / 1000.f);
 
 	Material::Matrices mat;
-	mat.projection	= Camera::activeCamera()->getProjectionMatrix();
-	mat.view		= Camera::activeCamera()->getMatrix();
+	mat.projection	= Camera::getCamera()->getProjection();
+	mat.view		= Camera::getCamera()->getView();
 	mat.model		= transform;
 
 	m_material->setMatrices(mat);

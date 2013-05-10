@@ -1,7 +1,7 @@
 import os
 
 def main():
-	createclass('Skybox', 'Game')
+	createclass('Utility', 'System')
 
 def basepath(fullpath):
 	return '/'.join(fullpath.split('/')[:-1]) + '/'

@@ -11,7 +11,9 @@ using namespace glen;
 
 ////////////////////////////////////////////////////
 Entity::Entity() :
-	m_destroyed(false), m_draworder(0)
+	m_destroyed(false),
+	m_draworder(0),
+	m_drawable(false)
 {
 	
 }

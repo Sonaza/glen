@@ -35,6 +35,10 @@ namespace glen
 		void setScale(const Message &msg);
 		inline vec3f getScale() const { return m_scale; }
 
+		vec3f getForward();
+		//vec3f getRight();
+		//vec3f getUp();
+
 		mat4 getMatrix();
 
 	private:

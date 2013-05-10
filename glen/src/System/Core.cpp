@@ -11,7 +11,7 @@
 
 #include <glen/Graphics/ShaderManager.hpp>
 
-#include <glen/Graphics/Camera.hpp>
+#include <glen/Game/Camera.hpp>
 
 using namespace glen;
 
@@ -101,15 +101,18 @@ void Core::events()
 
 		switch(event.type)
 		{
+		///////////////////////////////////
 		case sf::Event::Resized:
 			std::cout << "Resized: " << event.size.width << ", " << event.size.height << std::endl;
-			Camera::refreshProjection();
+
+			Camera::getCamera()->updateProjection();
 			glViewport(0, 0, event.size.width, event.size.height);
-				//event.size.width / static_cast<float>(event.size.height)
 			break;
+		///////////////////////////////////
 		case sf::Event::Closed:
 			m_running = false;
 			break;
+		///////////////////////////////////
 		case sf::Event::KeyPressed:
 			if(event.key.code == sf::Keyboard::Escape) m_running = false;
 			break;
