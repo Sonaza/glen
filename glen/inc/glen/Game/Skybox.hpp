@@ -12,6 +12,10 @@ namespace glen
 	public:
 		Skybox();
 		~Skybox();
+
+		void loadSkybox(const std::string &cubemap);
+
+		void update();
 	};
 	
 }

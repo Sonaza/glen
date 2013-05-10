@@ -1,8 +1,10 @@
 #include <glen/System/AssetManager.hpp>
 
 #include <glen/System/Assets/Texture2DAsset.hpp>
+#include <glen/Graphics/Texture/TextureCubemap.hpp>
 #include <glen/System/Assets/ModelAsset.hpp>
-#include <glen/System/Assets/MaterialAsset.hpp>
+
+#include <glen/Graphics/Texture/Texture.hpp>
 
 #include <glen/Graphics/Material.hpp>
 #include <glen/Graphics/MaterialFactory.hpp>
@@ -13,7 +15,12 @@ using namespace glen;
 
 namespace
 {
-	Texture2DAssetList	m_textures;
+	struct Textures
+	{
+		Texture2DAssetList	texture2d;
+		TextureCubemapList	texturecubemaps;
+	} m_textures;
+	
 	MeshDataList		m_meshdata;
 	ModelAssetList		m_models;
 	MaterialList		m_materials;
@@ -22,12 +29,21 @@ namespace
 ////////////////////////////////////////////////////
 void AssetManager::unload()
 {
-	for(Texture2DAssetList::iterator it = m_textures.begin(); it != m_textures.end(); ++it)
+	for(Texture2DAssetList::iterator it = m_textures.texture2d.begin(); it != m_textures.texture2d.end(); ++it)
 	{
 		delete it->second;
 	}
 
-	m_textures.clear();
+	m_textures.texture2d.clear();
+
+	///////////////////////////
+
+	for(TextureCubemapList::iterator it = m_textures.texturecubemaps.begin(); it != m_textures.texturecubemaps.end(); ++it)
+	{
+		delete it->second;
+	}
+
+	m_textures.texturecubemaps.clear();
 
 	///////////////////////////
 
@@ -60,13 +76,13 @@ void AssetManager::unload()
 ////////////////////////////////////////////////////
 void AssetManager::freeSceneAssets()
 {
-	for(Texture2DAssetList::iterator it = m_textures.begin();
-		it != m_textures.end();)
+	for(Texture2DAssetList::iterator it = m_textures.texture2d.begin();
+		it != m_textures.texture2d.end();)
 	{
 		if(it->second->isSceneBound())
 		{
 			delete it->second;
-			it = m_textures.erase(it);
+			it = m_textures.texture2d.erase(it);
 		}
 		else
 		{
@@ -78,7 +94,7 @@ void AssetManager::freeSceneAssets()
 //////////////////////////////////////////////////
 Texture2DAsset* AssetManager::loadTexture2D(const std::string &id, const std::string &path, const bool scenebound)
 {
-	Texture2DAsset* result = getTexture2D("id");
+	Texture2DAsset* result = getTexture2D(id);
 
 	if(result == NULL)
 	{
@@ -91,7 +107,7 @@ Texture2DAsset* AssetManager::loadTexture2D(const std::string &id, const std::st
 
 			result->loadAsset();
 
-			m_textures.insert(std::make_pair(id, result));
+			m_textures.texture2d.insert(std::make_pair(id, result));
 		}
 	}
 
@@ -103,8 +119,45 @@ Texture2DAsset* AssetManager::getTexture2D(const std::string &id)
 {
 	Texture2DAsset* result = NULL;
 
-	Texture2DAssetList::iterator it = m_textures.find(id);
-	if(it != m_textures.end())
+	Texture2DAssetList::iterator it = m_textures.texture2d.find(id);
+	if(it != m_textures.texture2d.end())
+	{
+		result = it->second;
+	}
+
+	return result;
+}
+
+//////////////////////////////////////////////////
+TextureCubemap* AssetManager::loadTextureCubemap(const std::string &assetID, const std::string& left, const std::string& right, const std::string& top, const std::string& bottom, const std::string& front, const std::string& back)
+{
+	TextureCubemap* result = getTextureCubemap(assetID);
+
+	if(result == NULL)
+	{
+		result = new TextureCubemap();
+
+		if(!result->loadFromFile(left, right, top, bottom, front, back))
+		{
+			delete result;
+			result = NULL;
+		}
+		else
+		{
+			m_textures.texturecubemaps.insert(std::make_pair(assetID, result));
+		}
+	}
+
+	return result;
+}
+
+//////////////////////////////////////////////////
+TextureCubemap* AssetManager::getTextureCubemap(const std::string &assetID)
+{
+	TextureCubemap* result = NULL;
+
+	TextureCubemapList::iterator it = m_textures.texturecubemaps.find(assetID);
+	if(it != m_textures.texturecubemaps.end())
 	{
 		result = it->second;
 	}
@@ -186,12 +239,14 @@ Material* AssetManager::createMaterial(const Material::Type type, MaterialAssets
 		break;
 	case Material::Skyplane:
 		material = MaterialFactory::skyplane(assets[Texture::Diffuse]);
-		break;/*
+		break;
 	case Material::Skybox:
 		material = MaterialFactory::skybox(assets[Texture::Diffuse]);
-		break;*/
+		break;
 	default:	return NULL; break;
 	}
+
+	assert(material != NULL);
 
 	m_materials.push_back(material);
 

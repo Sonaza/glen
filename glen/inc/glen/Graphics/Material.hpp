@@ -3,6 +3,7 @@
 
 #include <glen/Graphics/Color.hpp>
 #include <glen/Graphics/Texture/Texture2D.hpp>
+#include <glen/Graphics/Texture/TextureCubemap.hpp>
 #include <glen/Graphics/Texture/TextureTransform.hpp>
 
 #include <glen/System/Types.hpp>
@@ -18,8 +19,8 @@ namespace glen
 	class ShaderProgram;
 	class ShaderAsset;
 
-	typedef std::map<Texture2D::Type, Texture2D*> TextureList;
-	typedef std::map<Texture2D::Type, TextureTransform> TextureTrans;
+	typedef std::map<Texture::Type, Texture*> TextureList;
+	typedef std::map<Texture::Type, TextureTransform> TextureTrans;
 
 	typedef std::vector<std::string> ShaderDefines;
 
@@ -32,17 +33,21 @@ namespace glen
 		Material(void);
 		virtual ~Material(void);
 
-		void setTexture(Texture2D& texture) { m_textures[Texture2D::Diffuse] = &texture; m_transforms[Texture2D::Diffuse] = TextureTransform(); }
+		void setTexture(Texture::Type type, Texture* texture);
 
-		template<Texture2D::Type type>
-		void setTexture(Texture2D& texture) { m_textures[type] = &texture; m_transforms[type] = TextureTransform(); }
-		
-		template<Texture2D::Type type>
-		TextureTransform* getTransform()
+		/*template<Texture::Type type>
+		void setTexture(Texture* texture) { m_textures[type] = texture; m_transforms[type] = TextureTransform(); }
+		*/
+
+		TextureTransform* getTransform(Texture::Type type)
 		{
-			return m_transforms.find(type) != m_transforms.end()
+			TextureTransform* temp = m_transforms.find(type) != m_transforms.end()
 				? &m_transforms[type]
 				: NULL;
+
+			assert(temp);
+
+			return temp;
 		}
 
 		struct Matrices

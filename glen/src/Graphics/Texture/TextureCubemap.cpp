@@ -18,6 +18,8 @@ void TextureCubemap::bind() const
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureId);
 }
 
+#define setCubeImage(_direction, _image) glTexImage2D(GL_TEXTURE_CUBE_MAP_ ## _direction, 0, GL_RGBA8, size.x, size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_images[_image] ? m_images[_image]->getPixels() : &nulltex[0])
+
 /////////////////////////////////////////////////
 bool TextureCubemap::loadFromFile(
 	const std::string& left, const std::string& right,
@@ -41,12 +43,22 @@ bool TextureCubemap::loadFromFile(
 	glGenTextures(1, &m_textureId);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureId);
 
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA8, m_images[0]->getWidth(), m_images[0]->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_images[0]->getPixels());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA8, m_images[1]->getWidth(), m_images[1]->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_images[1]->getPixels());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA8, m_images[2]->getWidth(), m_images[2]->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_images[2]->getPixels());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGBA8, m_images[3]->getWidth(), m_images[3]->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_images[3]->getPixels());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGBA8, m_images[4]->getWidth(), m_images[4]->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_images[4]->getPixels());
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGBA8, m_images[5]->getWidth(), m_images[5]->getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_images[5]->getPixels());
+	vec2i size = m_images[0]->getSize();
+	std::vector<GLubyte*> nulltex(size.x * size.y);
+
+	setCubeImage(POSITIVE_X, 0);
+	setCubeImage(NEGATIVE_X, 1);
+	setCubeImage(POSITIVE_Y, 2);
+	setCubeImage(NEGATIVE_Y, 3);
+	setCubeImage(POSITIVE_Z, 4);
+	setCubeImage(NEGATIVE_Z, 5);
+
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
 	return true;
 }
@@ -54,17 +66,37 @@ bool TextureCubemap::loadFromFile(
 /////////////////////////////////////////////////
 bool TextureCubemap::_loadImages()
 {
+	vec2i size;
+
 	for(std::vector<std::string>::iterator it = m_filenames.begin(); it != m_filenames.end(); ++it)
 	{
-		Image* temp = new(std::nothrow) Image;
-		assert(temp != NULL && "Allocation failed");
+		Image* temp = NULL;
 
-		if(!temp || !temp->loadFromFile(*it))
+		if(!(*it).empty())
 		{
-			_freeImages();
-			if(temp) delete temp;
+			temp = new Image;
 
-			return false;
+			if(!temp->loadFromFile(*it))
+			{
+				_freeImages();
+				if(temp) delete temp;
+
+				return false;
+			}
+
+			if(size.x == 0 && size.y == 0)
+			{
+				size = temp->getSize();
+			}
+			else if(size != temp->getSize())
+			{
+				err << "All cubemap surfaces must be the same size" << ErrorStream::error;
+
+				_freeImages();
+				if(temp) delete temp;
+
+				return false;
+			}
 		}
 
 		m_images.push_back(temp);

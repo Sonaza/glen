@@ -3,13 +3,13 @@
 #include <glen/Game/Entity.hpp>
 #include <glen/Game/Component.hpp>
 
+#include <glen/opengl.hpp>
+
 using namespace glen;
 
 namespace
 {
-
 	EntityList	m_entities;
-
 }
 
 ////////////////////////////////////////////////////
@@ -66,6 +66,8 @@ void World::update()
 	{
 		entity = *it;
 
+		entity->update();
+
 		if(!entity->isDestroyed())
 		{
 			entity->updateComponents();
@@ -79,13 +81,34 @@ void World::update()
 	}
 }
 
+namespace
+{
+	bool drawsort_compare(Entity* first, Entity* second)
+	{
+		return first->m_draworder < second->m_draworder;
+	}
+}
+
 ////////////////////////////////////////////////////
 void World::render()
 {
-	for(EntityList::iterator it = m_entities.begin();
-		it != m_entities.end(); ++it)
+	std::vector<Entity*> ent = m_entities;
+	std::sort(ent.begin(), ent.end(), drawsort_compare);
+
+	for(EntityList::iterator it = ent.begin(); it != ent.end(); ++it)
 	{
-		(*it)->call("draw");
+		Entity* e = *it;
+
+		if(e == ent.back())
+		{
+			glDepthRange(1, 1);
+			glDepthFunc(GL_LEQUAL);
+		}
+
+		e->call("draw");
 	}
+
+	glDepthRange(0, 1);
+	glDepthFunc(GL_LESS);
 }
 

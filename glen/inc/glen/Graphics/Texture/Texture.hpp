@@ -20,7 +20,7 @@ namespace glen
 
 		enum Type
 		{
-			Diffuse		= 0,	// Base image
+			Diffuse		= 0,	// Base texture
 			Normal		= 1,	// Normal Map
 			Specular	= 2,	// Specular Map
 		};

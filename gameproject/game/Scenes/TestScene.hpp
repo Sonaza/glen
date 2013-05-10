@@ -2,11 +2,9 @@
 #define TESTSCENE_HPP
 
 #include <glen/glen.hpp>
-#include <game/Entities/Skyplane.hpp>
+#include <glen/Game/Skybox.hpp>
 
 #include <algorithm>
-
-#include <glen/Graphics/Texture/TextureCubemap.hpp>
 
 #define clamp(__val, __min, __max) (std::max((__min), std::min((__max), (__val))))
 
@@ -27,11 +25,11 @@ public:
 
 private:
 
-	std::vector<Skyplane*> skybox;
-
 	Camera* cam;
 
 	sf::Clock m_timer;
+
+	Skybox* skybox;
 
 	Entity* test;
 	Entity* test2;

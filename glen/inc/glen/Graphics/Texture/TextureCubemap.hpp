@@ -10,10 +10,10 @@ namespace glen
 	class TextureCubemap : public Texture
 	{
 	public:
-		TextureCubemap();
-		~TextureCubemap();
+		TextureCubemap(void);
+		virtual ~TextureCubemap(void);
 
-		void TextureCubemap::bind() const;
+		void bind() const;
 
 		bool loadFromFile(const std::string& left,
 						  const std::string& right,
@@ -21,6 +21,8 @@ namespace glen
 						  const std::string& bottom,
 						  const std::string& front,
 						  const std::string& back);
+
+		vec2i getSize() const { assert(m_images[0]); return m_images[0]->getSize(); }
 
 	private:
 		

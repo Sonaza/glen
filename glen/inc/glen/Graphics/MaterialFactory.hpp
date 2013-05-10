@@ -20,16 +20,17 @@ namespace glen
 
 		//static void unload(Material* material);
 
+		static Material* plain();
 		static Material* diffuse(const std::string &diffuse);
 		//static Material* bumped_diffuse(const std::string &diffuse, const std::string &normal);
 
 		static Material* skyplane(const std::string &diffuse);
 
-		static Material* skybox(const std::string &diffuse);
+		static Material* skybox(const std::string &cubemap);
 
 	private:
 
-		static Texture2D* _getTexture(const std::string &id);
+		static Texture2D* _getTexture2D(const std::string &id);
 	};
 
 }

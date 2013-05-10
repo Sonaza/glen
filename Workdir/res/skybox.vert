@@ -2,10 +2,8 @@
 
 in vec3 a_position;
 in vec3 a_texcoord;
-in vec3 a_normal;
 
-out vec2 v_texcoord;
-out vec4 v_normal;
+out vec3 v_texcoord;
 
 uniform struct Matrices {
 	mat4 model;
@@ -15,8 +13,7 @@ uniform struct Matrices {
 
 void main()
 {
-	v_texcoord	= vec2(a_texcoord.x, 1.0 - a_texcoord.y);
-	v_normal	= vec4(a_normal, 1.0);
+	v_texcoord 	= normalize(a_position);
 	
 	gl_Position = u_matrix.proj * u_matrix.view * u_matrix.model * vec4(a_position, 1.0);
 }

@@ -59,6 +59,8 @@ namespace glen
 
 		void listen(const std::string &trigger, MessageFunction function, Component* owner = NULL);
 		void listen(const std::string &trigger, RequestFunction function);
+		
+		unsigned int m_draworder;
 
 	protected:
 

@@ -18,8 +18,14 @@ void TestScene::load()
 	cam->setPosition(0.f, 4.3f, 6.f);
 	cam->lookAt(vec3f(0.f, 1.8f, 0.f), vec3f::up);
 
-	//TextureCubemap tcm;
-	//tcm.loadFromFile("sky/left.png", "sky/right.png", "sky/top.png", "sky/bottom.png", "sky/front.png", "sky/back.png");
+	{
+		AssetManager::loadTextureCubemap("skybox", "sky/left.png", "sky/right.png", "sky/top.png", "sky/bottom.png", "sky/front.png", "sky/back.png");
+
+		skybox = new Skybox;
+		skybox->loadSkybox("skybox");
+
+		World::addEntity(skybox);
+	}
 
 	{
 		// Load texture
@@ -29,7 +35,7 @@ void TestScene::load()
 		Material* mat = AssetManager::createMaterial(Material::Diffuse, "brick");
 
 		// Apply some scaling to the diffuse texture
-		mat->getTransform<Texture::Diffuse>()->setScale(5.f, 5.f, 1.f);
+		mat->getTransform(Texture::Diffuse)->setScale(5.f, 5.f, 1.f);
 
 		// Load bunny model and apply the material
 		AssetManager::loadModel("bunny", "bunny_uvs_normals.obj")
@@ -99,7 +105,7 @@ void TestScene::load()
 		Material* mat = AssetManager::createMaterial(Material::Diffuse, "terrain");
 
 		// Apply some scaling to the diffuse texture
-		mat->getTransform<Texture2D::Diffuse>()->setScale(220.f, 220.f, 1.f);
+		mat->getTransform(Texture::Diffuse)->setScale(220.f, 220.f, 1.f);
 
 		// Load bunny model and apply the material
 		AssetManager::loadModel("terrain", "terrainhi.obj")
@@ -118,16 +124,6 @@ void TestScene::load()
 		World::addEntity(test2);
 	}
 
-
-	skybox.push_back(new Skyplane("sky/front.png",	vec3f(0.f, 0.f, 0.f)));
-	skybox.push_back(new Skyplane("sky/back.png",	vec3f(0.f, -180.f, 0.f)));
-
-	skybox.push_back(new Skyplane("sky/right.png",	vec3f(0.f, -90.f, 0.f)));
-	skybox.push_back(new Skyplane("sky/left.png",	vec3f(0.f, 90.f, 0.f)));
-
-	skybox.push_back(new Skyplane("sky/top.png",	vec3f(-90.f, 0.f, 0.f)));
-	skybox.push_back(new Skyplane("sky/bottom.png",	vec3f(90.f, 0.f, 0.f)));
-
 	{
 		// Load texture
 		AssetManager::loadTexture2D("bgplane", "sphere.png");
@@ -136,7 +132,7 @@ void TestScene::load()
 		Material* mat = AssetManager::createMaterial(Material::Diffuse, "bgplane");
 
 		// Apply some scaling to the diffuse texture
-		//mat->getTransform<Texture2D::Diffuse>()->setScale(15.f, 15.f, 1.f);
+		//mat->getTransform(Texture::Diffuse)->setScale(15.f, 15.f, 1.f);
 
 		// Load bunny model and apply the material
 		AssetManager::loadModel("bgplane", "bgplane.obj")
@@ -207,13 +203,19 @@ void TestScene::update()
 	crot.x += diff.y / (2.f * center.y) * 250.f;
 	crot.x = clamp(crot.x, -89.9f, 89.9f);
 
+#define PI 180.f
+#define TWOPI 360.f
+#define wrapangle(_a) do { while(_a > PI){_a -= TWOPI;} while(_a < -PI){_a += TWOPI;} } while(0)
+
 	if(Input::isKeyDown(sf::Keyboard::Q))
 	{
-		crot.z -= 200.f * Time.delta;
+		crot.z += 200.f * Time.delta;
+		wrapangle(crot.z);
 	}
 	else if(Input::isKeyDown(sf::Keyboard::E))
 	{
-		crot.z += 200.f * Time.delta;
+		crot.z -= 200.f * Time.delta;
+		wrapangle(crot.z);
 	}
 	else
 	{
@@ -293,10 +295,10 @@ void TestScene::update()
 	cam->setPosition(campos);
 	cam->updateLookAt();
 
-	for(std::vector<Skyplane*>::iterator it = skybox.begin(); it != skybox.end(); ++it)
+	/*for(std::vector<Skyplane*>::iterator it = skybox.begin(); it != skybox.end(); ++it)
 	{
 		(*it)->setCamPos(campos);
-	}
+	}*/
 
 	if(!bounce)
 	{
