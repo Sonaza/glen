@@ -17,7 +17,7 @@ namespace glen
 
 		bool loadAsset();
 
-		void setMaterial(Material* material);
+		ModelAsset* setMaterial(Material* material);
 
 	};
 	

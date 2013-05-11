@@ -22,9 +22,9 @@ namespace glen
 
 		static Material* plain();
 		static Material* diffuse(const std::string &diffuse);
-		//static Material* bumped_diffuse(const std::string &diffuse, const std::string &normal);
+		static Material* specular(const std::string &diffuse);
 
-		static Material* skyplane(const std::string &diffuse);
+		//static Material* bumped_diffuse(const std::string &diffuse, const std::string &normal);
 
 		static Material* skybox(const std::string &cubemap);
 

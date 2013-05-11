@@ -15,7 +15,6 @@
     <ClCompile Include="src\Game\Components\CameraComponent.cpp" />
     <ClCompile Include="src\Game\Skybox.cpp" />
     <ClCompile Include="src\Graphics\Image.cpp" />
-    <ClCompile Include="src\Graphics\MeshRenderer.cpp" />
     <ClCompile Include="src\Graphics\ShaderAsset.cpp" />
     <ClCompile Include="src\Graphics\Sprite.cpp" />
     <ClCompile Include="src\Graphics\Texture\Texture.cpp" />
@@ -73,7 +72,6 @@
     <ClInclude Include="inc\glen\Graphics\MaterialFactory.hpp" />
     <ClInclude Include="inc\glen\Graphics\MeshData.hpp" />
     <ClInclude Include="inc\glen\Graphics\MeshLoader.hpp" />
-    <ClInclude Include="inc\glen\Graphics\MeshRenderer.hpp" />
     <ClInclude Include="inc\glen\Graphics\Model.hpp" />
     <ClInclude Include="inc\glen\Graphics\RenderTexture.hpp" />
     <ClInclude Include="inc\glen\Graphics\Sprite.hpp" />

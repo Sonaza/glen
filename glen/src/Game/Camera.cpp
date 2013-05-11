@@ -55,9 +55,9 @@ mat4& Camera::getProjection()
 }
 
 ////////////////////////////////////////////////////
-void Camera::updateProjection()
+void Camera::updateProjection(float aspect)
 {
-	m_camera->calculateProjection();
+	m_camera->calculateProjection(aspect);
 }
 
 ////////////////////////////////////////////////////

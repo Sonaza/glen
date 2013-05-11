@@ -60,7 +60,7 @@ namespace glen
 		enum Type
 		{
 			Diffuse,
-			Skyplane,
+			SpecularDiffuse,
 			Skybox
 		};
 

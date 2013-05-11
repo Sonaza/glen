@@ -74,6 +74,8 @@ void Core::loop()
 
 		sf::sleep(sf::milliseconds(5));
 	}
+
+	uninitialize();
 }
 
 ////////////////////////////////////////////////////////////
@@ -105,7 +107,9 @@ void Core::events()
 		case sf::Event::Resized:
 			std::cout << "Resized: " << event.size.width << ", " << event.size.height << std::endl;
 
-			Camera::getCamera()->updateProjection();
+			Camera::getCamera()->updateProjection(
+				event.size.width / static_cast<float>(event.size.height));
+
 			glViewport(0, 0, event.size.width, event.size.height);
 			break;
 		///////////////////////////////////

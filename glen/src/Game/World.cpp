@@ -110,16 +110,16 @@ void World::render()
 	{
 		Entity* e = *it;
 
-		if(e == ent.back())
+		if(e->m_draworder == 9999)
 		{
 			glDepthRange(1, 1);
 			glDepthFunc(GL_LEQUAL);
 		}
 
 		e->call("draw");
-	}
 
-	glDepthRange(0, 1);
-	glDepthFunc(GL_LESS);
+		glDepthRange(0, 1);
+		glDepthFunc(GL_LESS);
+	}
 }
 

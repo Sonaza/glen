@@ -58,7 +58,7 @@ void AssetManager::unload()
 
 	for(ModelAssetList::iterator it = m_models.begin(); it != m_models.end(); ++it)
 	{
-		delete it->second;
+		delete *it;
 	}
 
 	m_models.clear();
@@ -200,7 +200,7 @@ MeshData* AssetManager::getMesh(const std::string &id)
 }
 
 //////////////////////////////////////////////////
-ModelAsset* AssetManager::loadModel(const std::string &id, const std::string &path, const bool scenebound)
+ModelAsset* AssetManager::createModel(const std::string &path, const bool scenebound)
 {
 	ModelAsset* result = NULL;
 	result = new ModelAsset(path);
@@ -208,21 +208,7 @@ ModelAsset* AssetManager::loadModel(const std::string &id, const std::string &pa
 	result->setSceneBound(scenebound);
 	result->loadAsset();
 
-	m_models.insert(std::make_pair(id, result));
-
-	return result;
-}
-
-//////////////////////////////////////////////////
-ModelAsset* AssetManager::getModel(const std::string &id)
-{
-	ModelAsset* result = NULL;
-
-	ModelAssetList::iterator it = m_models.find(id);
-	if(it != m_models.end())
-	{
-		result = it->second;
-	}
+	m_models.push_back(result);
 
 	return result;
 }
@@ -237,8 +223,8 @@ Material* AssetManager::createMaterial(const Material::Type type, MaterialAssets
 	case Material::Diffuse:
 		material = MaterialFactory::diffuse(assets[Texture::Diffuse]);
 		break;
-	case Material::Skyplane:
-		material = MaterialFactory::skyplane(assets[Texture::Diffuse]);
+	case Material::SpecularDiffuse:
+		material = MaterialFactory::specular(assets[Texture::Diffuse]);
 		break;
 	case Material::Skybox:
 		material = MaterialFactory::skybox(assets[Texture::Diffuse]);

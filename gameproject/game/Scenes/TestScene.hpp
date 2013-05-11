@@ -3,6 +3,8 @@
 
 #include <glen/glen.hpp>
 
+#include <game/Entities/Spacebox.hpp>
+
 using namespace glen;
 
 class TestScene : public Scene
@@ -25,28 +27,17 @@ private:
 	sf::Clock m_timer;
 
 	Skybox* skybox;
+	std::vector<Spacebox*> boxes;
 
-	Entity* test;
-	Entity* test2;
-	Entity* bgplane;
-	Entity* uvmapped;
-	Entity* uvmapped2;
+	std::vector<int32> level;
 
-	float camyvel;
 	vec3f campos;
 	vec3f camrot;
 
+	float velforward;
+
 	float crotzvel;
 
-	float yvel;
-	float ypos;
-
-	float yscale;
-	float yscalevel;
-
-	float rot, rad;
-
-	bool bounce;
 
 };
 

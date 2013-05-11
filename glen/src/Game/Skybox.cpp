@@ -28,13 +28,12 @@ Skybox::~Skybox()
 void Skybox::loadSkybox(const std::string &cubemap)
 {
 	Material* mat = AssetManager::createMaterial(Material::Skybox, cubemap);
-
-	AssetManager::loadModel("skybox", "skybox.obj")->setMaterial(mat);
+	ModelAsset* model = AssetManager::createModel("skybox.obj")->setMaterial(mat);
 
 	m_draworder = 9999;
 	Transform* trans = new Transform;
 	attachComponent(trans);
-	attachComponent(new Renderer("skybox"));
+	attachComponent(new Renderer(model));
 
 	trans->setScale(5.f, 5.f, 5.f);
 }

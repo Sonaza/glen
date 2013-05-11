@@ -33,7 +33,7 @@ void main()
 	
 	v_texcoord	= vec2(a_texcoord.x, 1.0 - a_texcoord.y);
 	
-	v_normal	= u_matrix.model * vec4(a_normal, 1.0);
+	v_normal	= vec4(a_normal, 1.0);
 	
 	v_fragposition = u_matrix.model * vec4(a_position, 1.0);
 	//v_fragposition = u_view * u_model * vec4(a_position, 1.0);

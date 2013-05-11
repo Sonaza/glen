@@ -28,6 +28,7 @@ namespace glen
 		mat4& getViewMatrix();
 
 		void calculateProjection();
+		void calculateProjection(float aspect);
 
 	protected:
 

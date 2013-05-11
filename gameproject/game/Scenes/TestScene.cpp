@@ -14,7 +14,7 @@ TestScene::~TestScene(void)
 //////////////////////////////////////////////////////
 void TestScene::load()
 {
-	cam = new Camera(80.f, 1.f, 30000.f);
+	cam = new Camera(80.f, 1.f, 1000.f);
 	World::addEntity(cam);
 
 	{
@@ -26,153 +26,45 @@ void TestScene::load()
 		World::addEntity(skybox);
 	}
 
+	level.resize(121, 1);
+	level[45] = 0;
+
+	for(int i=0; i < 121; ++i)
 	{
-		// Load texture
-		AssetManager::loadTexture2D("brick", "test2.png");
+		if(level[i] == 0) continue;
+		
+		int x = i % 11 - 5;
+		int y = (int)floor(i / 11.f) - 5;
 
-		// Create new diffuse material
-		Material* mat = AssetManager::createMaterial(Material::Diffuse, "brick");
+		Spacebox* box = new Spacebox;
+		box->m_draworder = 10000;
 
-		// Apply some scaling to the diffuse texture
-		mat->getTransform(Texture::Diffuse)->setScale(5.f, 5.f, 1.f);
+		box->call("setScale", vec3f(1.f, 1.f, 1.f));
+		box->call("setPosition", vec3f(x, 0.f, y));
 
-		// Load bunny model and apply the material
-		AssetManager::loadModel("bunny", "bunny_uvs_normals.obj")
-			->setMaterial(mat);
+		World::addEntity(box);
 
-		// Create new entity and attach transform and renderer
-		test = new Entity;
-		test->attachComponent(new Transform);
-		test->attachComponent(new Renderer("bunny"));
-
-		// Send the entity to the world pipeline
-		World::addEntity(test);
+		boxes.push_back(box);
 	}
 
+	/*for(int y = -5; y <= 5; ++y)
 	{
-		// Load texture
-		AssetManager::loadTexture2D("uvmap", "uvtest.png");
+		for (int x = -5; x <= 5; ++x)
+		{
+			Spacebox* box = new Spacebox;
+			box->m_draworder = 10000;
 
-		// Create new diffuse material
-		Material* mat = AssetManager::createMaterial(Material::Diffuse, "uvmap");
+			box->call("setScale", vec3f(1.f, 1.f, 1.f));
+			box->call("setPosition", vec3f(x, 0.f, y));
 
-		// Load bunny model and apply the material
-		AssetManager::loadModel("uvmap", "uvmapped.obj")
-			->setMaterial(mat);
+			World::addEntity(box);
 
-		// Create new entity and attach transform and renderer
-		uvmapped = new Entity;
-		uvmapped->attachComponent(new Transform);
-		uvmapped->attachComponent(new Renderer("uvmap"));
+			boxes.push_back(box);
+		}
+	}*/
 
-		uvmapped->call("setPosition", vec3f(0.f, 250.f, 0.f));
-		uvmapped->call("setScale", vec3f(30.f, 30.f, 30.f));
-		uvmapped->call("setRotation", vec3f(32.f, 0.f, 19.f));
-
-		// Send the entity to the world pipeline
-		World::addEntity(uvmapped);
-	}
+	velforward = 0.f;
 	
-	{
-		// Create new diffuse material
-		Material* mat = AssetManager::createMaterial(Material::Diffuse, "uvmap");
-		
-		//mat->setOpacity(50);
-		mat->setColor(255, 120, 120);
-
-		// Load bunny model and apply the material
-		AssetManager::loadModel("uvmap", "uvmapped.obj")
-			->setMaterial(mat);
-
-		// Create new entity and attach transform and renderer
-		uvmapped2 = new Entity;
-		uvmapped2->attachComponent(new Transform);
-		uvmapped2->attachComponent(new Renderer("uvmap"));
-
-		uvmapped2->call("setPosition", vec3f(700.f, 110.f, 800.f));
-		uvmapped2->call("setScale", vec3f(100.f, 100.f, 100.f));
-		uvmapped2->call("setRotation", vec3f(60.f, 49.f, 40.f));
-
-		// Send the entity to the world pipeline
-		World::addEntity(uvmapped2);
-	}
-
-	{
-		// Load texture
-		AssetManager::loadTexture2D("terrain", "grass.png");
-
-		// Create new diffuse material
-		Material* mat = AssetManager::createMaterial(Material::Diffuse, "terrain");
-
-		// Apply some scaling to the diffuse texture
-		mat->getTransform(Texture::Diffuse)->setScale(220.f, 220.f, 1.f);
-
-		// Load bunny model and apply the material
-		AssetManager::loadModel("terrain", "terrainhi.obj")
-			->setMaterial(mat);
-
-		// Create new entity and attach transform and renderer
-		test2 = new Entity;	
-		test2->attachComponent(new Transform);
-		test2->attachComponent(new Renderer("terrain"));
-		
-		test2->call("setPosition", vec3f(0.f, -5.f, -10.f));
-		test2->call("setScale", vec3f(40.f, 30.f, 40.f));
-		test2->call("setRotation", vec3f(0.f, 0.f, 0.f));
-
-		// Send the entity to the world pipeline
-		World::addEntity(test2);
-	}
-
-	{
-		// Load texture
-		AssetManager::loadTexture2D("bgplane", "sphere.png");
-
-		// Create new diffuse material
-		Material* mat = AssetManager::createMaterial(Material::Diffuse, "bgplane");
-
-		// Apply some scaling to the diffuse texture
-		//mat->getTransform(Texture::Diffuse)->setScale(15.f, 15.f, 1.f);
-
-		// Load bunny model and apply the material
-		AssetManager::loadModel("bgplane", "bgplane.obj")
-			->setMaterial(mat);
-		
-		// Create new entity and attach transform and renderer
-		bgplane = new Entity;
-		bgplane->attachComponent(new Transform);
-		bgplane->attachComponent(new Renderer("bgplane"));
-
-		bgplane->call("setPosition", vec3f(0.f, -5.f, -120.f));
-		bgplane->call("setScale", vec3f(6.f, 10.f, 6.f));
-		bgplane->call("setRotation", vec3f(-90.f, 0.f, 0.f));
-
-		// Send the entity to the world pipeline
-		World::addEntity(bgplane);
-	}
-
-	vec3f v1(0.f, 0.f, 0.f);
-	vec3f v2(5.f, 3.f, 2.f);
-
-	vec3f dir = normalize(v2 - v1);
-
-	float x = asin(-dir.y);
-	float y = acos(dir.x / cos(x));
-
-#define todeg(_r) (_r * (180.f / 3.141592))
-
-	printf("Vec: %f, %f, %f\nx = %f\ny = %f", dir.x, dir.y, dir.z, todeg(x), todeg(y));
-
-	ypos = 2.f;
-	yvel = 0.f;
-	yscale = 1.f;
-	yscalevel = 0.f;
-
-	rad = rot = 0.f;
-
-	bounce = false;
-
-	camyvel = 0.f;
 	campos.y = 2.f;
 	crotzvel = 0.f;
 }
@@ -209,6 +101,17 @@ void TestScene::update()
 		Window::getWindow()->setMouseCursorVisible(true);
 	}
 
+	/*for(std::vector<Spacebox*>::iterator it = boxes.begin(); it != boxes.end(); ++it)
+	{
+		Spacebox* b = *it;
+		vec3f p = b->request<vec3f>("getPosition");
+
+		b->call("setPosition",
+			vec3f(p.x,
+			0.f + cos(p.x * p.z / 23.f + Time.total * 2.f),
+			p.z));
+	}*/
+
 	camrot.y += diff.x / (2.f * center.x) * 330.f;
 	camrot.x += diff.y / (2.f * center.y) * 250.f;
 	camrot.x = Util::clamp(camrot.x, -89.9f, 89.9f);
@@ -235,134 +138,64 @@ void TestScene::update()
 		crotzvel *= 1.f - 0.9f * Time.delta;
 	}
 
-	/*camrot.y += diff.x / (2.f * center.x) * 330.f;
-	camrot.x += diff.y / (2.f * center.y) * 250.f;
-	camrot.x = Util::clamp(camrot.x, -89.9f, 89.9f);*/
-
 	cam->setRotation(camrot);
 
 	float yrad = camrot.y * 3.141592f / 180.f;
 
-	float multi = (campos.y + 80.f) / 20.f;
+	float multi = 1.5f; //(campos.y + 0.f) / 10.f + (Input::isMouseDown(sf::Mouse::Right) ? 5.f : 0.f);
 
 	if(Input::isKeyDown(sf::Keyboard::Space))// && campos.y <= 2.1f)
 	{
 		//camyvel = 40.f;
-		campos.y += 50.f * Time.delta * multi;
+		campos.y += 15.f * Time.delta * multi;
 	}
 	else if(Input::isKeyDown(sf::Keyboard::LShift))
 	{
-		campos.y -= 50.f * Time.delta * multi;
+		campos.y -= 15.f * Time.delta * multi;
 	}
 
-	campos.y = Util::clamp(campos.y, -200.f, 10000.f);
-
-	//camyvel += -40.f * Time.delta;
-	//campos.y += camyvel * Time.delta;
-
-	if(campos.y <= 2.f)
-	{
-		camyvel = 0.f;
-		campos.y = 2.f;
-	}
-
-	float speed = 8.f * multi;
+	campos.y = Util::clamp(campos.y, 1.1f, 100.f);
+	
+	float speed = 11.f * multi;
 
 	vec3f forward = cam->getForward();
 
 	if(Input::isKeyDown(sf::Keyboard::W))
 	{
-		campos += forward * Time.delta * 10.f * speed;
+		//velforward += 10.f * Time.delta * speed;
+		campos += forward * Time.delta * speed;
 		//campos.x += cos(yrad) * Time.delta * 10.f * speed;
 		//campos.z += sin(yrad) * Time.delta * 10.f * speed;
 	}
 	else if(Input::isKeyDown(sf::Keyboard::S))
 	{
-		campos -= forward * Time.delta * 10.f * speed;
+		//velforward -= 10.f * Time.delta * speed;
+		campos -= forward * Time.delta * speed;
 		//campos.x -= cos(yrad) * Time.delta * 10.f * speed;
 		//campos.z -= sin(yrad) * Time.delta * 10.f * speed;
 	}
 
+	//campos += forward * velforward * Time.delta;
+	//velforward *= 1.f - 1.5f * Time.delta;
+
+	if(Input::isKeyDown(sf::Keyboard::F))
+	{
+		velforward *= 0.9f;
+		crotzvel *= 0.5f;
+	}
+
 	if(Input::isKeyDown(sf::Keyboard::D))
 	{
-		campos.x += cos(yrad + 1.5707963f) * Time.delta * 10.f * speed;
-		campos.z += sin(yrad + 1.5707963f) * Time.delta * 10.f * speed;
+		campos.x += cos(yrad + 1.5707963f) * Time.delta * speed;
+		campos.z += sin(yrad + 1.5707963f) * Time.delta * speed;
 	}
 	else if(Input::isKeyDown(sf::Keyboard::A))
 	{
-		campos.x -= cos(yrad + 1.5707963f) * Time.delta * 10.f * speed;
-		campos.z -= sin(yrad + 1.5707963f) * Time.delta * 10.f * speed;
+		campos.x -= cos(yrad + 1.5707963f) * Time.delta * speed;
+		campos.z -= sin(yrad + 1.5707963f) * Time.delta * speed;
 	}
-
-	//cam->setRotation(camrot.x, camrot.y, 0.f);
-
-	/*vec3f camdir(
-		campos.x + cos(yrad) * (1.f - fabs(camrot.x / 90.f)),
-		campos.y - (camrot.x * 3.141592f / 180.f),
-		campos.z + sin(yrad) * (1.f - fabs(camrot.x / 90.f))
-	);
 
 	cam->setPosition(campos);
-	cam->lookAt(camdir, vec3f::up);*/
-
-	cam->setPosition(campos);
-	//cam->updateLookAt();
-
-	/*for(std::vector<Skyplane*>::iterator it = skybox.begin(); it != skybox.end(); ++it)
-	{
-		(*it)->setCamPos(campos);
-	}*/
-
-	if(!bounce)
-	{
-		yvel += -18.f * Time.delta;
-		ypos += yvel * Time.delta;
-
-		if(ypos <= 0.f)
-		{
-			yvel = 0.f;
-			ypos = 0.f;
-
-			yscalevel = -4.5f;
-			bounce = true;
-		}
-	}
-
-	if(bounce)
-	{
-		yscalevel += 25.f * Time.delta;// * (yscale > 1.f ? -1.f : 1.f);
-		yscale += yscalevel * Time.delta;
-		
-		if(yscale > 1.f)
-		{
-			bounce = false;
-
-			yscale = 1.f;
-			yscalevel = 0.f;
-
-			yvel = 15.f;
-		}
-	}
-
-	//float yscale = std::max(0.1f, sin(time * 2.f) * 0.4f + 0.6f);
-	//float ypos = std::max(0.01f, cos(time * 2.f + 1.f)) * 0.05f;
-	
-	rot += 0.3f * 11.f * (ypos / 2.f) * Time.delta;
-	rad = rot * 3.141592f / 180.f;
-
-	test->call("setPosition", vec3f(
-		cos(-rad) * 20.f * 30.f,
-		ypos * 30.f - 90.f,
-		sin(-rad) * 20.f * 30.f - 140.f
-	));
-
-	test->call("setScale", vec3f(
-		50.f * (1.f / yscale) * 50.f,
-		50.f * yscale * 50.f,
-		50.f * (1.f / yscale) * 50.f
-	));
-
-	test->call("setRotation", vec3f(0.f, rot - 85.f, 0.f));
 }
 
 //////////////////////////////////////////////////////

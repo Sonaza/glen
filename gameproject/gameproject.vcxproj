@@ -66,12 +66,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="game\Entities\Skyplane.cpp" />
+    <ClCompile Include="game\Entities\Spacebox.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="game\Scenes\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="game\Entities\Skyplane.hpp" />
+    <ClInclude Include="game\Entities\Spacebox.hpp" />
     <ClInclude Include="game\Scenes\TestScene.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

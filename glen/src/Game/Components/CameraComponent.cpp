@@ -35,6 +35,8 @@ void CameraComponent::attached()
 ////////////////////////////////////////////////////
 void CameraComponent::update()
 {
+	if(m_updateProjection) calculateProjection();
+
 	vec3f dir = m_transform->getForward();
 
 	vec3f pos = m_transform->getPosition();
@@ -75,6 +77,14 @@ mat4& CameraComponent::getViewMatrix()
 ////////////////////////////////////////////////////
 void CameraComponent::calculateProjection()
 {
-	float aspect = Window::getDimensions().x / static_cast<float>(Window::getDimensions().y);
+	vec2f size = static_cast<vec2f>(Window::getDimensions());
+	calculateProjection(size.x / size.y);
+}
+
+////////////////////////////////////////////////////
+void CameraComponent::calculateProjection(float aspect)
+{
 	m_projection.perspective(m_fov, aspect, m_znear, m_zfar);
+
+	m_updateProjection = false;
 }

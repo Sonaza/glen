@@ -58,15 +58,27 @@ Material* MaterialFactory::diffuse(const std::string &diffuse)
 }
 
 //////////////////////////////////////////////////////
-Material* MaterialFactory::skyplane(const std::string &diffuse)
+Material* MaterialFactory::specular(const std::string &diffuse)
 {
 	Material* result = NULL;
 	Texture2D* texDiffuse = _getTexture2D(diffuse);
 
+	// Failure in asset loading
 	if(texDiffuse)
 	{
 		result = new Material();
-		result->_loadshaders("res/skybox.vert", "res/skybox.frag");
+
+		ShaderDefines def;
+		def.push_back("TEXTURE_DIFFUSE");
+		def.push_back("SPECULAR");
+
+		if(!result->_loadshaders("res/diffuse.vert", "res/diffuse.frag", def))
+		{
+			err << "Error loading/compiling diffuse shaders" << ErrorStream::error;
+
+			delete result;
+			return NULL;
+		}
 
 		result->setTexture(Texture::Diffuse, texDiffuse);
 	}

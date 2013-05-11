@@ -11,12 +11,12 @@ namespace
 ////////////////////////////////////////////////////
 void ShaderManager::unload()
 {
-	for(ShaderAssetList::iterator it = m_shaders.begin(); it != m_shaders.end(); ++it)
+	/*for(ShaderAssetList::iterator it = m_shaders.begin(); it != m_shaders.end(); ++it)
 	{
 		delete *it;
 	}
 
-	m_shaders.clear();
+	m_shaders.clear();*/
 }
 
 ////////////////////////////////////////////////////

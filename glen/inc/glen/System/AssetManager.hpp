@@ -20,7 +20,7 @@ namespace glen
 	typedef std::map<const std::string, TextureCubemap*>	TextureCubemapList;
 	typedef std::map<const std::string, MeshData*>			MeshDataList;
 	typedef std::vector<Material*>							MaterialList;
-	typedef std::map<const std::string, ModelAsset*>		ModelAssetList;
+	typedef std::vector<ModelAsset*>						ModelAssetList;
 
 	typedef std::map<Texture::Type, std::string>			MaterialAssets;
 
@@ -39,8 +39,7 @@ namespace glen
 		MeshData* loadMesh(const std::string &assetID, const std::string &path);
 		MeshData* getMesh(const std::string &assetID);
 
-		ModelAsset* loadModel(const std::string &assetID, const std::string &path, const bool scenebound = true);
-		ModelAsset* getModel(const std::string &assetID);
+		ModelAsset* createModel(const std::string &path, const bool scenebound = true);
 
 		Material* createMaterial(const Material::Type type, const std::string& diffuse);
 		Material* createMaterial(const Material::Type type, MaterialAssets assets);

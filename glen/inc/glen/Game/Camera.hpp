@@ -31,7 +31,7 @@ namespace glen
 		mat4& getView();
 		mat4& getProjection();
 
-		void updateProjection();
+		void updateProjection(float aspect);
 
 		void setPosition(vec3f v);
 		void setPosition(float x, float y, float z);

@@ -12,17 +12,19 @@
 namespace glen
 {
 
+	class ModelAsset;
+
 	class Renderer : public Component
 	{
 	public:
 		Renderer();
-		Renderer(const std::string &modelID);
+		Renderer(ModelAsset* model);
 		~Renderer();
 
 		void attached();
 		void update();
 
-		void setModel(const std::string &assetID);
+		void setModel(ModelAsset* model);
 
 		void draw(const Message &msg);
 

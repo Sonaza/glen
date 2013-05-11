@@ -72,36 +72,43 @@ void main()
 	
 	//////////////
 	
-	vec3 lightPos = vec3(cos(u_time / 2.f) * 1800.f, cos(u_time / 2.f) * 1500.f, sin(-u_time / 2.f) * 2500.f);
-	vec3 lightDir = lightPos - v_fragposition.xyz;
+	vec3 lightPos = vec3(2.f, 4.f, 2.f);////vec3(cos(m_time / 2.f) * 1800.f, cos(m_time / 2.f) * 1500.f, sin(-m_time / 2.f) * 2500.f);
+	vec3 lightDir = lightPos;
+	//v_fragposition.xyz;
 	
-	float D = length(lightDir);
-	
+	//float D = length(lightDir);
+		
 	vec3 L = normalize(lightDir);
 	vec3 N = normalize(v_normal.xyz);
 	
-	vec4 diffuseColor = vec4(0.8, 0.7, 0.4, 0.0);
-	vec4 ambientColor = vec4(0.3, 0.35, 0.4, 1.0);
-	vec4 specularColor = vec4(0.6, 0.6, 0.45, 1.0);
+	vec4 diffuseColor = vec4(0.7, 0.7, 0.7, 0.0);
+	vec4 ambientColor = vec4(0.45, 0.45, 0.45, 1.0);
+	vec4 specularColor = vec4(5.6, 0.6, 0.45, 1.0);
 	
 	//vec3 falloff = vec3(1.f, 2.f, 1.f);
 	//float attenuation = 1.f / (falloff.x + (falloff.y * D) + (falloff.z * D * D));
 	
-	float diffuseIntensity = 1.f;
+	float NdotL = max(warp_diffuse(dot(N, L)), 0.f);
 	
-	float ndotl = max(warp_diffuse(dot(N, L)), 0.f);
+	vec4 diffuseFactor = NdotL * diffuseColor;
+	diffuseFactor = clamp(diffuseFactor, 0.f, 1.f);
 	
-	vec4 diffuseFactor = ndotl * diffuseColor * diffuseIntensity;
 	vec4 lightFactor = diffuseFactor + ambientColor;
 	
-	vec4 mvFragPos = u_matrix.view * v_fragposition;
-	
-	vec3 eye = normalize(mvFragPos.xyz);
-	vec3 reflection = reflect(L, N);
+	#ifdef SPECULAR
 	
 	float shininess = 50.f;
 	
-	//vec4 specularFactor = max(pow(-dot(reflection, eye), shininess), 0.f) * specularColor;
+	vec4 fragpos = u_matrix.view * v_fragposition;
+	vec3 eye = normalize(fragpos.xyz);
+	
+	vec3 reflection = reflect(L, N);
+	
+	vec4 specularFactor = max(pow(-dot(reflection, eye), shininess), 0.f) * specularColor;
+	
+	lightFactor = lightFactor + specularFactor;
+	
+	#endif
 	
 	finalColor = finalColor * lightFactor;
 	
@@ -113,6 +120,11 @@ void main()
 	//vec3 sykle = vec3(dca, dca, dcb);
 	
 	finalColor = u_color * vec4(finalColor.rgb, diffuseFrag.a);
+	finalColor = clamp(finalColor, 0.f, 1.f);
+	
+	//vec3 c = v_fragposition.xyz / 1500.f / 2.f + vec3(0.5f);
+	
+	//finalColor = vec4(c, 1.f);
 	
 	//finalColor = vec4(vec3(zdistance / 3000.f), diffuseFrag.a);
 }

@@ -6,19 +6,17 @@
 using namespace glen;
 
 ////////////////////////////////////////////////////
-Renderer::Renderer() :
-	Component("renderer"),
+Renderer::Renderer() : Component("renderer"),
 	m_model(NULL)
 {
 	
 }
 
 ////////////////////////////////////////////////////
-Renderer::Renderer(const std::string &modelID) :
-	Component("renderer"),
+Renderer::Renderer(ModelAsset* model) : Component("renderer"),
 	m_model(NULL)
 {
-	setModel(modelID);
+	setModel(model);
 }
 
 ////////////////////////////////////////////////////
@@ -42,14 +40,10 @@ void Renderer::update()
 }
 
 ////////////////////////////////////////////////////
-void Renderer::setModel(const std::string &assetID)
+void Renderer::setModel(ModelAsset* model)
 {
-	ModelAsset* asset = AssetManager::getModel(assetID);
-
-	if(asset)
-	{
-		m_model = asset->getAsset();
-	}
+	assert(model);
+	m_model = model->getAsset();
 }
 
 ////////////////////////////////////////////////////

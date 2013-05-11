@@ -38,8 +38,10 @@ bool ModelAsset::loadAsset()
 }
 
 ////////////////////////////////////////////////////
-void ModelAsset::setMaterial(Material* material)
+ModelAsset* ModelAsset::setMaterial(Material* material)
 {
 	assert(material);
 	m_asset->setMaterial(material);
+
+	return this;
 }
