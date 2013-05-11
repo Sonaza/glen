@@ -31,6 +31,10 @@ private:
 
 	std::vector<int32> level;
 
+	Entity* cube;
+	vec3f cubepos, targetpos;
+	float cubevely;
+
 	vec3f campos;
 	vec3f camrot;
 

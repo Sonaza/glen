@@ -60,7 +60,7 @@ void main()
 	//vec4 normalmapFrag = texture(u_texture.normal, normalMap_uv);
 	
 	float zdistance = (gl_FragCoord.z / gl_FragCoord.w);
-	float fogIntensity = exp((zdistance - 20.f) / 7000.f) - 1.f;
+	float fogIntensity = exp((zdistance - 20.f) / 50.f) - 1.f;
 	
 	fogIntensity = clamp(fogIntensity, 0.f, 1.f);
 	
@@ -82,7 +82,7 @@ void main()
 	vec3 N = normalize(v_normal.xyz);
 	
 	vec4 diffuseColor = vec4(0.7, 0.7, 0.7, 0.0);
-	vec4 ambientColor = vec4(0.45, 0.45, 0.45, 1.0);
+	vec4 ambientColor = vec4(0.48, 0.48, 0.48, 1.0);
 	vec4 specularColor = vec4(5.6, 0.6, 0.45, 1.0);
 	
 	//vec3 falloff = vec3(1.f, 2.f, 1.f);

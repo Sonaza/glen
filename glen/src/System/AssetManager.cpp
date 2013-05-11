@@ -220,6 +220,9 @@ Material* AssetManager::createMaterial(const Material::Type type, MaterialAssets
 
 	switch(type)
 	{
+	case Material::Plain:
+		material = MaterialFactory::plain();
+		break;
 	case Material::Diffuse:
 		material = MaterialFactory::diffuse(assets[Texture::Diffuse]);
 		break;

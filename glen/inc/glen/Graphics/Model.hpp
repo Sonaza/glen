@@ -16,20 +16,21 @@ namespace glen
 
 	class Model
 	{
+		friend class Renderer;
+
 	public:
 		Model(void);
 		~Model(void);
 
-		void setMaterial(Material* material);
-
 		bool loadFromFile(const std::string& path);
+
+		void setMaterial(Material* material);
 
 		void render(mat4 &transform);
 		
 	protected:
 
 		Material*	m_material;
-
 		MeshData*	m_meshdata;
 
 		GLuint		m_vbo;

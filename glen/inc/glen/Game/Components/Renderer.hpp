@@ -25,7 +25,8 @@ namespace glen
 		void update();
 
 		void setModel(ModelAsset* model);
-
+		
+		void setColor(const Message &msg);
 		void draw(const Message &msg);
 
 	private:

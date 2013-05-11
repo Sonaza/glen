@@ -59,6 +59,7 @@ namespace glen
 
 		enum Type
 		{
+			Plain,
 			Diffuse,
 			SpecularDiffuse,
 			Skybox

@@ -42,7 +42,7 @@ namespace glen
 		ModelAsset* createModel(const std::string &path, const bool scenebound = true);
 
 		Material* createMaterial(const Material::Type type, const std::string& diffuse);
-		Material* createMaterial(const Material::Type type, MaterialAssets assets);
+		Material* createMaterial(const Material::Type type, MaterialAssets assets = MaterialAssets());
 
 	}
 
