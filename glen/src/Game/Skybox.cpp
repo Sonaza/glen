@@ -13,29 +13,24 @@
 using namespace glen;
 
 ////////////////////////////////////////////////////
-Skybox::Skybox()
+Skybox::Skybox(const std::string &cubemap)
 {
-	
+	Material* mat = AssetManager::createMaterial(Material::Skybox, cubemap);
+	ModelAsset* model = AssetManager::createModel("skybox.obj")->setMaterial(mat);
+
+	m_draworder = 5000;
+
+	Transform* trans = new Transform;
+	attachComponent(trans);
+	attachComponent(new Renderer(model));
+
+	trans->setScale(5.f, 5.f, 5.f);
 }
 
 ////////////////////////////////////////////////////
 Skybox::~Skybox()
 {
 	
-}
-
-////////////////////////////////////////////////////
-void Skybox::loadSkybox(const std::string &cubemap)
-{
-	Material* mat = AssetManager::createMaterial(Material::Skybox, cubemap);
-	ModelAsset* model = AssetManager::createModel("skybox.obj")->setMaterial(mat);
-
-	m_draworder = 9999;
-	Transform* trans = new Transform;
-	attachComponent(trans);
-	attachComponent(new Renderer(model));
-
-	trans->setScale(5.f, 5.f, 5.f);
 }
 
 ////////////////////////////////////////////////////

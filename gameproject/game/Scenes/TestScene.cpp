@@ -18,10 +18,16 @@ void TestScene::load()
 	World::addEntity(cam);
 
 	{
-		AssetManager::loadTextureCubemap("skybox", "sky/left.png", "sky/right.png", "sky/top.png", "sky/bottom.png", "sky/front.png", "sky/back.png");
+		AssetManager::loadTextureCubemap("skybox",
+			"sky/left.png", "sky/right.png",
+			"sky/top.png", "sky/bottom.png",
+			"sky/front.png", "sky/back.png");
 
-		skybox = new Skybox;
-		skybox->loadSkybox("skybox");
+		skybox = new Skybox("skybox");
+
+		skybox->call("setColor", Color(240, 240, 250));
+
+		//skybox->call("setRotation", vec3f(-25.f, 0.f, 0.f));
 
 		World::addEntity(skybox);
 	}
@@ -65,11 +71,39 @@ void TestScene::load()
 		boxes.push_back(box);
 	}
 
+
+	for(int i=0; i < 120; ++i)
+	{
+		Spacecube* box = new Spacecube;
+		
+		World::addEntity(box);
+
+		spacecubes.push_back(box);
+	}
+
+	{
+		AssetManager::loadTexture2D("grid", "grid.png");
+		Material* mat = AssetManager::createMaterial(Material::Diffuse, "grid");
+
+		mat->setOpacity(80);
+
+		ModelAsset* model = AssetManager::createModel("gridplane.obj")->setMaterial(mat);
+
+		grid = new Entity;
+		grid->attachComponent(new Transform);
+		grid->attachComponent(new Renderer(model));
+
+		grid->m_draworder = 15500;
+		grid->call("setPosition", vec3f(-0.5f, -1.f, -0.5f));
+
+		World::addEntity(grid);
+	}
+
 	{
 		AssetManager::loadTexture2D("cube", "cube.png");
 		Material* mat = AssetManager::createMaterial(Material::Diffuse, "cube");
 
-		mat->setColor(250, 100, 200);
+		mat->setColor(70, 150, 250);
 
 		ModelAsset* model = AssetManager::createModel("cube.obj")->setMaterial(mat);
 
@@ -135,6 +169,8 @@ void TestScene::update()
 		Window::getWindow()->setMouseCursorVisible(true);
 	}*/
 
+	grid->call("setPosition", vec3f(-0.5f, -1.f + cos(Time.total / 5.f) * 0.3f , -0.5f));
+
 #define smoothdelta(_current, _target, _div) ((_target - _current) / _div)
 
 	/*vec2f dir = vec2f(targetpos.x - cubepos.x, targetpos.y - cubepos.y);
@@ -181,8 +217,8 @@ void TestScene::update()
 		cubevely = 0.f;
 	}
 
-	float cx = cubepos.x + 6.f;
-	float cy = cubepos.y + 6.f;
+	float cx = std::max(1.f, cubepos.x + 6.f);
+	float cy = std::max(1.f, cubepos.y + 6.f);
 
 	camrot.x = 40.f - cy * cy / 20.f;
 	camrot.y = -75.f + 5.f * cos(Time.total / 7.f);
@@ -190,18 +226,7 @@ void TestScene::update()
 	campos.x = -3.2f - 0.5f * cos(Time.total / 7.f) + log(cx * cx) / 2.f;
 	campos.y = 5.5f + sin(Time.total / 9.f) * 0.25f - log(cy + 4.f) * 0.8f;
 	campos.z = 2.f + log(cy * cy * 2.f);
-
-	/*for(std::vector<Spacebox*>::iterator it = boxes.begin(); it != boxes.end(); ++it)
-	{
-		Spacebox* b = *it;
-		vec3f p = b->request<vec3f>("getPosition");
-
-		b->call("setPosition",
-			vec3f(p.x,
-			0.f + cos(p.x * p.z / 23.f + Time.total * 2.f),
-			p.z));
-	}*/
-
+	
 	/*camrot.y += diff.x / (2.f * center.x) * 330.f;
 	camrot.x += diff.y / (2.f * center.y) * 250.f;
 	camrot.x = Util::clamp(camrot.x, -89.9f, 89.9f);

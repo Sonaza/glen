@@ -24,12 +24,18 @@
     <ClCompile Include="game\Entities\Spacebox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game\Entities\Spacecube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\Scenes\TestScene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game\Entities\Spacebox.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\Entities\Spacecube.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

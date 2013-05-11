@@ -110,7 +110,7 @@ void World::render()
 	{
 		Entity* e = *it;
 
-		if(e->m_draworder == 9999)
+		if(e->m_draworder == 5000)
 		{
 			glDepthRange(1, 1);
 			glDepthFunc(GL_LEQUAL);

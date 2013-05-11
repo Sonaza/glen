@@ -31,6 +31,9 @@ namespace glen
 		extern float distance(vec2f a, vec2f b);
 		extern float distance(vec3f a, vec3f b);
 
+		extern int random_int(int start, int end);
+		extern float random_float(float start, float end);
+
 	}
 	
 }

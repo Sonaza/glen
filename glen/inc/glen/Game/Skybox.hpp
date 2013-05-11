@@ -10,10 +10,8 @@ namespace glen
 	class Skybox : public Entity
 	{
 	public:
-		Skybox();
+		Skybox(const std::string &cubemap);
 		~Skybox();
-
-		void loadSkybox(const std::string &cubemap);
 
 		void update();
 	};

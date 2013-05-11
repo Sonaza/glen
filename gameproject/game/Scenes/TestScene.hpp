@@ -4,6 +4,7 @@
 #include <glen/glen.hpp>
 
 #include <game/Entities/Spacebox.hpp>
+#include <game/Entities/Spacecube.hpp>
 
 using namespace glen;
 
@@ -28,9 +29,11 @@ private:
 
 	Skybox* skybox;
 	std::vector<Spacebox*> boxes;
+	std::vector<Spacecube*> spacecubes;
 
 	std::vector<int32> level;
 
+	Entity* grid;
 	Entity* cube;
 	vec3f cubepos, targetpos;
 	float cubevely;

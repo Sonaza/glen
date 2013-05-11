@@ -1,9 +1,16 @@
 #include <glen/System/Utility.hpp>
+#include <cstdlib>
+#include <ctime>
 
 using namespace glen;
 
+namespace
+{
+	bool _randseeded = false;
+}
+
 const float Util::PI	= 3.141592653589793f;
-const float Util::TWOPI		= 6.283185307179586f;
+const float Util::TWOPI	= 6.283185307179586f;
 
 ////////////////////////////////////////////////////
 float Util::toradians(float deg)
@@ -56,4 +63,30 @@ float Util::distance(vec2f a, vec2f b)
 float Util::distance(vec3f a, vec3f b)
 {
 	return length(b-a);
+}
+
+////////////////////////////////////////////
+int Util::random_int(int start, int end)
+{
+	if(!_randseeded)
+	{
+		srand((unsigned int)std::time(0));
+		_randseeded = true;
+	}
+
+	int diff = end - start + 1;
+	return rand() % diff + start;
+}
+
+////////////////////////////////////////////
+float Util::random_float(float start, float end)
+{
+	if(!_randseeded)
+	{
+		srand((unsigned int)std::time(0));
+		_randseeded = true;
+	}
+	
+	float diff = end - start;
+	return start + (float)rand() / ((float)RAND_MAX / diff);
 }
