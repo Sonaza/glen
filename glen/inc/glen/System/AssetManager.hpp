@@ -30,6 +30,8 @@ namespace glen
 		void unload();
 		void freeSceneAssets();
 
+		void setWorkingDirectory(const std::string &wd);
+
 		Texture2DAsset* loadTexture2D(const std::string &assetID, const std::string &path, const bool scenebound = true);
 		Texture2DAsset* getTexture2D(const std::string &assetID);
 

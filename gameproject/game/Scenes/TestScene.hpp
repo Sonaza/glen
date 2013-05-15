@@ -1,6 +1,8 @@
 #ifndef TESTSCENE_HPP
 #define TESTSCENE_HPP
 
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+
 #include <glen/glen.hpp>
 
 #include <game/Entities/Spacebox.hpp>

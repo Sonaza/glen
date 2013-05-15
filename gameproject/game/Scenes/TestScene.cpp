@@ -17,6 +17,8 @@ void TestScene::load()
 	cam = new Camera(75.f, 1.f, 400.f);
 	World::addEntity(cam);
 
+	AssetManager::setWorkingDirectory("data/");
+
 	{
 		AssetManager::loadTextureCubemap("skybox",
 			"sky/left.png", "sky/right.png",
@@ -26,8 +28,6 @@ void TestScene::load()
 		skybox = new Skybox("skybox");
 
 		skybox->call("setColor", Color(240, 240, 250));
-
-		//skybox->call("setRotation", vec3f(-25.f, 0.f, 0.f));
 
 		World::addEntity(skybox);
 	}
@@ -146,6 +146,8 @@ void TestScene::unload()
 //////////////////////////////////////////////////////
 void TestScene::update()
 {
+	skybox->call("setRotation", vec3f(-25.f + cos(Time.total / 3.f) * 8.f, 0.f, 0.f));
+
 	/*vec2i mp = Input::getMousePos();
 	vec2f center = static_cast<vec2f>(Window::getDimensions()) / 2.f;
 

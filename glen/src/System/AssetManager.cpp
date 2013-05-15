@@ -15,6 +15,8 @@ using namespace glen;
 
 namespace
 {
+	std::string		m_workingdir;
+
 	struct Textures
 	{
 		Texture2DAssetList	texture2d;
@@ -91,6 +93,17 @@ void AssetManager::freeSceneAssets()
 	}
 }
 
+////////////////////////////////////////////////////
+void AssetManager::setWorkingDirectory(const std::string &wd)
+{
+	m_workingdir = wd;
+
+	if(m_workingdir.back() != '/' && m_workingdir.back() != '\\')
+	{
+		m_workingdir.append("/");
+	}
+}
+
 //////////////////////////////////////////////////
 Texture2DAsset* AssetManager::loadTexture2D(const std::string &id, const std::string &path, const bool scenebound)
 {
@@ -98,7 +111,7 @@ Texture2DAsset* AssetManager::loadTexture2D(const std::string &id, const std::st
 
 	if(result == NULL)
 	{
-		result = new(std::nothrow) Texture2DAsset(path);
+		result = new(std::nothrow) Texture2DAsset(m_workingdir+path);
 		assert(result && "Allocation failed");
 
 		if(result)
@@ -137,7 +150,10 @@ TextureCubemap* AssetManager::loadTextureCubemap(const std::string &assetID, con
 	{
 		result = new TextureCubemap();
 
-		if(!result->loadFromFile(left, right, top, bottom, front, back))
+		if(!result->loadFromFile(
+			m_workingdir+left, m_workingdir+right,
+			m_workingdir+top, m_workingdir+bottom,
+			m_workingdir+front, m_workingdir+back))
 		{
 			delete result;
 			result = NULL;
@@ -172,7 +188,7 @@ MeshData* AssetManager::loadMesh(const std::string &id, const std::string &path)
 	result = new MeshData();
 	assert(result && "Allocation failed");
 
-	if(!MeshLoader::loadMesh(path, result))
+	if(!MeshLoader::loadMesh(m_workingdir+path, result))
 	{
 		delete result;
 		result = NULL;
