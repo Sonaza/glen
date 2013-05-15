@@ -11,9 +11,10 @@ using namespace glen;
 
 ////////////////////////////////////////////////////
 Entity::Entity() :
-	m_destroyed(false),
-	m_draworder(0),
-	m_drawable(false)
+	m_isDestroyed	(false),
+	m_isEnabled		(true),
+	m_draworder		(0),
+	m_drawable		(false)
 {
 	
 }
@@ -81,6 +82,8 @@ Component* Entity::getComponent(const std::string &label)
 ////////////////////////////////////////////////////
 void Entity::updateComponents()
 {
+	if(!m_isEnabled) return;
+
 	for(ComponentList::iterator it = m_components.begin();
 		it != m_components.end(); ++it)
 	{
@@ -90,20 +93,10 @@ void Entity::updateComponents()
 }
 
 ////////////////////////////////////////////////////
-void Entity::updateComponent(const std::string &label)
-{
-	Component* temp = getComponent(label);
-	assert(temp != NULL && "No component found using the label");
-
-	if(temp != NULL)
-	{
-		temp->update();
-	}
-}
-
-////////////////////////////////////////////////////
 void Entity::call(const Message &msg)
 {
+	if(!m_isEnabled) return;
+
 	std::string temp = msg.type;
 
 	// Transform string to lower
@@ -213,4 +206,29 @@ void Entity::listen(const std::string &trigger, RequestFunction function)
 		err << "Responder '" << trigger << "' already exists" << ErrorStream::error;
 		assert(false && "Responder already exists");
 	}
+}
+
+////////////////////////////////////////////////////
+void Entity::setEnabled(bool enabled)
+{
+	m_isEnabled = enabled;
+}
+
+////////////////////////////////////////////////////
+bool Entity::isEnabled() const
+{
+	return m_isEnabled;
+}
+
+////////////////////////////////////////////////////
+void Entity::destroyEntity()
+{
+	m_isDestroyed = true;
+	m_isEnabled = false;
+}
+
+////////////////////////////////////////////////////
+bool Entity::isDestroyed() const
+{
+	return m_isDestroyed;
 }

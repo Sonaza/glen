@@ -24,6 +24,16 @@ public:
 	void render();
 
 private:
+	
+	sf::Clock m_introclock;
+	float m_introphase;
+
+	enum VictoryState
+	{
+		Undecided,
+		Loss,
+		Victory
+	} m_victoryState;
 
 	Camera* cam;
 
@@ -37,6 +47,7 @@ private:
 
 	Entity* grid;
 	Entity* cube;
+	vec3f cuberot;
 	vec3f cubepos, targetpos;
 	float cubevely;
 

@@ -45,10 +45,19 @@ vec3f Util::todegrees(vec3f rad)
 }
 
 ////////////////////////////////////////////////////
-float Util::wrapangle(float a)
+float Util::wrapradangle(float a)
 {
 	while(a > PI) a -= TWOPI;
 	while(a < -PI) a += TWOPI;
+
+	return a;
+}
+
+////////////////////////////////////////////////////
+float Util::wrapdegangle(float a)
+{
+	while(a > 180.f) a -= 360.f;
+	while(a < -180.f) a += 360.f;
 
 	return a;
 }

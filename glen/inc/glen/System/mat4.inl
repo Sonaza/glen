@@ -110,27 +110,27 @@ inline mat4& mat4::perspective(float fov, float aspect, float znear, float zfar)
 	float bottom = -range;
 	float top = range;
 
-	mat4 proj(
+	*this = mat4(
 		(2.f * znear) / (right - left),	0.f, 0.f, 0.f,
 		0.f, (2.f * znear) / (top - bottom), 0.f, 0.f,
 		0.f, 0.f, -(zfar + znear) / (zfar - znear), -(2.f * zfar * znear) / (zfar - znear),
 		0.f, 0.f, -1.f,	0.f
 		);
 
-	return combine(proj);
+	return *this;
 }
 
 ////////////////////////////////////////////////////
 inline mat4& mat4::ortho(float left, float right, float bottom, float top, float znear, float zfar)
 {
-	mat4 proj(
+	*this = mat4(
 		2.f / (right - left), 0.f, 0.f,	-(right + left) / (right - left),
 		0.f, 2.f / (top - bottom), 0.f,	-(top + bottom) / (top - bottom),
 		0.f, 0.f, -2.f / (zfar - znear), -(zfar + znear) / (zfar - znear),
 		0.f, 0.f, 0.f, 1.f
 	);
 
-	return combine(proj);
+	return *this;
 }
 
 ////////////////////////////////////////////////////

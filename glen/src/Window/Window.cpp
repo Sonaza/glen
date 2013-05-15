@@ -95,6 +95,7 @@ bool Window::create(VideoMode mode, const std::string &title, uint32 style)
 void Window::uninit()
 {
 	m_window->close();
+	m_window.release();
 }
 
 ////////////////////////////////////////////////////////////

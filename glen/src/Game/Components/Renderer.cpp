@@ -52,6 +52,7 @@ void Renderer::setModel(ModelAsset* model)
 void Renderer::setColor(const Message &msg)
 {
 	assert(m_model);
+	assert(msg.data.type() == typeid(Color) && "Wrong data type");
 	m_model->m_material->setColor(boost::any_cast<Color>(msg.data));
 }
 

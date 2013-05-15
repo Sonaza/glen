@@ -18,12 +18,6 @@ namespace glen
 		Entity();
 		virtual ~Entity();
 
-		// Returns whether the entity is due for removal
-		bool isDestroyed() const { return m_destroyed; }
-
-		// Sets entity up for destroying
-		void destroy() { m_destroyed = true; }
-
 		// Attaches the component to the entity and returns
 		// pointer to the attached instance
 		Component* attachComponent(Component* component);
@@ -42,7 +36,6 @@ namespace glen
 		virtual void update() {}
 
 		void updateComponents();
-		void updateComponent(const std::string &label);
 		
 		void call(const Message &msg);
 		void call(const std::string &type);
@@ -59,13 +52,27 @@ namespace glen
 
 		void listen(const std::string &trigger, MessageFunction function, Component* owner = NULL);
 		void listen(const std::string &trigger, RequestFunction function);
-		
+
+		// Changes whether entity is enabled, disabled entities
+		// don't update or respond to calls
+		void setEnabled(bool enabled);
+
+		// Returns if the entity is enabled or disabled
+		bool isEnabled() const;
+
+		// Sets entity up for destroying
+		void destroyEntity();
+
+		// Returns whether the entity is due for removal
+		bool isDestroyed() const;
+
 		unsigned int	m_draworder;
 		bool			m_drawable;
 
 	protected:
 
-		bool	m_destroyed;
+		bool	m_isDestroyed;
+		bool	m_isEnabled;
 
 		ComponentList	m_components;
 		Listeners		m_listeners;

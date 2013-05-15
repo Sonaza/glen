@@ -36,7 +36,6 @@ namespace glen
 
 		mat4		m_view;
 		mat4		m_projection;
-		bool		m_updateProjection;
 
 		// Camera field of view
 		float m_fov;

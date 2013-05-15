@@ -26,7 +26,8 @@ namespace glen
 		extern vec3f toradians(vec3f deg);
 		extern vec3f todegrees(vec3f rad);
 
-		extern float wrapangle(float a);
+		extern float wrapradangle(float a);
+		extern float wrapdegangle(float a);
 
 		extern float distance(vec2f a, vec2f b);
 		extern float distance(vec3f a, vec3f b);

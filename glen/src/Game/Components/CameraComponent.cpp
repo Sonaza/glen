@@ -14,8 +14,7 @@ using namespace glen;
 CameraComponent::CameraComponent(float fov, float znear, float zfar) : Component("camera"),
 	m_fov(fov),
 	m_znear(znear),
-	m_zfar(zfar),
-	m_updateProjection(true)
+	m_zfar(zfar)
 {
 	
 }
@@ -35,7 +34,7 @@ void CameraComponent::attached()
 ////////////////////////////////////////////////////
 void CameraComponent::update()
 {
-	if(m_updateProjection) calculateProjection();
+	//calculateProjection();
 
 	vec3f dir = m_transform->getForward();
 
@@ -85,6 +84,5 @@ void CameraComponent::calculateProjection()
 void CameraComponent::calculateProjection(float aspect)
 {
 	m_projection.perspective(m_fov, aspect, m_znear, m_zfar);
-
-	m_updateProjection = false;
+	//m_projection.ortho(-8.f, 8.f, -5.25f, 5.25f, m_znear, m_zfar);
 }
