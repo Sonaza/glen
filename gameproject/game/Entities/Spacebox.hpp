@@ -13,7 +13,14 @@ namespace glen
 		Spacebox(const int c = 0);
 		~Spacebox();
 
-		//void update();
+		void update();
+
+		//void activate();
+
+	protected:
+
+		int m_type;
+
 	};
 
 }

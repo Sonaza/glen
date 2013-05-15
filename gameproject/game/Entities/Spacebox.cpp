@@ -17,6 +17,7 @@ Spacebox::Spacebox(const int c)
 	switch(c)
 	{
 	case 0:
+	case 3:
 		AssetManager::loadTexture2D("spacebox_n", "spacebox.png");
 		mat = AssetManager::createMaterial(Material::SpecularDiffuse, "spacebox_n");
 		break;
@@ -29,6 +30,8 @@ Spacebox::Spacebox(const int c)
 		mat = AssetManager::createMaterial(Material::SpecularDiffuse, "spacebox_g");
 		break;
 	}
+
+	m_type = c;
 
 	// Load bunny model and apply the material
 	ModelAsset* model = AssetManager::createModel("spacebox.obj")
@@ -45,3 +48,8 @@ Spacebox::~Spacebox()
 
 }
 
+///////////////////////////////////////////////////
+void Spacebox::update()
+{
+
+}

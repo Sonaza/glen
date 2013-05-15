@@ -35,17 +35,17 @@ void TestScene::load()
 #define cc(_x, _y) (_x + _y * 11)
 
 	char a[] = {
-		"21111111111"
-		"10001000001"
-		"11101110101"
-		"10000010111"
-		"00011110101"
-		"10010000101"
-		"10010011101"
-		"10110010011"
-		"11100110111"
-		"00100100101"
-		"11111100113"
+		"20111001111"
+		"10101011001"
+		"11101010011"
+		"00001110010"
+		"14400000110"
+		"10444444100"
+		"11000000000"
+		"01001110000"
+		"11001040411"
+		"10011044401"
+		"11110000003"
 	};
 
 	for(int i=0; i < 121; ++i)
@@ -135,10 +135,12 @@ void TestScene::load()
 		victoryplane->attachComponent(new Transform);
 		victoryplane->attachComponent(new Renderer(model));
 
-		victoryplane->call("setPosition", vec3f(0.f, 9.6f, 4.5f));
-		victoryplane->call("setRotation", vec3f(35.f, 22.f, 0.f));
+		victoryplane->call("setPosition", vec3f(-0.5f, 9.f, -3.f));
+		victoryplane->call("setRotation", vec3f(40.f, 9.f, 0.f));
 
 		World::addEntity(victoryplane);
+
+		victoryplane->setEnabled(false);
 	}
 
 	{
@@ -153,10 +155,31 @@ void TestScene::load()
 		failplane->attachComponent(new Transform);
 		failplane->attachComponent(new Renderer(model));
 
-		failplane->call("setPosition", vec3f(0.f, -10.f, 0.f));
-		failplane->call("setRotation", vec3f(40.f, 40.f, 0.f));
+		failplane->call("setPosition", vec3f(-0.5f, 9.f, -3.f));
+		failplane->call("setRotation", vec3f(40.f, 9.f, 0.f));
 
 		World::addEntity(failplane);
+
+		failplane->setEnabled(false);
+	}
+
+	{
+		AssetManager::loadTexture2D("gametip", "gametip.png");
+		Material* mat = AssetManager::createMaterial(Material::Diffuse, "gametip");
+
+		ModelAsset* model = AssetManager::createModel("victoryplane.obj")->setMaterial(mat);
+
+		gametip = new Entity;
+		gametip->m_draworder = 16200;
+
+		gametip->attachComponent(new Transform);
+		gametip->attachComponent(new Renderer(model));
+
+		gametip->call("setPosition", vec3f(4.f, 1.f, -7.4f));
+		gametip->call("setRotation", vec3f(65.f, -3.f, 14.f));
+		gametip->call("setScale",    vec3f(2.f, 1.f, 2.f));
+
+		World::addEntity(gametip);
 	}
 
 	velforward = 0.f;
@@ -239,6 +262,8 @@ void TestScene::update()
 		
 		if(m_victoryState != Undecided)
 			m_victoryphase += smoothdelta(m_victoryphase, 1.f, 30.f);
+		else
+			m_victoryphase += smoothdelta(m_victoryphase, 0.f, 30.f);
 
 		float xdelta = smoothdelta(cubepos.x, targetpos.x, 8.f);
 		cubepos.x += xdelta;
@@ -249,7 +274,21 @@ void TestScene::update()
 		cubepos.z += cubevely * Time.delta;
 	}
 
+	//float cubealpha = 2.f - cubepos.z / 2.f + 2.f;
+	float cubealpha = (cubepos.z * cubepos.z) / -15.f + 1.f;
+	cubealpha = Util::clamp(cubealpha, 0.f, 1.f);
+
+	cube->call("setColor", Color(70, 150, 250, (uint8)(cubealpha * 255.f)));
 	cube->call("setRotation", cuberot);
+
+	float ict = m_introclock.getElapsedTime().asSeconds() - 6.f;
+	float gtalpha = 2.f - (ict * ict) / 11.f;
+	gtalpha = Util::clamp(gtalpha, 0.f, 1.f);
+
+	gametip->call("setPosition", vec3f(4.f, 1.f - m_introphase, -7.4f));
+	gametip->call("setColor", Color(255, 255, 255, (uint8)(gtalpha * 255.f)));
+	//gametip->call("setRotation", vec3f(65.f, -3.f, 10.f));
+	//gametip->call("setScale",    vec3f(2.f, 1.f, 2.f));
 
 	////////////////
 
@@ -265,7 +304,7 @@ void TestScene::update()
 		// cos(pos.x * pos.z / 10.f + Time.total) + (0.05f + m_introphase / 8.f) + 
 		pos.y = introy;
 
-		(*it)->call("setColor", Color(255, 255, 255, (uint8)((1.f - m_introphase) * 255.f)));
+		//(*it)->call("setColor", Color(255, 255, 255, (uint8)((1.f - m_victoryphase) * 255.f)));
 		(*it)->call("setPosition", pos);
 
 		if(platformy < 0.f && fabs(pos.x - cubepos.x) <= 0.05f && fabs(pos.z - cubepos.y) <= 0.05f)
@@ -278,7 +317,7 @@ void TestScene::update()
 	float pcy = cubepos.y + 0.5f;
 
 	float turnrise = 0.f;
-	turnrise = fabs(cos(pcx * Util::PI)) * 0.25f + fabs(cos(pcy * Util::PI)) * 0.25f;
+	turnrise = fabs(cos(pcx * Util::PI)) * 0.23f + fabs(cos(pcy * Util::PI)) * 0.23f;
 
 	cube->call("setPosition", vec3f(cubepos.x, cubepos.z + platformy + 0.5f + turnrise, cubepos.y));
 
@@ -327,14 +366,16 @@ void TestScene::update()
 	{
 		if(fabs(cubepos.x - 5.f) <= 0.05f && fabs(cubepos.y - 5.f) <= 0.05f)
 		{
-			//MessageBox(NULL, "YOU IS WIN", "WIN", MB_OK);
 			m_victoryState = Victory;
+			victoryplane->setEnabled(true);
+			failplane->setEnabled(false);
 		}
 
-		if(cubepos.z <= -15.f)
+		if(cubepos.z <= -3.f)
 		{
-			MessageBox(NULL, "YOU IS FAIL\n\nPress Space to retry", "FAIL", MB_OK);
 			m_victoryState = Loss;
+			failplane->setEnabled(true);
+			victoryplane->setEnabled(false);
 		}
 	}
 
@@ -351,17 +392,34 @@ void TestScene::update()
 		cubevely = 0.f;
 	}
 
+	/////////////////////////////////////77
+	// Camera positioning
+
 	float cx = std::max(1.f, cubepos.x + 6.f);
 	float cy = std::max(1.f, cubepos.y + 6.f);
 
+	float ivp = 1.f - m_victoryphase;
+
+	// Rotation
 	camrot.x = 40.f - cy * cy / 20.f;
+	camrot.x += 6.f * m_victoryphase;
+
 	camrot.y = -75.f + 5.f * cos(Time.total / 7.f);
+	camrot.y += -9.f * m_victoryphase;
 
-	campos.x = -3.2f - 0.5f * cos(Time.total / 7.f) + log(cx * cx + m_introphase * 55.f) / 2.f;
-	campos.y = 5.5f + sin(Time.total / 9.f) * 0.25f - log(cy + 4.f) * 0.8f + log(1.f + m_introphase * 50.f) * 0.5f;
-	campos.z = 2.f + log(cy * cy * 2.f + m_introphase * 505.f);
+	// Position
+	campos.x = -3.2f - 0.5f * cos(Time.total / 7.f);
+	campos.x += log(cx * cx + m_introphase * 55.f) / 2.f * ivp;
+	campos.x += 2.f * m_victoryphase;
 
-	campos.y += m_victoryphase * 8.f;
+	campos.y = 5.5f + sin(Time.total / 9.f) * 0.25f;
+	campos.y -= log(cy + 4.f) * 0.8f * ivp;
+	campos.y += log(1.f + m_introphase * 50.f) * 0.5f * ivp;
+	campos.y += m_victoryphase * 5.6f;
+
+	campos.z = 2.f;
+	campos.z += log(cy * cy * 2.f + m_introphase * 505.f) * ivp;
+	campos.z += -2.f * m_victoryphase;
 
 	cam->setRotation(camrot);
 	cam->setPosition(campos);

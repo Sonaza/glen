@@ -36,6 +36,7 @@ private:
 		Victory
 	} m_victoryState;
 
+	Entity* gametip;
 	Entity* victoryplane;
 	Entity* failplane;
 
