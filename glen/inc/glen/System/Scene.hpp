@@ -36,9 +36,6 @@ namespace glen
 			float delta;
 		} Time;
 
-		sf::Clock	m_totalTimeClock;
-		sf::Clock	m_deltaTimeClock;
-
 		struct ScreenInfo
 		{
 			ScreenInfo() : width(0), height(0) {}
@@ -46,6 +43,11 @@ namespace glen
 			sf::Uint32 width;
 			sf::Uint32 height;
 		} Screen;
+
+	private:
+
+		sf::Clock	m_totalTimeClock;
+		sf::Clock	m_deltaTimeClock;
 
 	};
 

@@ -35,7 +35,7 @@ void TestScene::load()
 #define cc(_x, _y) (_x + _y * 11)
 
 	char a[] = {
-		"21111111001"
+		"21111111111"
 		"10001000001"
 		"11101110101"
 		"10000010111"
@@ -43,8 +43,8 @@ void TestScene::load()
 		"10010000101"
 		"10010011101"
 		"10110010011"
-		"11100110110"
-		"00100100100"
+		"11100110111"
+		"00100100101"
 		"11111100113"
 	};
 
@@ -123,6 +123,42 @@ void TestScene::load()
 		targetpos = cubepos;
 	}
 
+	{
+		AssetManager::loadTexture2D("win", "win.png");
+		Material* mat = AssetManager::createMaterial(Material::Diffuse, "win");
+
+		ModelAsset* model = AssetManager::createModel("victoryplane.obj")->setMaterial(mat);
+
+		victoryplane = new Entity;
+		victoryplane->m_draworder = 16100;
+
+		victoryplane->attachComponent(new Transform);
+		victoryplane->attachComponent(new Renderer(model));
+
+		victoryplane->call("setPosition", vec3f(0.f, 9.6f, 4.5f));
+		victoryplane->call("setRotation", vec3f(35.f, 22.f, 0.f));
+
+		World::addEntity(victoryplane);
+	}
+
+	{
+		AssetManager::loadTexture2D("lose", "lose.png");
+		Material* mat = AssetManager::createMaterial(Material::Diffuse, "lose");
+
+		ModelAsset* model = AssetManager::createModel("victoryplane.obj")->setMaterial(mat);
+
+		failplane = new Entity;
+		failplane->m_draworder = 16100;
+
+		failplane->attachComponent(new Transform);
+		failplane->attachComponent(new Renderer(model));
+
+		failplane->call("setPosition", vec3f(0.f, -10.f, 0.f));
+		failplane->call("setRotation", vec3f(40.f, 40.f, 0.f));
+
+		World::addEntity(failplane);
+	}
+
 	velforward = 0.f;
 	
 	crotzvel = 0.f;
@@ -138,6 +174,7 @@ void TestScene::load()
 
 	m_victoryState = Undecided;
 
+	m_victoryphase = 0.f;
 	m_introphase = 1.f;
 
 	//vec2f center = static_cast<vec2f>(Window::getDimensions()) / 2.f;
@@ -154,58 +191,54 @@ void TestScene::unload()
 void TestScene::update()
 {
 	skybox->call("setRotation", vec3f(-25.f + cos(Time.total / 3.f) * 8.f, 0.f, 0.f));
-
-	/*vec2i mp = Input::getMousePos();
-	vec2f center = static_cast<vec2f>(Window::getDimensions()) / 2.f;
-
-	vec2f diff;
-
-	//test2->send("setRotation", vec3f(0.f, 360.f * Time.total, 0.f));
-
-	if(!Input::isKeyDown(sf::Keyboard::LControl) && Window::isActive())
-	{
-		sf::Mouse::setPosition(sf::Vector2i(center.x, center.y), *Window::getWindow());
-
-		diff = vec2f(
-			mp.x - center.x,
-			mp.y - center.y
-		);
-
-		Window::getWindow()->setMouseCursorVisible(false);
-	}
-	else
-	{
-		Window::getWindow()->setMouseCursorVisible(true);
-	}*/
-
+	
 	grid->call("setPosition", vec3f(-0.5f, -1.f + cos(Time.total / 5.f) * 0.3f , -0.5f));
 
-#define smoothdelta(_current, _target, _div) ((_target - _current) / _div)
+#define smoothdelta(_current, _target, _div) (((_target) - (_current)) / (_div))
 
 	/*vec2f dir = vec2f(targetpos.x - cubepos.x, targetpos.y - cubepos.y);
 	float len = dir.length();
 	dir.normalize();*/
 
 #define linearStep (270.f * Time.delta)
-#define sign(_val) (_val / fabs(_val))
+#define signi(_val) (abs(_val) != 0 ? (_val) / fabs(_val) : 1)
+#define signf(_val) (fabs(_val) != 0.f ? (_val) / fabs(_val) : 1.f)
 
-	/*vec3f lastcuberot = cuberot;
+	vec3f lastcuberot = cuberot;
 
-	if(fabs(cuberot.x) > 0.f)
-		cuberot.x += -sign(cuberot.x) * linearStep;
+	//if(fabs(cuberot.x) > 0.f) cuberot.x += -signf(cuberot.x) * linearStep;
+	//if(fabs(cuberot.z) > 0.f) cuberot.z += -signf(cuberot.z) * linearStep;
 
-	if(fabs(cuberot.z) > 0.f)
-		cuberot.z += -sign(cuberot.z) * linearStep;
+	cuberot.x += smoothdelta(cuberot.x, 0.f, 8.f);
+	cuberot.z += smoothdelta(cuberot.z, 0.f, 8.f);
 
-	if(sign(lastcuberot.x) != sign(cuberot.x)) cuberot.x = 0.f;
-	if(sign(lastcuberot.z) != sign(cuberot.z)) cuberot.z = 0.f;*/
+	if(signf(lastcuberot.x) != signf(cuberot.x)) cuberot.x = 0.f;
+	if(signf(lastcuberot.z) != signf(cuberot.z)) cuberot.z = 0.f;
 
-	cuberot.x = cubepos.y * 90.f * ((int)cubepos.y % 2 == 0 ? 1 : -1);
-	cuberot.z = cubepos.x * 90.f * ((int)cubepos.x % 2 == 0 ? 1 : -1);
+	/*float xds = signf(targetpos.x - cubepos.x);
+	float yds = signf(targetpos.y - cubepos.y);
+
+	float xf = (cubepos.x - (long)cubepos.x) * xds;
+	float yf = (cubepos.y - (long)cubepos.y) * yds;
+
+	cuberot.x = yf * 90.f;
+	cuberot.z = xf * 90.f;*/
+
+	/*cuberot.x = (cubepos.y + 5.f) * 90.f;
+	cuberot.z = (cubepos.x + 5.f) * -90.f;*/
+
+	if(Input::isKeyHit(sf::Keyboard::Return))
+	{
+		std::cout << "HAX\n";
+	}
 
 	if(m_introclock.getElapsedTime().asSeconds() > 1.f)
 	{
-		m_introphase += smoothdelta(m_introphase, 0.f, 40.f);
+		if(m_victoryState != Victory)
+			m_introphase += smoothdelta(m_introphase, 0.f, 30.f);
+		
+		if(m_victoryState != Undecided)
+			m_victoryphase += smoothdelta(m_victoryphase, 1.f, 30.f);
 
 		float xdelta = smoothdelta(cubepos.x, targetpos.x, 8.f);
 		cubepos.x += xdelta;
@@ -225,11 +258,12 @@ void TestScene::update()
 	{
 		vec3f pos = (*it)->request<vec3f>("getPosition");
 
-		float x = fabs(pos.x - 0.f) / -10.f;
-		float y = fabs(pos.z - 0.f) / -10.f;
+		float x = fabs(pos.x - 5.f) / -10.f;
+		float y = fabs(pos.z - 5.f) / -10.f;
 
 		float introy = m_introphase * x * y * 10.f;
-		pos.y = cos(pos.x * pos.z / 10.f + Time.total) * (0.05f + m_introphase / 8.f) + introy;
+		// cos(pos.x * pos.z / 10.f + Time.total) + (0.05f + m_introphase / 8.f) + 
+		pos.y = introy;
 
 		(*it)->call("setColor", Color(255, 255, 255, (uint8)((1.f - m_introphase) * 255.f)));
 		(*it)->call("setPosition", pos);
@@ -240,17 +274,42 @@ void TestScene::update()
 		}
 	}
 
-	cube->call("setPosition", vec3f(cubepos.x, cubepos.z + platformy + 0.5f, cubepos.y));
+	float pcx = cubepos.x + 0.5f;
+	float pcy = cubepos.y + 0.5f;
+
+	float turnrise = 0.f;
+	turnrise = fabs(cos(pcx * Util::PI)) * 0.25f + fabs(cos(pcy * Util::PI)) * 0.25f;
+
+	cube->call("setPosition", vec3f(cubepos.x, cubepos.z + platformy + 0.5f + turnrise, cubepos.y));
 
 	int x = (int)targetpos.x + 5;
 	int y = (int)targetpos.y + 5;
 
 	if(cubepos.z >= 0.f && cubepos.z <= 2.f)
 	{
-		if(Input::isKeyHit(sf::Keyboard::Left))		targetpos.x -= 1.f;
-		if(Input::isKeyHit(sf::Keyboard::Right))	targetpos.x += 1.f;
-		if(Input::isKeyHit(sf::Keyboard::Up))		targetpos.y -= 1.f;
-		if(Input::isKeyHit(sf::Keyboard::Down))		targetpos.y += 1.f;
+		if(Input::isKeyHit(sf::Keyboard::Left))
+		{
+			targetpos.x -= 1.f;
+			cuberot.z -= 90.f;
+		}
+
+		if(Input::isKeyHit(sf::Keyboard::Right))
+		{
+			targetpos.x += 1.f;
+			cuberot.z += 90.f;
+		}
+
+		if(Input::isKeyHit(sf::Keyboard::Up))
+		{
+			targetpos.y -= 1.f;
+			cuberot.x	+= 90.f;
+		}
+
+		if(Input::isKeyHit(sf::Keyboard::Down))
+		{
+			targetpos.y	+= 1.f;
+			cuberot.x	-= 90.f;
+		}
 	}
 
 	cubevely += -10.f * Time.delta * (cubepos.z < 0.f ? 2.f : 1.f);
@@ -268,7 +327,7 @@ void TestScene::update()
 	{
 		if(fabs(cubepos.x - 5.f) <= 0.05f && fabs(cubepos.y - 5.f) <= 0.05f)
 		{
-			MessageBox(NULL, "YOU IS WIN", "WIN", MB_OK);
+			//MessageBox(NULL, "YOU IS WIN", "WIN", MB_OK);
 			m_victoryState = Victory;
 		}
 
@@ -301,6 +360,8 @@ void TestScene::update()
 	campos.x = -3.2f - 0.5f * cos(Time.total / 7.f) + log(cx * cx + m_introphase * 55.f) / 2.f;
 	campos.y = 5.5f + sin(Time.total / 9.f) * 0.25f - log(cy + 4.f) * 0.8f + log(1.f + m_introphase * 50.f) * 0.5f;
 	campos.z = 2.f + log(cy * cy * 2.f + m_introphase * 505.f);
+
+	campos.y += m_victoryphase * 8.f;
 
 	cam->setRotation(camrot);
 	cam->setPosition(campos);

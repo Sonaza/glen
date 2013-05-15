@@ -27,6 +27,7 @@ private:
 	
 	sf::Clock m_introclock;
 	float m_introphase;
+	float m_victoryphase;
 
 	enum VictoryState
 	{
@@ -34,6 +35,9 @@ private:
 		Loss,
 		Victory
 	} m_victoryState;
+
+	Entity* victoryplane;
+	Entity* failplane;
 
 	Camera* cam;
 
